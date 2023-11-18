@@ -27,6 +27,10 @@ public class HomeController {
 	
 	@Autowired
 	AccountDao dao;
+	@RequestMapping("/")
+	public String index () {
+		return "redirect:/home/index";
+	}
 	@RequestMapping("/home/index")
 	public String home(Model model) {
 		List<Product> list = pdao.findByAllDis();

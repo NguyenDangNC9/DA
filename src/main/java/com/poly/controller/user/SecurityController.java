@@ -62,7 +62,7 @@ public class SecurityController {
 		acc.setActive(true);
 		accdao.save(acc);
 		}
-		return"forward:/security/login/success";
+		return"forward:/home/index";
 			
 	}
 }
