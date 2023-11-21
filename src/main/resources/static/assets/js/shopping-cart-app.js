@@ -286,7 +286,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             // Gán giá trị địa chỉ vào thuộc tính address của order1
             this.address = addressValue;
 
-        
+         
             var order = angular.copy(this);
             $http.post("/rest/orders", order).then(resp => {
                 alert("Đặt hàng thành công");
