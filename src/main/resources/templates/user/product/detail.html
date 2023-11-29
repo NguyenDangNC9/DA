@@ -118,9 +118,12 @@
 										</tr>
 										<tr>
 											<td>Tình trạng</td>
-											<td><span class="label label-danger"
-												th:if="*{quantity} ==0">Hết hàng</span> <span
-												th:if="*{quantity} !=0"><a>Còn hàng</a></span></td>
+											<td>
+												<span class="label label-danger"
+												th:if="*{quantity} ==0">Hết hàng</span> 
+												<span
+												th:if="*{quantity} !=0"><a>Còn hàng </a>  &nbsp;&nbsp; <span th:text="*{quantity}" class="quantity-color"></span>&nbsp;sản phẩm có sẵn
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -269,3 +272,8 @@
 </body>
 
 </html>
+<style>
+	.quantity-color {
+    color: red	; /* Đổi màu sắc của số lượng thành màu xanh lá cây */
+}
+</style>

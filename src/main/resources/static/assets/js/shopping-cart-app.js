@@ -13,30 +13,59 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         get_orderid: 0,
         prod: [],
         add(product_id) {
-            if ($("#username").text()) {
+            // if ($("#username").text()) {
+            //     $http.get(`/rest/carts`).then(resp => {
+            //         this.items = resp.data;
+            //         var item = this.items.find(item => (item.product_id == product_id));
+
+            //         if (item) {
+            //             item.quantity++;
+            //             this.saveToLocalStorage();
+            //             window.alert("Đã thêm sản phẩm vào giỏ hàng!");
+
+            //         } else {
+            //             $http.get(`/rest/products/${product_id}`).then(resp => {
+            //                 resp.data.quantity = 1;
+
+            //                 this.items.push(resp.data);
+            //                 this.saveToLocalStorage();
+            //                 window.alert("Đã thêm sản phẩm vào giỏ hàng!");
+
+            //             })
+            //         }
+            //     })
+            // } else {
+            //     alert("Vui lòng đăng nhập");
+            // }
+            if (isLoggedIn()) {
                 $http.get(`/rest/carts`).then(resp => {
                     this.items = resp.data;
                     var item = this.items.find(item => (item.product_id == product_id));
-
+            
                     if (item) {
                         item.quantity++;
                         this.saveToLocalStorage();
-                        window.alert("Đã thêm sản phẩm vào giỏ hàng!");
-
+                        alert("Đã thêm sản phẩm vào giỏ hàng!");
+            
                     } else {
                         $http.get(`/rest/products/${product_id}`).then(resp => {
                             resp.data.quantity = 1;
-
                             this.items.push(resp.data);
                             this.saveToLocalStorage();
-                            window.alert("Đã thêm sản phẩm vào giỏ hàng!");
-
-                        })
+                            alert("Đã thêm sản phẩm vào giỏ hàng!");
+                        });
                     }
-                })
+                });
             } else {
                 alert("Vui lòng đăng nhập");
             }
+            
+            function isLoggedIn() {
+
+                return $("#username").text().trim() !== "";
+            }
+            
+          
         },
         get_infoorderid(orderid) {
             this.get_orderid = orderid;
@@ -71,8 +100,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             var index = this.items.findIndex(item => item.product_id == product_id);
             this.items.splice(index, 1);
             this.saveToLocalStorage();
-
-
         }
         ,
         clear() {
@@ -133,21 +160,17 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     }
 
-
-    // $scope.cart.loadFromLocalStorage();
-    // thanh toan paypal
+ // thanh toan paypal test
     $scope.order = {
         createDate: new Date(),
-
         address: "",
         phone: "",
         status: 0,
-        intent: 'sale',
+        intent: 'Sale',
         method: 'Paypal',
         currency: 'USD',
         description: 'Đã thanh toán',
 
-        price: $scope.cart.amount,
         account: { username: $("#username").text() },
         get orderDetails() {
             return $scope.cart.items.map(item => {
@@ -159,21 +182,16 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             });
         },
         purchase() {
-
+    
             var order = angular.copy(this);
-            $http.post("/rest/orders", order).then(resp => {
-                alert("Đặt hàng thành công");
-                $scope.cart.clear();
-                if ($("#username").text()) {
-                    $http.post(`/rest/carts/` + $("#username").text(), JSON.stringify(angular.copy(this.items))).then(resp => {
-                    })
-                }
-
-                location.href = "/order/detail/" + resp.data.order_id;
-            }).catch(error => {
-                alert("Đặt hàng thất bại");
-                console.log(error)
-            })
+	            $http.post("/rest/orders", order).then(resp => {
+	                alert("Đặt hàng thành công");
+	                $scope.cart.clear();
+	                location.href = "/order/detail/" + resp.data.order_id;
+	            }).catch(error => {
+	                alert("Đặt hàng thất bại");
+	                console.log(error)
+	            })
         },
         purchase1() {
             var order = angular.copy(this);
@@ -189,59 +207,18 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     }
 
 
-    // thanh toán thường
-    // $scope.order1 = {
-    //     createDate: new Date(),
 
-    //     address: "",
-    //     phone: "",
-    //     status: 0,
-    //     intent: 'Sale',
-    //     method: 'Trả sau',
-    //     currency: 'VND',
-    //     description: 'Chưa thanh toán',
 
-    //     // price: $scope.cart.amount,
 
-    //     account: {username: $("#username").text()},
-    //     get orderDetails() {
-    //         return $scope.cart.items.map(item => {
-    //             return {
-    //                 product: {product_id: item.product_id},
-    //                 price: item.unit_price,
-    //                 quantity: item.quantity
-    //             }
-    //         });
-    //     },
-    //     purchase() {
 
-    //         var order = angular.copy(this);
-    //         $http.post("/rest/orders", order).then(resp => {
-    //             alert("Đặt hàng thành công");
-    //             $scope.cart.clear();
-    //             if ($("#username").text()) {
-    //                 $http.post(`/rest/carts/` + $("#username").text(), JSON.stringify(angular.copy(this.items))).then(resp => {
-    //                 })
-    //             }
-    //             location.href = "/order/detail/" + resp.data.order_id;
-    //         }).catch(error => {
-    //             alert("Đặt hàng thất bại");
-    //             console.log(error)
-    //         })
-    //     },
-    //     purchase1() {
-    //         var order = angular.copy(this);
-    //         $http.post("/rest/orders", order).then(resp => {
-    //         }).catch(error => {
-    //             alert("Đặt hàng thất bại");
-    //             console.log(error)
-    //         })
-    //     },
-    //     purchase2() {
-    //         $scope.cart.clear();
-    //     }
-    // }
 
+
+
+
+
+
+
+ // thanh toan thuong
     $scope.order1 = {
         createDate: new Date(),
         address: "",
@@ -262,28 +239,21 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             });
         },
         purchase() {
-            // Lấy giá trị từ phần tử có id là "total"
+
             var totalElement = document.getElementById("total");
             if (totalElement) {
                 var totalValue = totalElement.innerText;
-
-                // Chuyển đổi giá trị từ chuỗi sang số
-                var numericValue = parseFloat(totalValue.replace(" VNĐ", "").replace(/\./g, "").replace(",", "."));
-
+            
+                var numericValue = parseFloat(totalValue.replace("Đ", "").replace(/\./g, "").replace(",", "."));
                 // Gán giá trị lấy được vào thuộc tính price của order1
                 this.price = numericValue;
-
-
 
             } else {
                 console.log("Không tìm thấy phần tử có id là 'total'");
             }
-
-
-            //test
-            // Lấy giá trị từ trường địa chỉ (ví dụ: từ input có id là "addressInput")
-            var addressValue = document.getElementById("result").value; // Thay id của input địa chỉ ở đây
-            // Gán giá trị địa chỉ vào thuộc tính address của order1
+            // Lấy giá trị từ trường địa chỉ
+            var addressValue = document.getElementById("result").value;
+          
             this.address = addressValue;
 
          
@@ -450,6 +420,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 )
     ;
 
+
+    
 $(document).ready(function () {
     var appElement = document.querySelector('[ng-app="shopping-cart-app"]');
     var $scope = angular.element(appElement).scope();

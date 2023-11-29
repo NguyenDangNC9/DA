@@ -32,9 +32,6 @@ public interface OrderDao extends JpaRepository<Order, Integer>{
 			+ " order by Order_id  " ,nativeQuery = true)
 	List<Order> findByOrder_Id(String order_id);
 	
-	
-	
-	
 	@Query(value="select * from Orders where Username like  %?1% \r\n"
 			+ "and CreateDate between ?2 and ?3 \r\n"
 			+ "and Status like %?4% and Phone like %?5% and Price between ?6 and ?7 \r\n"
@@ -43,10 +40,6 @@ public interface OrderDao extends JpaRepository<Order, Integer>{
 			@DateTimeFormat(pattern="yyyy-MM-dd")Date MaxDay ,
 		@Param("Status")  String Status , @Param("Phone") String Phone ,@Param("MinPrice") Integer unit_price, @Param("MaxPrice") Integer unit_price1   );
 
-	
-	
-	
-	
 	@Query("SELECT new Report(o.product.Name, sum(o.Price * o.Quantity),  sum(o.Quantity), min(o.Price), max(o.Price), avg(o.Price)) "
 			+ " FROM OrderDetail o "
 			+ " WHERE o.order.account=:username AND o.order.Status=3"

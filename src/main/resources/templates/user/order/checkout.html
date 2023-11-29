@@ -4,7 +4,7 @@
 <body>
     <main>
 
-        <div th:replace="~{user/cart/view :: shopping_cart}"></div>
+        <!-- <div th:replace="~{user/cart/view :: shopping_cart}"></div> -->
         <div class=" panel-primary ">
             <div class="panel-header-dh">
                 <h2 style="text-align: center;">Thông tin đặt hàng</h2>
@@ -30,12 +30,27 @@
                         </div>
                     </div>
 
-
+                    <div class="form-group col-sm-6">
+                        <div class="thongtin">Số điện thoại</div>
+                        <input ng-model="order1.phone" class="form-control" style="width: 200px">
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="district">Quận/Huyện</label>
                             <select class="form-select form-control" id="district">
                                 <option value="">Chọn Quận/Huyện</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" for="servece">Phương thức
+                                vận chuyển</label> <select class="form-select form-control" id="service">
+                                <option value="">Phương thức vận chuyển</option>
                             </select>
                         </div>
                     </div>
@@ -47,50 +62,48 @@
                             </select>
                         </div>
                     </div>
-
-                    <div class="form-group col-sm-6">
-                        <div class="thongtin">Số điện thoại</div>
-                        <input ng-model="order1.phone" class="form-control" style="width: 200px">
-                    </div>
-
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label" for="servece">Phương thức
-                                vận chuyển</label> <select class="form-select form-control" id="service">
-                                <option value="">Phương thức vận chuyển</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
                         <div class="form-outline mb-4">
                             <label class="form-label" for="">Địa chỉ</label>
-                            <!-- 													<div  id="result" class="form-control"></div> -->
+
                             <input type="text" id="result" class="form-control" />
                         </div>
                     </div>
 
 
-                    <div class="col-md-12">
-                    <div class="d-flex justify-content-between mb-1">
-                        <!-- <span>Tổng</span> <span>{{ttcs | number:0}} VNĐ</span> -->
-                        <span>Tổng</span> <span>{{cart.amount | number:0}} VNĐ</span>
-                    </div>
-                 
-                    <div class="d-flex justify-content-between mb-1">
-                        <span>Phí vận chuyển</span>
-                        <div id="ship">{{0 | number:0}} VNĐ</div>
-                    </div>
-          
-                    <div class="d-flex justify-content-between mb-1">
-                        <span class="text-dark"><strong>Tổng</strong></span>
-                        <div id="total">{{total | number:0}} VNĐ</div>
-                    </div>
-                </div>
+
                 </div>
 
 
-                <div class="panel-footer ">
+                <div class="wrapper-cart">
+                    <div class="col-sm-offset-8" style="padding: 0 30px;">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td class="text-right"> <span>Tổng tiền hàng</span></td>
+                                    <td class="text-right"> <span>{{cart.amount | number:0}} Đ</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"> <span>Phí vận chuyển</span></td>
+                                    <td class="text-right">
+                                        <div id="ship">{{0 | number:0}} Đ</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"> <span class="text-dark"><strong>Tổng thanh
+                                                toán</strong></span></td>
+                                    <td class="text-right">
+                                        <div id="total">{{total | number:0}} Đ</div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="panel-footer d-flex justify-content-right">
                     <div class="col-12 d-flex shopping-box text-center">
 
                         <a type="button" class="ml-auto btn hvr-hover" data-toggle="modal" data-target="#myModal">Thanh
@@ -122,7 +135,12 @@
 </body>
 
 </html>
-
+<style>
+    #total {
+        font-size: larger;
+        color: red;
+    }
+</style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
     integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
@@ -132,259 +150,235 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script th:src="@{./js/apiDiaChi.js}"></script>
 <script>
-    function batdk() {
-        var checkboxes = document.getElementsByName("cdid");
-        var count = 0;
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                count++;
-            }
-        }
-        if (count < 1) {
-            document.getElementById("place-order").disabled = true;
-        } else {
-            document.getElementById("place-order").disabled = false;
-        }
-    }
-
-
-
-
-
 
 
     const linkt = "https://online-gateway.ghn.vn/shiip/public-api/master-data/province";
-const linkh = "https://online-gateway.ghn.vn/shiip/public-api/master-data/district";
-const linkx = "https://online-gateway.ghn.vn/shiip/public-api/master-data/ward";
+    const linkh = "https://online-gateway.ghn.vn/shiip/public-api/master-data/district";
+    const linkx = "https://online-gateway.ghn.vn/shiip/public-api/master-data/ward";
 
-$(document).ready(function() {
-	window.onload = function() {
-		tinh();
-	};
-	function tinh() {
-		$.ajax({
-			type: "GET",
-			url: linkt,
-			headers: { token: "4c987fa9-3cdb-11ee-b394-8ac29577e80e" },
-			success: function(data) {
-				renderData(data.data, "province")
-				console.log(data);
-			},
-			error: function(error) {
-				alert("Đã xảy ra lỗi: " + error.responseText);
-			}
-		})
-	}
-});
-
-function huyen(provinceid) {
-	$.ajax({
-		type: "GET",
-		url: linkh,
-		headers: { token: "4c987fa9-3cdb-11ee-b394-8ac29577e80e" },
-		data: { province_id: provinceid },
-		success: function(data) {
-			renderDataH(data.data, "district")
-			console.log(data);
-		},
-		error: function(error) {
-			alert("Đã xảy ra lỗi: " + error.responseText);
-		}
-	})
-}
-
-function phuong(districtid) {
-	$.ajax({
-		type: "GET",
-		url: linkx,
-		headers: { token: "4c987fa9-3cdb-11ee-b394-8ac29577e80e" },
-		data: { district_id: districtid },
-		success: function(data) {
-			renderDataP(data.data, "ward")
-			console.log(data);
-		},
-		error: function(error) {
-			alert("Đã xảy ra lỗi: " + error.responseText);
-		}
-	})
-}
-
-function service(districtid) {
-	$.ajax({
-		type: "GET",
-		url: "https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services",
-		headers: { token: "4c987fa9-3cdb-11ee-b394-8ac29577e80e" },
-		data: {
-			shop_id: 4463615,
-			from_district: 1572,
-			to_district: districtid
-		},
-		success: function(data) {
-			renderDataS(data.data)
-			console.log(data);
-		},
-		error: function(error) {
-			alert("Đã xảy ra lỗi: " + error.responseText);
-		}
-	})
-}
-
-function phivc(serviceid, districtid, wardcode) {
-
-	var scope = angular.element(document.querySelector('[ng-controller=shopping-cart-ctrl]')).scope();
-    var cartAmount = scope.cart.amount;
-    // var cartAmount1 = scope.cart.amount1;
-    // var cartAmount2 = scope.cart.amount2;
-
-
-    $.ajax({
-        type: "GET",
-        url: "https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
-        headers: {
-            token: "4c987fa9-3cdb-11ee-b394-8ac29577e80e",
-            shop_id: "4463615"
-        },
-        data: {
-            service_id: serviceid,
-            insurance_value: 200000,
-            coupon: null,
-            from_district_id: 1572,
-            to_district_id: districtid,
-            to_ward_code: wardcode,
-            height: 15,
-            length: 15,
-            weight: 500,
-            width: 15
-        },
-        success: function(data) {
-            // Xử lý dữ liệu trả về để lấy phí vận chuyển
-            var shippingFee = data.data.total;
-            
-            // Hiển thị phí vận chuyển trên giao diện
-            document.getElementById("ship").innerText = shippingFee + " VNĐ";
-
-
-
-
-
-            // Tính tổng giá trị đơn hàng bao gồm cả phí vận chuyển
-            var totalAmount = cartAmount + shippingFee;
-
-            // Hiển thị tổng giá trị đơn hàng trên giao diện
-            document.getElementById("total").innerText = totalAmount + " VNĐ";
-        },
-        error: function(error) {
-            alert("Đã xảy ra lỗi: " + error.responseText);
+    $(document).ready(function () {
+        window.onload = function () {
+            tinh();
+        };
+        function tinh() {
+            $.ajax({
+                type: "GET",
+                url: linkt,
+                headers: { token: "4c987fa9-3cdb-11ee-b394-8ac29577e80e" },
+                success: function (data) {
+                    renderData(data.data, "province")
+                    console.log(data);
+                },
+                error: function (error) {
+                    alert("Đã xảy ra lỗi: " + error.responseText);
+                }
+            })
         }
-    })
-}
+    });
+
+    function huyen(provinceid) {
+        $.ajax({
+            type: "GET",
+            url: linkh,
+            headers: { token: "4c987fa9-3cdb-11ee-b394-8ac29577e80e" },
+            data: { province_id: provinceid },
+            success: function (data) {
+                renderDataH(data.data, "district")
+                console.log(data);
+            },
+            error: function (error) {
+                alert("Đã xảy ra lỗi: " + error.responseText);
+            }
+        })
+    }
+
+    function phuong(districtid) {
+        $.ajax({
+            type: "GET",
+            url: linkx,
+            headers: { token: "4c987fa9-3cdb-11ee-b394-8ac29577e80e" },
+            data: { district_id: districtid },
+            success: function (data) {
+                renderDataP(data.data, "ward")
+                console.log(data);
+            },
+            error: function (error) {
+                alert("Đã xảy ra lỗi: " + error.responseText);
+            }
+        })
+    }
+
+    function service(districtid) {
+        $.ajax({
+            type: "GET",
+            url: "https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services",
+            headers: { token: "4c987fa9-3cdb-11ee-b394-8ac29577e80e" },
+            data: {
+                shop_id: 4463615,
+                from_district: 1572,
+                to_district: districtid
+            },
+            success: function (data) {
+                renderDataS(data.data)
+                console.log(data);
+            },
+            error: function (error) {
+                alert("Đã xảy ra lỗi: " + error.responseText);
+            }
+        })
+    }
+
+    function phivc(serviceid, districtid, wardcode) {
+
+        var scope = angular.element(document.querySelector('[ng-controller=shopping-cart-ctrl]')).scope();
+        var cartAmount = scope.cart.amount;
+        // var cartAmount1 = scope.cart.amount1;
+        // var cartAmount2 = scope.cart.amount2;
 
 
-// Hàm renderData để tạo tùy chọn cho select
-var renderData = (array, select) => {
-	let row = '<option value="">chọn Tỉnh/Thành Phố</option>';
-	array.forEach(element => {
-		row += `<option value="${element.ProvinceID}">${element.ProvinceName}</option>`;
-	});
-	document.querySelector("#" + select).innerHTML = row;
-}
+        $.ajax({
+            type: "GET",
+            url: "https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+            headers: {
+                token: "4c987fa9-3cdb-11ee-b394-8ac29577e80e",
+                shop_id: "4463615"
+            },
+            data: {
+                service_id: serviceid,
+                insurance_value: 200000,
+                coupon: null,
+                from_district_id: 1572,
+                to_district_id: districtid,
+                to_ward_code: wardcode,
+                height: 15,
+                length: 15,
+                weight: 500,
+                width: 15
+            },
+            success: function (data) {
 
-var renderDataH = (array, select) => {
-	let row = '<option value="">chọn Quận/Huyện</option>';
-	array.forEach(element => {
-		row += `<option value="${element.DistrictID}">${element.DistrictName}</option>`;
-	});
-	document.querySelector("#" + select).innerHTML = row;
-}
+                // Xử lý dữ liệu trả về để lấy phí vận chuyển
+                var shippingFee = data.data.total;
+                var formattedShippingFee = shippingFee.toLocaleString('vi-VN', { useGrouping: true }).replace('.', ',');
+                document.getElementById("ship").innerText = formattedShippingFee + " Đ";
 
-var renderDataP = (array, select) => {
-	let row = '<option value="">chọn Phường/Xã</option>';
-	array.forEach(element => {
-		row += `<option value="${element.WardCode}">${element.WardName}</option>`;
-	});
-	document.querySelector("#" + select).innerHTML = row;
-}
-
-var renderDataS = (array) => {
-	let row = '<option value="">chọn</option>';
-	array.forEach(element => {
-		row += `<option value="${element.service_id}">${element.short_name}</option>`;
-	});
-	document.querySelector("#service").innerHTML = row;
-}
-
-// Xử lý sự kiện thay đổi tỉnh
-$("#province").change(() => {
-	var e = document.getElementById("province");
-	var value = e.value;
-	huyen(value)
-	console.log(value)
-	printResult();
-});
-
-// Xử lý sự kiện thay đổi huyện
-$("#district").change(() => {
-	var e = document.getElementById("district");
-	var value = e.value;
-	console.log(value)
-	phuong(value)
-	service(value)
-	printResult();
-});
-
-// Xử lý sự kiện thay đổi phường
-$("#ward").change(() => {
-	// lay id huyen tu select
-	var district = document.getElementById("district");
-	var dtid = district.value;
-
-	// lay service id tu select
-	var serviceid = document.getElementById("service");
-	var sid = serviceid.value;
+                // Tính tổng giá trị đơn hàng bao gồm cả phí vận chuyển
+                var totalAmount = cartAmount + shippingFee;
+                var formattedTotalAmount = totalAmount.toLocaleString('vi-VN', { useGrouping: true }).replace('.', ',');
+                document.getElementById("total").innerText = formattedTotalAmount + " Đ";
+            },
+            error: function (error) {
+                alert("Đã xảy ra lỗi: " + error.responseText);
+            }
+        })
+    }
 
 
-	// lay wardcode tu select
-	var ward = document.getElementById("ward");
-	var wardcode = ward.value;
-	//console.log(wardcode)
-	//phivc(sid, dtid, wardcode)
-	printResult();
-});
+    // Hàm renderData để tạo tùy chọn cho select
+    var renderData = (array, select) => {
+        let row = '<option value="">chọn Tỉnh/Thành Phố</option>';
+        array.forEach(element => {
+            row += `<option value="${element.ProvinceID}">${element.ProvinceName}</option>`;
+        });
+        document.querySelector("#" + select).innerHTML = row;
+    }
 
-// su kien thay doi dich vu
+    var renderDataH = (array, select) => {
+        let row = '<option value="">chọn Quận/Huyện</option>';
+        array.forEach(element => {
+            row += `<option value="${element.DistrictID}">${element.DistrictName}</option>`;
+        });
+        document.querySelector("#" + select).innerHTML = row;
+    }
 
-$("#service").change(() => {
-	// lay id huyen tu select
-	var district = document.getElementById("district");
-	var dtid = district.value;
+    var renderDataP = (array, select) => {
+        let row = '<option value="">chọn Phường/Xã</option>';
+        array.forEach(element => {
+            row += `<option value="${element.WardCode}">${element.WardName}</option>`;
+        });
+        document.querySelector("#" + select).innerHTML = row;
+    }
 
-	// lay service id tu select
-	var serviceid = document.getElementById("service");
-	var sid = serviceid.value;
+    var renderDataS = (array) => {
+        let row = '<option value="">chọn</option>';
+        array.forEach(element => {
+            row += `<option value="${element.service_id}">${element.short_name}</option>`;
+        });
+        document.querySelector("#service").innerHTML = row;
+    }
+
+    // Xử lý sự kiện thay đổi tỉnh
+    $("#province").change(() => {
+        var e = document.getElementById("province");
+        var value = e.value;
+        huyen(value)
+        console.log(value)
+        printResult();
+    });
+
+    // Xử lý sự kiện thay đổi huyện
+    $("#district").change(() => {
+        var e = document.getElementById("district");
+        var value = e.value;
+        console.log(value)
+        phuong(value)
+        service(value)
+        printResult();
+    });
+
+    // Xử lý sự kiện thay đổi phường
+    $("#ward").change(() => {
+        // lay id huyen tu select
+        var district = document.getElementById("district");
+        var dtid = district.value;
+
+        // lay service id tu select
+        var serviceid = document.getElementById("service");
+        var sid = serviceid.value;
 
 
-	// lay wardcode tu select
-	var ward = document.getElementById("ward");
-	var wardcode = ward.value;
-	console.log(wardcode)
-	phivc(sid, dtid, wardcode)
-	//printResult();
-});
+        // lay wardcode tu select
+        var ward = document.getElementById("ward");
+        var wardcode = ward.value;
+        //console.log(wardcode)
+        //phivc(sid, dtid, wardcode)
+        printResult();
+    });
 
-// Hàm hiển thị kết quả khi tất cả các lựa chọn đã được chọn
-var printResult = () => {
-	if ($("#district").val() != "" && $("#province").val() != "" &&
-		$("#ward").val() != "") {
-		let result = $("#ward option:selected").text() +
-			", " + $("#district option:selected").text() + " ," +
-			$("#province option:selected").text();
-		$("#result").val(result);
-		if (localStorage.getItem("address") != null) {
-			localStorage.removeItem("address");
-		}
-		localStorage.setItem("address", result);
+    // su kien thay doi dich vu
 
-	}
-}
+    $("#service").change(() => {
+        // lay id huyen tu select
+        var district = document.getElementById("district");
+        var dtid = district.value;
+
+        // lay service id tu select
+        var serviceid = document.getElementById("service");
+        var sid = serviceid.value;
+
+
+        // lay wardcode tu select
+        var ward = document.getElementById("ward");
+        var wardcode = ward.value;
+        console.log(wardcode)
+        phivc(sid, dtid, wardcode)
+        //printResult();
+    });
+
+    // Hàm hiển thị kết quả khi tất cả các lựa chọn đã được chọn
+    var printResult = () => {
+        if ($("#district").val() != "" && $("#province").val() != "" &&
+            $("#ward").val() != "") {
+            let result = $("#ward option:selected").text() +
+                ", " + $("#district option:selected").text() + " ," +
+                $("#province option:selected").text();
+            $("#result").val(result);
+            if (localStorage.getItem("address") != null) {
+                localStorage.removeItem("address");
+            }
+            localStorage.setItem("address", result);
+
+        }
+    }
 
 </script>
