@@ -68,13 +68,13 @@ public class OrderController {
 				"Tên người đặt hàng : " 
 		+ content 
 		+ "\n"
-		+ "phuong thuc thanh toan :  "
+		+ "Phương thức thanh toán :  "
 		+ order.getMethod() 
 		+ "\n"
-				+ "Sô điện thoại người đặt hàng : "
+				+ "Số điện thoại người đặt hàng : "
 		+ order.getPhone()
 		+ "\n"
-		+ "Don hang co gia tri :"
+		+ "Đơn hàng có giá trị :"
 				+ order.getPrice() 
 				+ "\n" 
 				+ "Loại tiền tệ : " 
@@ -86,7 +86,7 @@ public class OrderController {
 				+ "Description : " 
 				+ order.getStatus()
 				+ "\n" 
-				+ "Ngay tạo đơn : "
+				+ "Ngày tạo đơn : "
 				+ order.getCreateDate() 
 				+ "\n" 
 				+ "Địa chỉ nhận hàng : " 

@@ -45,7 +45,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                     if (item) {
                         item.quantity++;
                         this.saveToLocalStorage();
-                        alert("Đã thêm sản phẩm vào giỏ hàng!");
+                        
             
                     } else {
                         $http.get(`/rest/products/${product_id}`).then(resp => {
@@ -69,14 +69,14 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         },
         get_infoorderid(orderid) {
             this.get_orderid = orderid;
-            // this.saveToLocalStorage();
+           
         }
         ,
         getinfComment(product_id) {
             $http.get(`/rest/comments/${product_id}`).then(resp => {
                 this.getcomment = resp.data;
                 $scope.isshowcomment = false;
-                // this.saveToLocalStorage();
+               
             })
         }
         ,
@@ -84,7 +84,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             var item = this.items.find(item => (item.product_id == product_id));
             $http.get(`/rest/products/${product_id}`).then(resp => {
                 this.getitem = resp.data;
-                // this.saveToLocalStorage();
+                
             })
         }
         ,
@@ -96,7 +96,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         }
         ,
         remove(product_id) {
-            alert("ok")
+            alert("Xóa sản phẩm thành công")
             var index = this.items.findIndex(item => item.product_id == product_id);
             this.items.splice(index, 1);
             this.saveToLocalStorage();
@@ -105,8 +105,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         clear() {
             this.items = [];
             this.saveToLocalStorage();
-            // $http.post(`/rest/carts`, JSON.stringify(this.items)).then(resp => {
-            // })
+           
+            
         }
         ,
         amt_of(item) {
@@ -159,6 +159,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         }
 
     }
+
 
  // thanh toan paypal test
     $scope.order = {
@@ -420,8 +421,11 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 )
     ;
 
+    function dongThongBao() {
+    var customAlert = document.querySelector('.custom-alert');
+    customAlert.style.display = 'none';
+}
 
-    
 $(document).ready(function () {
     var appElement = document.querySelector('[ng-app="shopping-cart-app"]');
     var $scope = angular.element(appElement).scope();
