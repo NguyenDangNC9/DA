@@ -4,7 +4,7 @@
 
 <body>
 	<main>
-		<div class="wrapper-cart" th:fragment="shopping_cart"> 
+		<div class="wrapper-cart" th:fragment="shopping_cart">
 			<!--=====CONTAINER START=====-->
 			<form enctype="multipart/form-data" method="post" action="#">
 				<div class="table-responsive">
@@ -18,13 +18,12 @@
 								<td class="text-center">Số lượng</td>
 								<td class="text-center">Giá</td>
 								<td class="text-center">Tổng</td>
-								<td class="text-center">Thao tác</td>
+								<td class="text-center">Thao tác </td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="item in cart.items">
-								<td class="text-center"><input type="checkbox" ng-model="item.checked"
-										ng-change="updateTotal()"></td>
+								<td class="text-center"><input type="checkbox" ng-model="item.checked" ng-change="updateTotal()"></td>
 
 								<td class="text-center" style="width: 20%;"><a href="#"><img style="width: 60%;"
 											src="/assets/images/{{item.image1}}"></a></td>

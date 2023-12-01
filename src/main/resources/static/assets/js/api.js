@@ -1,6 +1,4 @@
 
-
-
     const linkt = "https://online-gateway.ghn.vn/shiip/public-api/master-data/province";
     const linkh = "https://online-gateway.ghn.vn/shiip/public-api/master-data/district";
     const linkx = "https://online-gateway.ghn.vn/shiip/public-api/master-data/ward";
