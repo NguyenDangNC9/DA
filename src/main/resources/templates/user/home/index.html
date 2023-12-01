@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(main)">
 <head>
-    <!-- =====  BASIC PAGE NEEDS  ===== -->
-    <meta charset="utf-8">
-    <title>BlackBearShop</title>
-    <!-- =====  SEO MATE  ===== -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="distribution" content="global">
-    <meta name="revisit-after" content="2 Days">
-    <meta name="robots" content="ALL">
-    <meta name="rating" content="8 YEARS">
-    <meta name="Language" content="en-us">
-    <meta name="GOOGLEBOT" content="NOARCHIVE">
-    <!-- =====  MOBILE SPECIFICATION  ===== -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="viewport" content="width=device-width">
-    <!-- =====  CSS  ===== -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/magnific-popup.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/owl.carousel.css">
-    <link rel="shortcut icon" href="/assets/images/faviconGS.png">
-    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/apple-touch-icon-114x114.png">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- =====  BASIC PAGE NEEDS  ===== -->
+<meta charset="utf-8">
+<title>BlackBearShop</title>
+<!-- =====  SEO MATE  ===== -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="distribution" content="global">
+<meta name="revisit-after" content="2 Days">
+<meta name="robots" content="ALL">
+<meta name="rating" content="8 YEARS">
+<meta name="Language" content="en-us">
+<meta name="GOOGLEBOT" content="NOARCHIVE">
+<!-- =====  MOBILE SPECIFICATION  ===== -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width">
+<!-- =====  CSS  ===== -->
+<link rel="stylesheet" type="text/css"
+	href="/assets/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+<link rel="stylesheet" type="text/css"
+	href="/assets/css/magnific-popup.css">
+<link rel="stylesheet" type="text/css"
+	href="/assets/css/owl.carousel.css">
+<link rel="shortcut icon" href="/assets/images/faviconGS.png">
+<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72"
+	href="/assets/images/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="/assets/images/apple-touch-icon-114x114.png">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 </head>
 
 <body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
-   <div class="wrapper">
+	<div class="wrapper">
 		<header id="header">
 			<div class="header-top">
 				<div th:replace="user/layout/_hearder.html"></div>
@@ -41,49 +48,56 @@
 			</div>
 
 		</header>
-		 <div class="container banner mt_20">
-		  <!--  slide -->
-            <div class="main-banner owl-carousel">
-                <div class="item">
-                    <a  ><img src="/assets/images/slide1.jpg" alt="Main Banner" class="img-responsive" /></a>
-                </div>
-                <div class="item">
-                    <a ><img src="/assets/images/slide2.jpg" alt="Main Banner" class="img-responsive" /></a>
-                </div>
-               
-            </div>
-        </div>
+		<div class="container banner mt_20">
+			<!--  slide -->
+			<div class="main-banner owl-carousel">
+				<div class="item">
+					<a><img src="/assets/images/slide1.jpg" alt="Main Banner"
+						class="img-responsive" /></a>
+				</div>
+				<div class="item">
+					<a><img src="/assets/images/slide2.jpg" alt="Main Banner"
+						class="img-responsive" /></a>
+				</div>
+
+			</div>
+		</div>
 		<div class="container">
-			 <div class="row">
-                <div class="cms_banner mt_10" th:replace="user/home/_banner.html">
-                	
-                  </div>
-            </div>
-            <div class="row ">
-           		 <div class="col-sm-12 mtb_10" th:replace="user/home/main.html">
-            	</div>
-            </div>
-<!--             <div id="brand_carouse" class="ptb_30 text-center"> -->
-<!-- 				<div th:replace="/layout/_banner.html"></div> -->
-<!-- 			</div> -->
+			<div class="row">
+				<div class="cms_banner mt_10" th:replace="user/home/_banner.html">
+
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-sm-12 mtb_10" th:replace="user/home/main.html">
+				</div>
+			</div>
+			<!--             <div id="brand_carouse" class="ptb_30 text-center"> -->
+			<!-- 				<div th:replace="/layout/_banner.html"></div> -->
+			<!-- 			</div> -->
+
+			<div class="row ">
+				<div class="col-sm-12 mtb_10" th:replace="user/home/chatbot.html">
+				</div>
+				
+			</div>
+
+
+			<div class="footer pt_60">
+				<div th:replace="user/layout/_footer.html"></div>
+			</div>
 		</div>
-	
-			
-		<div class="footer pt_60">
-		<div th:replace="user/layout/_footer.html"></div>
-		</div>
-	</div>
-	
-    <a id="scrollup"></a>
-    <script src="/assets/js/jQuery_v3.1.1.min.js"></script>
-    <script src="/assets/js/owl.carousel.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/jquery.magnific-popup.js"></script>
-    <script src="/assets/js/jquery.firstVisitPopup.js"></script>
-    <script src="/assets/js/custom.js"></script>
-     <script src="/assets/js/shopping-cart-app.js"></script>
-     <script type="text/javascript"></script>
-     <script src="/assets/js/noel.js"></script>
+
+		<a id="scrollup"></a>
+		<script src="/assets/js/jQuery_v3.1.1.min.js"></script>
+		<script src="/assets/js/owl.carousel.min.js"></script>
+		<script src="/assets/js/bootstrap.min.js"></script>
+		<script src="/assets/js/jquery.magnific-popup.js"></script>
+		<script src="/assets/js/jquery.firstVisitPopup.js"></script>
+		<script src="/assets/js/custom.js"></script>
+		<script src="/assets/js/shopping-cart-app.js"></script>
+		<script type="text/javascript"></script>
+		<script src="/assets/js/noel.js"></script>
 </body>
 
 
