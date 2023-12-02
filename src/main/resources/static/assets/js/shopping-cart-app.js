@@ -6,12 +6,47 @@ jQuery(document).ready(function ($) {
 });
 app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
+
+    // Kiểm tra đăng nhập
+    function isLoggedIn() {
+        return $("#username").text().trim() !== "";
+    }
+
+
     $scope.cart = {
         items: [],
         getitem: {},
         getcomment: [],
         get_orderid: 0,
         prod: [],
+
+        //
+        saveToLocalStorage: function () {
+            var cartData = {
+                username: $("#username").text(), // Lưu thông tin tài khoản người dùng
+                items: this.items // Lưu dữ liệu giỏ hàng
+            };
+            localStorage.setItem("cartData", JSON.stringify(cartData));
+        },
+
+        loadFromLocalStorage: function () {
+            var savedCartData = localStorage.getItem("cartData");
+            if (savedCartData) {
+                var cartData = JSON.parse(savedCartData);
+                if (cartData.username === $("#username").text()) {
+                    this.items = cartData.items; // Nạp dữ liệu giỏ hàng từ Local Storage
+                }
+            }
+        },
+
+        clearLocalStorage: function () {
+            localStorage.removeItem("cartData"); // Xóa dữ liệu giỏ hàng khi đăng xuất
+            this.items = []; // Xóa dữ liệu giỏ hàng trong ứng dụng
+        },
+        //
+
+
+
         add(product_id) {
 
             if (isLoggedIn()) {
@@ -25,7 +60,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 
                     } else {
-                        $http.get(`/rest/products/${product_id}`).then(resp => {
+                        // $http.get(`/rest/products/${product_id}`).then(resp => {
+                            $http.get('/rest/products/' + encodeURIComponent(product_id)).then(resp => {
                             resp.data.quantity = 1;
                             this.items.push(resp.data);
                             this.saveToLocalStorage();
@@ -36,12 +72,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             } else {
                 alert("Vui lòng đăng nhập");
             }
-
-            function isLoggedIn() {
-
-                return $("#username").text().trim() !== "";
-            }
-
 
         },
         get_infoorderid(orderid) {
@@ -83,12 +113,10 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             this.items = [];
             this.saveToLocalStorage();
 
-
         }
         ,
         amt_of(item) {
-        }
-        ,
+        },
         get count() {
             return this.items
                 .map(item => item.quantity)
@@ -143,19 +171,33 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     }
 
+    // Load dữ liệu giỏ hàng từ Local Storage khi trang được load
+    $scope.cart.loadFromLocalStorage();
+
+    // Xử lý khi người dùng đăng xuất
+    $scope.logout = function () {
+        $scope.cart.clearLocalStorage(); // Xóa dữ liệu giỏ hàng khi đăng xuất
+        // Thực hiện các bước đăng xuất khác ở đây...
+    };
+
+    // Phương thức thêm sản phẩm vào giỏ hàng
+    $scope.addToCart = function (product_id) {
+        $scope.cart.add(product_id);
+    };
+
+    // Phương thức xóa sản phẩm khỏi giỏ hàng
+    $scope.removeFromCart = function (product_id) {
+        $scope.cart.remove(product_id);
+    };
+
+    // Phương thức xóa tất cả sản phẩm khỏi giỏ hàng
+    $scope.clearCart = function () {
+        $scope.cart.clear();
+    };
+
 
     $scope.updateTotal = function () {
-        // $scope.cart.totalAmount = 0;
-        // $scope.cart.totalDiscount = 0;
-        // $scope.cart.totalPrice = 0;
 
-
-        // angular.forEach($scope.cart.items, function(item) {
-        //     if (item.checked) {
-        //         // $scope.cart.totalAmount += item.quantity * item.unit_price - ((item.quantity * item.unit_price) * item.distcount / 100);
-
-        //     }
-        // });
         $scope.cart.totalOriginalPrice = 0; // Giá gốc
         $scope.cart.totalDiscountPercentage = 0; // Tổng % giảm
         $scope.cart.totalPriceWithDiscount = 0; // Tổng tiền đã giảm
@@ -180,7 +222,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     $scope.redirectToCheckout = function () {
         // Lưu giá trị từ cart.totalPriceWithDiscount vào localStorage
         localStorage.setItem('totalPrice', $scope.cart.totalPriceWithDiscount);
-        
+
         // Chuyển hướng đến trang checkout
         window.location.href = '/order/checkout';
     };
@@ -194,6 +236,11 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         // Xử lý khi giá trị không hợp lệ
         console.error('Giá trị không hợp lệ');
     }
+
+
+
+
+
 
 
     // thanh toan paypal
@@ -320,7 +367,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         }
     }
 
-
+    //
     $scope.pager = {
         page: 0,
         size: 10,
@@ -377,7 +424,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         })
     }
 
-    // xóa 
+
+    // xóa yêu thích
     $scope.deleteFavoriteUser = function (idindex, isShow) {
         $scope.formfavo.product.product_id = idindex;
         $http.delete(`/rest/favorites/${$scope.formfavo.product.product_id}` + `/${$scope.formfavo.account.username}`).then(resp => {
