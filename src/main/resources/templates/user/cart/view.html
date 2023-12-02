@@ -11,7 +11,7 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr class="tr">
-								<td class="text-center"><input type="checkbox"></td>
+								<!-- <td class="text-center"><input type="checkbox"></td> -->
 								<td class="text-center">Hình ảnh</td>
 								<td class="text-center">Tên sản phẩm</td>
 								<td class="text-center">Khuyến mãi</td>
@@ -23,7 +23,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="item in cart.items">
-								<td class="text-center"><input type="checkbox" ng-model="item.checked" ng-change="updateTotal()"></td>
+								<!-- <td class="text-center"><input type="checkbox" ng-model="item.checked" ng-change="updateTotal()"></td> -->
 
 								<td class="text-center" style="width: 20%;"><a href="#"><img style="width: 60%;"
 											src="/assets/images/{{item.image1}}"></a></td>
@@ -56,9 +56,9 @@
 				<div class="col-sm-offset-8" style="padding: 0 65px;">
 					<table class="table table-bordered">
 						<tbody>
-							<!-- <tr>
+							<tr>
 								<td class="text-right"><strong>Tổng :</strong></td>
-								<td class="text-right"> {{cart.totalAmount | number:0}} Đ</td>
+								<td class="text-right"> {{cart.amount1 | number:0}} Đ</td>
 								
 							</tr>
 							<tr>
@@ -68,10 +68,10 @@
 							<tr>
 								<td class="text-right"><strong>Còn:</strong></td>
 								<td class="text-right"> {{cart.amount | number:0}} Đ</td>
-							</tr> -->
+							</tr>
 
 
-							<tr>
+							<!-- <tr>
 								<td class="text-right"><strong>Tổng :</strong></td>
 								<td class="text-right"> {{ cart.totalOriginalPrice | number:0 }} Đ</td>
 							</tr>
@@ -82,7 +82,7 @@
 							<tr>
 								<td class="text-right"><strong>Còn:</strong></td>
 								<td class="text-right"> {{ cart.totalPriceWithDiscount | number:0 }} Đ</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 				</div>
@@ -97,7 +97,7 @@
 			<a ng-click="cart.clear()" style="margin-left: 10px;">
 				<input class="btn pull-left mt_30" type="submit" value="Xóa giỏ hàng" />
 			</a>
-			<a th:href="@{/order/checkout}" ng-click="redirectToCheckout()">
+			<a th:href="@{/order/checkout}" >
 				<input class="btn pull-right mt_30" type="submit" value="Thanh toán khi nhận hàng" />
 			</a>
 			<a href='/thanhtoanonline'>

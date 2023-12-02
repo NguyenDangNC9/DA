@@ -78,7 +78,9 @@
     function phivc(serviceid, districtid, wardcode) {
 
         var scope = angular.element(document.querySelector('[ng-controller=shopping-cart-ctrl]')).scope();
-        var cartAmount = parseFloat(localStorage.getItem('totalPrice'));
+        // var cartAmount = parseFloat(localStorage.getItem('totalPrice'));
+        var cartAmount = scope.cart.amount;
+
 
         $.ajax({
             type: "GET",
@@ -104,13 +106,13 @@
                 // Xử lý dữ liệu trả về để lấy phí vận chuyển
                 var shippingFee = data.data.total;
                 
-                // var formattedShippingFee = new Intl.NumberFormat('vi-VN').format(shippingFee);
-                var formattedShippingFee = shippingFee.toLocaleString('vi-VN', { minimumFractionDigits: 0 });
+               
+                var formattedShippingFee = shippingFee.toLocaleString('vi-VN', { useGrouping: true }).replace('.', ',');
                 document.getElementById("ship").innerText = formattedShippingFee + " Đ";
 
                 // Tính tổng giá trị đơn hàng bao gồm cả phí vận chuyển
                 var totalAmount = cartAmount + shippingFee;
-                // var formattedTotalAmount = new Intl.NumberFormat('vi-VN').format(totalAmount);
+            
                 var formattedTotalAmount = totalAmount.toLocaleString('vi-VN', { minimumFractionDigits: 0 });
                 document.getElementById("total").innerText = formattedTotalAmount + " Đ";
             },

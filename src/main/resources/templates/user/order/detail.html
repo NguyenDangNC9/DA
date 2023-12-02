@@ -1,189 +1,193 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layout/index :: dynamic(~{::main})}">
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+
 <body>
-    <main th:object="${order}" class="">
-        
-           <div class="panel panel-primary ">
-                <div class="heading-part">
-					<h2 class="main_title text-center">Thông tin đơn hàng</h2>
-				</div>
+	<main th:object="${order}" class="">
+
+		<div class="panel panel-primary ">
+			<div class="heading-part">
+				<h2 class="main_title text-center">Thông tin đơn hàng</h2>
+			</div>
+			<div class="row">
 				<div class="row">
-					<div class="row">
-		                <form action="/send" method="post">
-							<div class="panel-body">
-								<div class="form-group col-sm-4">
-									<div class="thongtin">Mã đơn hàng</div>
-									<input th:value="*{Order_id}" class="form-control" readonly
-										name="subject">
-								</div>
-								<div class="form-group col-sm-4">
-									<div class="thongtin">Người mua</div>
-									<input th:value="*{account.Username}" class="form-control"
-										name="content" readonly>
-								</div>
-								<div class="form-group col-sm-4">
-									<div class="thongtin">Email</div>
-									<input th:value="*{account.Email}" class="form-control" name="to"
-										readonly>
-								</div>
-								<div class="form-group col-sm-4">
-									<div class="thongtin">Ngày mua</div>
-									<input th:value="*{#dates.format(CreateDate, 'yyyy-MM-dd HH:mm')}" class="form-control" readonly>
-								</div>
-								<div class="form-group col-sm-4">
-									<div class="thongtin">Số điện thoại</div>
-									<input th:value="*{Phone}" class="form-control" readonly
-										name="phone">
-								</div>
-								<div class="form-group col-sm-4">
-									<div class="thongtin">Tổng tiền</div>
-									<input th:value="*{#numbers.formatDecimal(price, 3 , 'COMMA',0,'POINT') + ' Đ'}" class="form-control" readonly
-										name="price">
-								</div>
-								<div class="form-group col-sm-4">
-									<div class="thongtin">Phương thức thanh toán</div>
-									<input th:value="*{method}" class="form-control" readonly
-										name="method">
-								</div>
-								<div hidden="true" class="form-group col-sm-4">
-									<div class="thongtin">Intent</div>
-									<input th:value="*{intent}" class="form-control" readonly
-										name="intent">
-								</div>
-								<div class="form-group col-sm-4">
-									<div class="thongtin">Trạng thái</div>
-									<div th:if="*{Status}==0" class="form-control"
-										style="color: blue;" name="status">Đang xử lý</div>
-									<div th:if="*{Status}==1" class="form-control">Đang giao hàng</div>
-									<div th:if="*{Status}==3" class="form-control">Đã hoàn thành</div>
-									<div th:if="*{Status}==2" class="form-control" style="color: red;">Hủy giao hàng</div>
-									<div th:if="*{Status}==4" class="form-control" style="color: red;">Đã hủy</div>
-		
-								</div>
-		
-								<div class="form-group col-sm-12">
-									<div class="thongtin">Địa chỉ nhận hàng</div>
-									<textarea th:field="*{Address}" class="form-control" readonly></textarea>
-								</div>
+					<form action="/send" method="post">
+						<div class="panel-body">
+							<div class="form-group col-sm-4">
+								<div class="thongtin">Mã đơn hàng</div>
+								<input th:value="*{Order_id}" class="form-control" readonly name="subject">
+							</div>
+							<div class="form-group col-sm-4">
+								<div class="thongtin">Người mua</div>
+								<input th:value="*{account.Username}" class="form-control" name="content" readonly>
+							</div>
+							<div class="form-group col-sm-4">
+								<div class="thongtin">Email</div>
+								<input th:value="*{account.Email}" class="form-control" name="to" readonly>
+							</div>
+							<div class="form-group col-sm-4">
+								<div class="thongtin">Ngày mua</div>
+								<input th:value="*{#dates.format(CreateDate, 'yyyy-MM-dd HH:mm')}" class="form-control"
+									readonly>
+							</div>
+							<div class="form-group col-sm-4">
+								<div class="thongtin">Số điện thoại</div>
+								<input th:value="*{Phone}" class="form-control" readonly name="phone">
+							</div>
+							<div class="form-group col-sm-4">
+								<div class="thongtin">Tổng tiền</div>
+								<input th:value="*{#numbers.formatDecimal(price, 3 , 'COMMA',0,'POINT') + ' Đ'}"
+									class="form-control" readonly name="price">
+							</div>
+							<div class="form-group col-sm-4">
+								<div class="thongtin">Phương thức thanh toán</div>
+								<input th:value="*{method}" class="form-control" readonly name="method">
+							</div>
+							<div hidden="true" class="form-group col-sm-4">
+								<div class="thongtin">Intent</div>
+								<input th:value="*{intent}" class="form-control" readonly name="intent">
+							</div>
+							<div class="form-group col-sm-4">
+								<div class="thongtin">Trạng thái</div>
+								<div th:if="*{Status}==0" class="form-control" style="color: blue;" name="status">Đang
+									xử lý</div>
+								<div th:if="*{Status}==1" class="form-control">Đang giao hàng</div>
+								<div th:if="*{Status}==3" class="form-control">Đã hoàn thành</div>
+								<div th:if="*{Status}==2" class="form-control" style="color: red;">Hủy giao hàng</div>
+								<div th:if="*{Status}==4" class="form-control" style="color: red;">Đã hủy</div>
+
+							</div>
+
+							<div class="form-group col-sm-12">
+								<div class="thongtin">Địa chỉ nhận hàng</div>
+								<textarea th:field="*{Address}" class="form-control" readonly></textarea>
+							</div>
 						</div>
 					</form>
-	            </div>
-            </div>      
-       </div>
-           
-			 <div class="panel panel-info">
-                <div class="panel-heading"> <strong>Chi tiết đơn hàng</strong></div>
-                <table class="table table-ctdh  ">
-                    <thead >
-                        <tr>
-                            <th class="text-center">Tên sản phẩm</th>
-                            <th class="text-center">Hình ảnh</th>
-                            <th class="text-center">Khuyến mãi</th>
-                            <th class="text-center">Giá</th>
-                            <th class="text-center">Số lượng</th>
-                            <th class="text-center">Tổng</th>
-                            <th class="text-center" th:if="${order.Status}==3">Đánh giá</th>
-                        </tr>
-                    </thead>
-                    <tbody >
-                        <tr th:each="detail : *{orderDetails}" th:object="${detail}">
-                            <td class="text-center">[[*{product.Name}]]</td>
-                            
-                            <td class="text-center"><img  th:src="@{|/assets/images/${detail.product.Image1}|}" 
-                            	style="width: 100px; height: 100px;"></td>
-                            <td class="text-center">[[*{product.Distcount}]]%</td>
-                            <td class="text-center">[[*{#numbers.formatDecimal(Price , 0 , 'COMMA',0,'POINT')}]] Đ</td>
-                            <td class="text-center">[[*{Quantity}]]</td>
-                            <td class="text-center">[[*{#numbers.formatDecimal(Price * Quantity-(Price * Quantity *product.Distcount/100) , 0 , 'COMMA',0,'POINT')}]] Đ</td>
-                            <td class="text-center" th:if="${order.Status}==3">
-									<div class="btn btn-warning"
-										th:attr="ng-click=@{|cart.getinfoproducts(${detail.product.Product_id})|}"
-										data-toggle="modal" data-target="#myModal">Đánh giá
-									</div>
-									<div class="modal fade" id="myModal" role="dialog">
-										<form tH:action="@{/vote/add}" method="post" enctype="multipart/form-data">>
-											<div class="modal-dialog">
-												<div class="modal-content">
-													
-													<div class="vote-sp"> <h4>Đánh giá sản phẩm</h4> </div>
-													<div class="modal-body ">
-														<div class="col-sm-4">
-															<a class="thumbnails">
-																<img style="border-radius: 6px;" ng-src="/assets/images/{{cart.getitem.image1}}">
-															</a>
-														</div>
-														<input name="product_id" value="{{cart.getitem.product_id}}" hidden="true">
-														<div class="col-sm-8">
-															<p style=" font-weight: 600; font-size: 18px;">Tên sản phẩm :
-																{{cart.getitem.name}}</p>
-															<p>Thương hiệu : {{cart.getitem.trademark.name}}</p>
-														</div>
-														<div class="col-sm-8 text-center">
-															<p ng-if="start==1">Rất tệ</p>
-															<p ng-if="start==2">Chưa Tốt</p>
-															<p ng-if="start==3">Bình thường</p>
-															<p ng-if="start==4">Tốt</p>
-															<p ng-if="start==5">Tuyệt vời</p>
+				</div>
+			</div>
+		</div>
 
-															<div id="full-stars-example-two">
-																<div class="rating-group">
-																	<input disabled checked ng-model="start" name="vote"
-																		class="rating__input rating__input--none"
-																		id="rating3-none" value="0" type="radio"> 
-																	<label aria-label="1 star" class="rating__label"
-																		for="rating3-1"><i
-																		class="rating__icon rating__icon--star fa fa-star"></i></label>
-																	<input class="rating__input" ng-model="start"
-																		name="vote" id="rating3-1" value="1" type="radio">
-																	<label aria-label="2 stars" class="rating__label"
-																		for="rating3-2"><i
-																		class="rating__icon rating__icon--star fa fa-star"></i></label>
-																	<input class="rating__input" ng-model="start"
-																		name="vote" id="rating3-2" value="2" type="radio">
-																	<label aria-label="3 stars" class="rating__label"
-																		for="rating3-3"><i
-																		class="rating__icon rating__icon--star fa fa-star"></i></label>
-																	<input class="rating__input" ng-model="start"
-																		name="vote" id="rating3-3" value="3" type="radio">
-																	<label aria-label="4 stars" class="rating__label"
-																		for="rating3-4"><i
-																		class="rating__icon rating__icon--star fa fa-star"></i></label>
-																	<input class="rating__input" ng-model="start"
-																		name="vote" id="rating3-4" value="4" type="radio">
-																	<label aria-label="5 stars" class="rating__label"
-																		for="rating3-5"><i
-																		class="rating__icon rating__icon--star fa fa-star"></i></label>
-																	<input class="rating__input" ng-model="start"
-																		name="vote" id="rating3-5" value="5" type="radio">
-																</div>
-															</div>
+		<div class="panel panel-info">
+			<div class="panel-heading"> <strong>Chi tiết đơn hàng</strong></div>
+			<table class="table table-ctdh  ">
+				<thead>
+					<tr>
+						<th class="text-center">Tên sản phẩm</th>
+						<th class="text-center">Hình ảnh</th>
+						<th class="text-center">Khuyến mãi</th>
+						<th class="text-center">Giá</th>
+						<th class="text-center">Số lượng</th>
+						<th class="text-center">Tổng</th>
+						<th class="text-center" th:if="${order.Status}==3">Đánh giá</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="detail : *{orderDetails}" th:object="${detail}">
+						<td class="text-center">[[*{product.Name}]]</td>
 
-															<br>
-															<textarea name="content" placeholder="Hãy chia sẻ đánh giá của bạn về sản phẩm này nhé" style="font-size: 13px;"
-																class="form-group col-sm-12 form-control" rows="4"></textarea>
-														<div class="text-center">
-															<input type="file" name="image_comment" class="form-group col-sm-12" >
-														</div>
-														</div>
-														
-														<div class="modal-footer-vote">
-															<button type="submit" class="btn btn-warning">Đánh giá</button>
-															<button type="button" class="btn btn-default"
-																data-dismiss="modal">Đóng</button>
+						<td class="text-center"><img th:src="@{|/assets/images/${detail.product.Image1}|}"
+								style="width: 100px; height: 100px;"></td>
+						<td class="text-center">[[*{product.Distcount}]]%</td>
+						<td class="text-center">[[*{#numbers.formatDecimal(Price , 0 , 'COMMA',0,'POINT')}]] Đ</td>
+						<td class="text-center">[[*{Quantity}]]</td>
+						<td class="text-center">[[*{#numbers.formatDecimal(Price * Quantity-(Price * Quantity
+							*product.Distcount/100) , 0 , 'COMMA',0,'POINT')}]] Đ</td>
+						<td class="text-center" th:if="${order.Status}==3">
+							<div class="btn btn-warning"
+								th:attr="ng-click=@{|cart.getinfoproducts(${detail.product.Product_id})|}"
+								data-toggle="modal" data-target="#myModal">Đánh giá
+							</div>
+							<div class="modal fade" id="myModal" role="dialog">
+								<form tH:action="@{/vote/add}" method="post" enctype="multipart/form-data">>
+									<div class="modal-dialog">
+										<div class="modal-content">
+
+											<div class="vote-sp">
+												<h4>Đánh giá sản phẩm</h4>
+											</div>
+											<div class="modal-body ">
+												<div class="col-sm-4">
+													<a class="thumbnails">
+														<img style="border-radius: 6px;"
+															ng-src="/assets/images/{{cart.getitem.image1}}">
+													</a>
+												</div>
+												<input name="product_id" value="{{cart.getitem.product_id}}"
+													hidden="true">
+												<div class="col-sm-8">
+													<p style=" font-weight: 600; font-size: 18px;">Tên sản phẩm :
+														{{cart.getitem.name}}</p>
+													<p>Thương hiệu : {{cart.getitem.trademark.name}}</p>
+												</div>
+												<div class="col-sm-8 text-center">
+													<p ng-if="start==1">Rất tệ</p>
+													<p ng-if="start==2">Chưa Tốt</p>
+													<p ng-if="start==3">Bình thường</p>
+													<p ng-if="start==4">Tốt</p>
+													<p ng-if="start==5">Tuyệt vời</p>
+
+													<div id="full-stars-example-two">
+														<div class="rating-group">
+															<input disabled checked ng-model="start" name="vote"
+																class="rating__input rating__input--none"
+																id="rating3-none" value="0" type="radio">
+															<label aria-label="1 star" class="rating__label"
+																for="rating3-1"><i
+																	class="rating__icon rating__icon--star fa fa-star"></i></label>
+															<input class="rating__input" ng-model="start" name="vote"
+																id="rating3-1" value="1" type="radio">
+															<label aria-label="2 stars" class="rating__label"
+																for="rating3-2"><i
+																	class="rating__icon rating__icon--star fa fa-star"></i></label>
+															<input class="rating__input" ng-model="start" name="vote"
+																id="rating3-2" value="2" type="radio">
+															<label aria-label="3 stars" class="rating__label"
+																for="rating3-3"><i
+																	class="rating__icon rating__icon--star fa fa-star"></i></label>
+															<input class="rating__input" ng-model="start" name="vote"
+																id="rating3-3" value="3" type="radio">
+															<label aria-label="4 stars" class="rating__label"
+																for="rating3-4"><i
+																	class="rating__icon rating__icon--star fa fa-star"></i></label>
+															<input class="rating__input" ng-model="start" name="vote"
+																id="rating3-4" value="4" type="radio">
+															<label aria-label="5 stars" class="rating__label"
+																for="rating3-5"><i
+																	class="rating__icon rating__icon--star fa fa-star"></i></label>
+															<input class="rating__input" ng-model="start" name="vote"
+																id="rating3-5" value="5" type="radio">
 														</div>
 													</div>
+
+													<br>
+													<textarea name="content"
+														placeholder="Hãy chia sẻ đánh giá của bạn về sản phẩm này nhé"
+														style="font-size: 13px;"
+														class="form-group col-sm-12 form-control" rows="4"></textarea>
+													<div class="text-center">
+														<input type="file" name="image_comment"
+															class="form-group col-sm-12">
+													</div>
+												</div>
+
+												<div class="modal-footer-vote">
+													<button type="submit" class="btn btn-warning">Đánh giá</button>
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal">Đóng</button>
 												</div>
 											</div>
-										</form>
+										</div>
 									</div>
-							</td>
-                        </tr>
-                    </tbody>
-                </table>
-           </div>
-          
-        </main>
+								</form>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</main>
 
 </body>
 
