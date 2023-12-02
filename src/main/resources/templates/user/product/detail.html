@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{user/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layout/index :: dynamic(~{::main})}">
 
 
 <body>
@@ -9,13 +8,11 @@
 			<div class="col-md-6">
 
 				<div th:if="${checklist}==0">
-					<div ng-hide="isShow" class="wishlist"
-						th:attr="ng-click=@{|Addfavorite(${item.product_id},true)|}">
+					<div ng-hide="isShow" class="wishlist" th:attr="ng-click=@{|Addfavorite(${item.product_id},true)|}">
 					</div>
 					<div ng-show="isShow" class="delete-wishlist"
 						th:attr="ng-click=@{|deleteFavoriteUser(${item.product_id} , false)|}">
-						<i class="fa fa-heart"
-							style="font-size: 20px; color: red; margin-top: 13px"></i>
+						<i class="fa fa-heart" style="font-size: 20px; color: red; margin-top: 13px"></i>
 					</div>
 				</div>
 				<div th:if="${checklist}!=0">
@@ -24,257 +21,243 @@
 					</div>
 					<div ng-show="!isShow" class="delete-wishlist"
 						th:attr="ng-click=@{|deleteFavoriteUser(${item.product_id} , true)|}">
-						<i class="fa fa-heart"
-							style="font-size: 20px; color: red; margin-top: 13px"></i>
+						<i class="fa fa-heart" style="font-size: 20px; color: red; margin-top: 13px"></i>
 					</div>
 				</div>
 				<div>
-					<a class="thumbnails"> <img style="padding: 20px 0;"
-						data-name="product_image" th:src="@{|/assets/images/*{image1}|}"
-						alt="" /></a>
+					<a class="thumbnails"> <img style="padding: 20px 0;" data-name="product_image"
+							th:src="@{|/assets/images/*{image1}|}" alt="" /></a>
 				</div>
 				<div id="product-thumbnail" class="owl-carousel">
 					<div class="item">
 						<div class="image-additional">
-							<a class="thumbnail" th:href="@{|/assets/images/*{image2}|}"
-								data-fancybox="group1"> <img
-								th:src="@{|/assets/images/*{image2}|}" alt="" /></a>
+							<a class="thumbnail" th:href="@{|/assets/images/*{image2}|}" data-fancybox="group1"> <img
+									th:src="@{|/assets/images/*{image2}|}" alt="" /></a>
 						</div>
 					</div>
 					<div class="item">
 						<div class="image-additional">
-							<a class="thumbnail" th:href="@{|/assets/images/*{image3}|}"
-								data-fancybox="group1"> <img
-								th:src="@{|/assets/images/*{image3}|}" alt="" /></a>
+							<a class="thumbnail" th:href="@{|/assets/images/*{image3}|}" data-fancybox="group1"> <img
+									th:src="@{|/assets/images/*{image3}|}" alt="" /></a>
 						</div>
 					</div>
 
-	</div>
+				</div>
 			</div>
-					<div class="col-md-6 prodetail caption ">
+			<div class="col-md-6 prodetail caption ">
 
-						<div class="detail-product-name full-section">
-							<h1>
-								<a href="#" th:text="*{name}"></a>
-							</h1>
-							<div>
-								<div th:replace="user/vote/_average.html"></div>
-							</div>
-							<br>
-							<p class="gia">
-								Giá bán: <span class="price1"><a
-									th:text="*{#numbers.formatDecimal(unit_price, 3 , 'COMMA',0,'POINT') +' Đ'}"></a></span>
-							</p>
-							<div class="woocommerce-product-details__short-description">
-								<aside class="price_sale">
-									<ul style="list-style-type: circle;">
-									
-										<li><span style="font-size: 10pt;"><span
-												style="color: #000000;">Bảo hành chính hãng 12 tháng</span></span></li>
-									
-									</ul>
-								</aside>
-							</div>
-						</div>
+				<div class="detail-product-name full-section">
+					<h1>
+						<a href="#" th:text="*{name}"></a>
+					</h1>
+					<div>
+						<div th:replace="user/vote/_average.html"></div>
+					</div>
+					<br>
+					<p class="gia">
+						Giá bán: <span class="price1"><a
+								th:text="*{#numbers.formatDecimal(unit_price-((unit_price)*distcount/100), 3 , 'COMMA',0,'POINT') +' Đ'}"></a></span>
+					</p>
+					<div class="woocommerce-product-details__short-description">
+						<aside class="price_sale">
+							<ul style="list-style-type: circle;">
+
+								<li><span style="font-size: 10pt;"><span style="color: #000000;">Bảo hành chính hãng 12
+											tháng</span></span></li>
+
+							</ul>
+						</aside>
+					</div>
+				</div>
 
 
 
-<!-- 
+				<!-- 
 						<td class="text-center" style="width: 120px"><input
 							ng-change="cart.saveToLocalStorage()" ng-model="item.quantity"
 							type="number" size="4" value="1" min="0" step="1"
 							style="width: 100%"></td> -->
 
 
-						<div class="freeship ">
-							<span><i class="fa fa-truck"
-								style="font-size: 23px; margin-top: 8px"></i> Vận
-								chuyển toàn quốc</span>
+				<div class="freeship ">
+					<span><i class="fa fa-truck" style="font-size: 23px; margin-top: 8px"></i> Vận
+						chuyển toàn quốc</span>
+				</div>
+
+
+
+				<div class="detail-product-name re-card st-card">
+					<h2 class="card-title">Chi tiết về sản phẩm</h2>
+					<div class="card-body">
+						<table class="st-pd-table">
+							<tbody>
+								<tr>
+									<td>Kích thước</td>
+									<td><span><a th:text="*{size}"></a></span></td>
+								</tr>
+								<tr>
+									<td>Màu</td>
+									<td><span><a th:text="*{color}"></a></span></td>
+								</tr>
+								<tr>
+									<td>Chất liệu</td>
+									<td><span><a th:text="*{material}"></a></span></td>
+								</tr>
+
+								<tr>
+									<td>Thương hiệu</td>
+									<td><span><a th:text="*{trademark.name}"></a></span></td>
+								</tr>
+								<tr>
+									<td>Tình trạng</td>
+									<td>
+										<span class="label label-danger" th:if="*{quantity} ==0">Hết hàng</span>
+										<span th:if="*{quantity} !=0"><a>Còn hàng </a> &nbsp;&nbsp; <span
+												th:text="*{quantity}" class="quantity-color"></span>&nbsp;sản phẩm có
+											sẵn
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+
+				<div id="product">
+					<div class="form-group">
+						<div class="button-group ">
+							<a th:attr="ng-click=@{|cart.add(${item.product_id})|}">
+								<div class="btn btn-default"
+									style="width: 460px; height: 60px; margin: 5px; font-size: 25px; font-weight: 400;">
+									<i class="fa fa-shopping-cart" style="font-size: 30px; margin-top: 7px;"></i> Thêm
+									vào giỏ
+									hàng
+								</div>
+
+							</a>
+							<div id="username" hidden="true">[[${#request.remoteUser}]]</div>
+							<div class="btn btn-default" style="width: 100px; margin-top: 0.5rem; height: 60px;"
+								data-toggle="modal" data-target="#myModal">
+								<i class="fa fa-share" style="font-size: 25px; margin-top: 12px;"></i>
+							</div>
 						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="myModal" role="dialog">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<form action="/send1" method="post">
+										<div class="form-group">
+											<label>Đến:</label> <input type="text" class="form-control" name="to"
+												placeholder="Nhập email">
+										</div>
+										<div class="form-group">
+											<label>Chủ đề:</label> <input type="text" class="form-control"
+												name="subject" placeholder="Nhập chủ đề">
+										</div>
+										<div class="form-group">
+											<label for="content">Nội dung:</label>
+											<textarea class="form-control" rows="3" name="content"></textarea>
+										</div>
+										<div class="form-group" hidden="true">
+											<label for="content">Id:</label> <input class="form-control" rows="3"
+												name="id" th:value="*{product_id}" readonly></input>
+										</div>
+										<button type="submit" class="btn btn-primary">Gửi</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+
+									</form>
 
 
-
-						<div class="detail-product-name re-card st-card">
-							<h2 class="card-title">Chi tiết về sản phẩm</h2>
-							<div class="card-body">
-								<table class="st-pd-table">
-									<tbody>
-										<tr>
-											<td>Kích thước</td>
-											<td><span><a th:text="*{size}"></a></span></td>
-										</tr>
-										<tr>
-											<td>Màu</td>
-											<td><span><a th:text="*{color}"></a></span></td>
-										</tr>
-										<tr>
-											<td>Chất liệu</td>
-											<td><span><a th:text="*{material}"></a></span></td>
-										</tr>
-
-										<tr>
-											<td>Thương hiệu</td>
-											<td><span><a th:text="*{trademark.name}"></a></span></td>
-										</tr>
-										<tr>
-											<td>Tình trạng</td>
-											<td>
-												<span class="label label-danger"
-												th:if="*{quantity} ==0">Hết hàng</span> 
-												<span
-												th:if="*{quantity} !=0"><a>Còn hàng </a>  &nbsp;&nbsp; <span th:text="*{quantity}" class="quantity-color"></span>&nbsp;sản phẩm có sẵn
-											</td>
-										</tr>
-									</tbody>
-								</table>
+								</div>
 							</div>
 						</div>
 
 
-						<div id="product">
-							<div class="form-group">
-								<div class="button-group ">
-									<a th:attr="ng-click=@{|cart.add(${item.product_id})|}">
-										<div class="btn btn-default"
-											style="width: 460px; height: 60px; margin: 5px; font-size: 25px; font-weight: 400;">
-											<i class="fa fa-shopping-cart"
-												style="font-size: 30px; margin-top: 7px;"></i> Thêm vào giỏ
-											hàng
-										</div>
-										
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="col-md-12">
+				<div id="exTab5" class=" product-thumb-detail mtb_20 ">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#1c" ng-click="isshowcomment()" data-toggle="tab">Chi tiết</a></li>
+						<li><a href="#2c" th:attr="ng-click=@{|cart.getinfComment(${item.product_id})|}"
+								data-toggle="tab">Bình luận</a></li>
+						<li><a href="#3c" ng-click="isshowcomment()" data-toggle="tab">Đánh giá</a></li>
+					</ul>
+					<div class="tab-content ">
+
+						<div class="tab-pane tab-content-detailspro active" id="1c">
+
+
+							<div th:utext="*{detail}" class="ckeditor"></div>
+
+						</div>
+
+						<div class="tab-pane" id="2c">
+							<div th:replace="user/comment/_prodetail.html"></div>
+						</div>
+						<div class="tab-pane" id="3c">
+							<div th:replace="user/vote/_prodetail.html"></div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="">
+			<div class="col-md-12">
+				<div class="heading-part text-center mb_10">
+					<h2 class="main_title mt_50">Sản phẩm cùng loại</h2>
+				</div>
+				<div class="related_pro box">
+					<div class="product-layout  product-grid related-pro  owl-carousel mb_50 ">
+						<div class="item" th:each="p:*{category.products}">
+							<div class="product-thumb">
+								<div class="image product-imageblock">
+									<a th:href="@{|/product/detail/${p.product_id}|}"> <img data-name="product_image"
+											th:src="@{|/assets/images/${p.image1}|}" alt="iPod Classic"
+											title="iPod Classic" class="img-responsive">
 									</a>
-									<div id="username" hidden="true">[[${#request.remoteUser}]]</div>
-									<div class="btn btn-default"
-										style="width: 100px; margin-top: 0.5rem; height: 60px;"
-										data-toggle="modal" data-target="#myModal">
-										<i class="fa fa-share"
-											style="font-size: 25px; margin-top: 12px;"></i>
+									<div class="button-group text-center">
+										<a th:href="@{|/product/detail/${p.product_id}|}">
+											<div class="quickview"></div>
+										</a> <a th:attr="ng-click=@{|cart.add(${p.product_id})|}">
+											<div class="add-to-cart"></div>
+										</a>
 									</div>
 								</div>
-								<!-- Modal -->
-								<div class="modal fade" id="myModal" role="dialog">
-									<div class="modal-dialog">
-
-										<!-- Modal content-->
-										<div class="modal-content">
-											<form action="/send1" method="post">
-												<div class="form-group">
-													<label>Đến:</label> <input type="text" class="form-control"
-														name="to" placeholder="Nhập email">
-												</div>
-												<div class="form-group">
-													<label>Chủ đề:</label> <input type="text"
-														class="form-control" name="subject"
-														placeholder="Nhập chủ đề">
-												</div>
-												<div class="form-group">
-													<label for="content">Nội dung:</label>
-													<textarea class="form-control" rows="3" name="content"></textarea>
-												</div>
-												<div class="form-group" hidden="true">
-													<label for="content">Id:</label> <input
-														class="form-control" rows="3" name="id"
-														th:value="*{product_id}" readonly></input>
-												</div>
-												<button type="submit" class="btn btn-primary">Gửi</button>
-												<button type="button" class="btn btn-default"
-													data-dismiss="modal">Đóng</button>
-
-											</form>
-
-
-										</div>
+								<div class="caption product-detail text-center">
+									<h6 data-name="product_name" class="product-name mt_20">
+										<a href="#" title="Casual Shirt With Ruffle Hem" th:text="${p.name}"
+											class="cdt-product__name"></a>
+									</h6>
+									<div class="rating">
+										<span class="rating1" title="Màu"> [[${p.color}]] </span> <span class="rating2"
+											title="Chất liệu ">
+											[[${p.material}]] </span>
 									</div>
-								</div>
-
-
-							</div>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="col-md-12">
-						<div id="exTab5" class=" product-thumb-detail mtb_20 ">
-							<ul class="nav nav-tabs">
-								<li class="active"><a href="#1c" ng-click="isshowcomment()"
-									data-toggle="tab">Chi tiết</a></li>
-								<li><a href="#2c"
-									th:attr="ng-click=@{|cart.getinfComment(${item.product_id})|}"
-									data-toggle="tab">Bình luận</a></li>
-								<li><a href="#3c" ng-click="isshowcomment()"
-									data-toggle="tab">Đánh giá</a></li>
-							</ul>
-							<div class="tab-content ">
-
-								<div class="tab-pane tab-content-detailspro active" id="1c">
-
-
-									<div th:utext="*{detail}" class="ckeditor"></div>
-
-								</div>
-
-								<div class="tab-pane" id="2c">
-									<div th:replace="user/comment/_prodetail.html"></div>
-								</div>
-								<div class="tab-pane" id="3c">
-									<div th:replace="user/vote/_prodetail.html"></div>
-
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="">
-					<div class="col-md-12">
-						<div class="heading-part text-center mb_10">
-							<h2 class="main_title mt_50">Sản phẩm cùng loại</h2>
-						</div>
-						<div class="related_pro box">
-							<div
-								class="product-layout  product-grid related-pro  owl-carousel mb_50 ">
-								<div class="item" th:each="p:*{category.products}">
-									<div class="product-thumb">
-										<div class="image product-imageblock">
-											<a th:href="@{|/product/detail/${p.product_id}|}"> <img
-												data-name="product_image"
-												th:src="@{|/assets/images/${p.image1}|}" alt="iPod Classic"
-												title="iPod Classic" class="img-responsive">
-											</a>
-											<div class="button-group text-center">
-												<a th:href="@{|/product/detail/${p.product_id}|}">
-													<div class="quickview"></div>
-												</a> <a th:attr="ng-click=@{|cart.add(${p.product_id})|}">
-													<div class="add-to-cart"></div>
-												</a>
-											</div>
-										</div>
-										<div class="caption product-detail text-center">
-											<h6 data-name="product_name" class="product-name mt_20">
-												<a href="#" title="Casual Shirt With Ruffle Hem"
-													th:text="${p.name}" class="cdt-product__name"></a>
-											</h6>
-											<div class="rating">
-												<span class="rating1" title="Màu"> [[${p.color}]] </span> <span
-													class="rating2" title="Chất liệu ">
-													[[${p.material}]] </span>
-											</div>
-											<span class="price"><span class="amount"><span
-													class="currencySymbol"></span>[[${#numbers.formatDecimal(p.unit_price,
-													3 , 'COMMA',0,'POINT')}]] Đ</span> </span>
-										</div>
-									</div>
+									<span class="price"><span class="amount"><span
+												class="currencySymbol"></span>[[${#numbers.formatDecimal(p.unit_price,
+											3 , 'COMMA',0,'POINT')}]] Đ</span> </span>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
 	</main>
 </body>
 
 </html>
 <style>
 	.quantity-color {
-    color: red	; /* Đổi màu sắc của số lượng thành màu xanh lá cây */
-}
+		color: red;
+		/* Đổi màu sắc của số lượng thành màu xanh lá cây */
+	}
 </style>

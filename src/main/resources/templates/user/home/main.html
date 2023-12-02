@@ -8,159 +8,165 @@
 			<div class="tab-pane" id="Featured">
 				<div class="Featured owl-carousel">
 					<div class="product-grid" th:each="l:${item3}">
-						<div class="item" >
+						<div class="item">
 							<div class="product-thumb  mb_30">
 								<div class="image product-imageblock">
-									<a th:href="@{|/product/detail/${l.product_id}|}"> <img data-name="product_image" 
-										th:src="@{|/assets/images/${l.image1}|}" class="img-responsive">
+									<a th:href="@{|/product/detail/${l.product_id}|}"> <img data-name="product_image"
+											th:src="@{|/assets/images/${l.image1}|}" class="img-responsive">
 									</a>
 									<div class="button-group text-center">
-										
+
 										<a th:href="@{|/product/detail/${l.product_id}|}">
-										<div class="quickview"></div>
+											<div class="quickview"></div>
 										</a>
-										
+
 										<a th:attr="ng-click=@{|cart.add(${l.product_id})|}">
-											<div class="add-to-cart">									
+											<div class="add-to-cart">
 											</div>
 										</a>
 									</div>
 								</div>
-								
+
 								<span class="sales__product_new">
-						           <img alt="" src="https://cdn-icons-png.flaticon.com/512/179/179452.png">
-						        </span>
-								
+									<img alt="" src="https://cdn-icons-png.flaticon.com/512/179/179452.png">
+								</span>
+
 								<div class="caption product-detail text-center">
 									<h6 data-name="product_name" class="product-name mt_20">
-										<a href="#" title="Casual Shirt With Ruffle Hem"
-											th:utext="${l.name}" class="cdt-product__name"></a>
+										<a href="#" title="Casual Shirt With Ruffle Hem" th:utext="${l.name}"
+											class="cdt-product__name"></a>
 									</h6>
 									<div class="rating">
-										<span class="rating1" title="Màu "> [[${l.color}]] </span> <span
-											class="rating2" title="Chất liệu "> [[${l.material}]] </span>
+										<span class="rating1" title="Màu "> [[${l.color}]] </span> <span class="rating2"
+											title="Chất liệu "> [[${l.material}]] </span>
 									</div>
-									<span class="price"><span class="amount">[[${#numbers.formatDecimal(l.unit_price, 3 , 'COMMA',0,'POINT')} ]] Đ
-									</span> </span>
+									<span class="price"><span class="amount">[[${#numbers.formatDecimal(l.unit_price, 3
+											, 'COMMA',0,'POINT')} ]] Đ
+										</span> </span>
 								</div>
 							</div>
 						</div>
 					</div>
-				
-					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 
 
 <div id="product-tab" class="mt_20">
 	<div class="heading-part mb_10 ">
 		<h2 class="main_title"><a th:href="@{/product/discount}">Sản Phẩm Khuyến mãi</a></h2>
-		
+
 	</div>
 	<div class="tab-content clearfix box">
 		<div class="tab-pane active" id="nArrivals">
 			<div class="tab-pane" id="Featured">
 				<div class="Featured owl-carousel">
 					<div class="product-grid" th:each="d:${item1}">
-						<div class="item" >
+						<div class="item">
 							<div class="product-thumb  mb_30">
 								<div class="image product-imageblock">
-									<a th:href="@{|/product/detail/${d.product_id}|}"> 
-										<img data-name="product_image" th:src="@{|/assets/images/${d.image1}|}" 
+									<a th:href="@{|/product/detail/${d.product_id}|}">
+										<img data-name="product_image" th:src="@{|/assets/images/${d.image1}|}"
 											alt="iPod Classic" title="iPod Classic" class="img-responsive">
 									</a>
 									<div class="button-group text-center">
-										
+
 										<a th:href="@{|/product/detail/${d.product_id}|}">
-										<div class="quickview">
-										</div>
+											<div class="quickview">
+											</div>
 										</a>
-										
+
 										<a th:attr="ng-click=@{|cart.add(${d.product_id})|}">
-											<div class="add-to-cart">									
+											<div class="add-to-cart">
 											</div>
 										</a>
 									</div>
 								</div>
-								
+
 								<span class="sales__product" th:if="${d.distcount} > 0">
-						            <i class="fa fa-bolt" style="font-size:18px"></i> Giảm [[${#numbers.formatDecimal(d.distcount, 1 , 'COMMA',0,'POINT')}]] %
-						        </span>
-								
+									<i class="fa fa-bolt" style="font-size:18px"></i> Giảm
+									[[${#numbers.formatDecimal(d.distcount, 1 , 'COMMA',0,'POINT')}]] %
+								</span>
+
 								<div class="caption product-detail text-center">
 									<h6 data-name="product_name" class="product-name mt_20">
-										<a href="#" title="Casual Shirt With Ruffle Hem"
-											th:utext="${d.name}" class="cdt-product__name"></a>
+										<a href="#" title="Casual Shirt With Ruffle Hem" th:utext="${d.name}"
+											class="cdt-product__name"></a>
 									</h6>
 									<div class="rating">
-										<span class="rating1" title="Màu "> [[${d.color}]] </span> <span
-											class="rating2" title="Chất liệu "> [[${d.material}]] </span>
+										<span class="rating1" title="Màu "> [[${d.color}]] </span> <span class="rating2"
+											title="Chất liệu "> [[${d.material}]] </span>
 									</div>
-									<span class="price"><span class="amount">[[${#numbers.formatDecimal(d.unit_price, 3 , 'COMMA',0,'POINT')} ]] Đ
-									</span> </span>
+									<span class="price"><span class="amount">
+											<del> [[${#numbers.formatDecimal(d.unit_price, 3 , 'COMMA',0,'POINT')} ]]
+												Đ</del><br>
+											[[${#numbers.formatDecimal(d.unit_price-((d.unit_price)*d.distcount/100), 3
+											, 'COMMA',0,'POINT')} ]] Đ
+										</span> </span>
 								</div>
 							</div>
 						</div>
 					</div>
-				
-					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	
-	<div hidden="true" id="product-tab" class="mt_20">
+</div>
+
+
+<div hidden="true" id="product-tab" class="mt_20">
 	<div class="heading-part mb_10 ">
 		<h2 class="main_title"><a th:href="@{/product/special}">Sản Phẩm Đặc biệt </a></h2>
-		
+
 	</div>
 	<div class="tab-content clearfix box">
 		<div class="tab-pane active" id="nArrivals">
 			<div class="tab-pane" id="Featured">
 				<div class="Featured owl-carousel">
 					<div class="product-grid" th:each="s:${item2}">
-						<div class="item" >
+						<div class="item">
 							<div class="product-thumb  mb_30">
 								<div class="image product-imageblock">
-									<a th:href="@{|/product/detail/${s.product_id}|}"> <img data-name="product_image" 
-										th:src="@{|/assets/images/${s.image1}|}" class="img-responsive">
+									<a th:href="@{|/product/detail/${s.product_id}|}"> <img data-name="product_image"
+											th:src="@{|/assets/images/${s.image1}|}" class="img-responsive">
 									</a>
 									<div class="button-group text-center">
-										
+
 										<a th:href="@{|/product/detail/${s.product_id}|}">
-										<div class="quickview">
-										</div>
+											<div class="quickview">
+											</div>
 										</a>
-										
+
 										<a th:attr="ng-click=@{|cart.add(${s.product_id})|}">
-											<div class="add-to-cart">									
+											<div class="add-to-cart">
 											</div>
 										</a>
 									</div>
 								</div>
 								<div class="caption product-detail text-center">
 									<h6 data-name="product_name" class="product-name mt_20">
-										<a href="#" title="Casual Shirt With Ruffle Hem"
-											th:utext="${s.name}" class="cdt-product__name"></a>
+										<a href="#" title="Casual Shirt With Ruffle Hem" th:utext="${s.name}"
+											class="cdt-product__name"></a>
 									</h6>
 									<div class="rating">
-										<span class="rating1" title="Màu "> [[${s.color}]] </span> <span
-											class="rating2" title="Chất liệu "> [[${s.material}]] </span>
+										<span class="rating1" title="Màu "> [[${s.color}]] </span> <span class="rating2"
+											title="Chất liệu "> [[${s.material}]] </span>
 									</div>
-									<span class="price"><span class="amount">[[${#numbers.formatDecimal(s.unit_price, 3 , 'COMMA',0,'POINT')} ]] Đ
-									</span> </span>
+									<span class="price"><span class="amount">[[${#numbers.formatDecimal(s.unit_price, 3
+											, 'COMMA',0,'POINT')} ]] Đ
+										</span> </span>
 								</div>
 							</div>
 						</div>
 					</div>
-				
-					</div>
+
 				</div>
 			</div>
-		</div> <br>
-	</div>
-	
+		</div>
+	</div> <br>
+</div>

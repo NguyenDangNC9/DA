@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout/index :: dynamic(~{::main})}">
 
 
 <body>
@@ -10,22 +9,22 @@
 				<div class="content-panel">
 					<h3>
 						&emsp;<i class="fa fa-angle-right"></i> Thông tin chi tiết
-						&nbsp;&nbsp;&nbsp;&nbsp; 
+						&nbsp;&nbsp;&nbsp;&nbsp;
 						<a style="float: right; padding: 0 15px;" tH:href=@{/admin/account/list}>
-							<i class="fa fa-mail-reply" style="font-size:18px"></i> Quay lại danh sách 
+							<i class="fa fa-mail-reply" style="font-size:18px"></i> Quay lại danh sách
 						</a>
 					</h3>
 					<div class="panel-body">
-						<form th:action="@{/admin/account/edit}" method="post"
-							modelAttribute="acc" enctype="multipart/form-data">
+						<form th:action="@{/admin/account/edit}" method="post" modelAttribute="acc"
+							enctype="multipart/form-data">
 
 							<div class="panel-heading text-center"
-								style="color: #54aee2; font-style: oblique; font-variant: inherit; font-weight: bolder;"></div>
+								style="color: #54aee2; font-style: oblique; font-variant: inherit; font-weight: bolder;">
+							</div>
 							<div class="row">
 								<div class="col-sm-4 text-center">
-									<label for="image"> <img
-										th:src="@{|/assets/images/${acc.photo}|}"
-										style="max-width: 100%; height: 200px;" alt="Photo User">
+									<label for="image"> <img th:src="@{|/assets/images/${acc.photo}|}"
+											style="max-width: 100%; height: 200px;" alt="Photo User">
 									</label>
 
 								</div>
@@ -34,12 +33,12 @@
 										<div class="form-group col-sm-6">
 											<div>Tên tài khoản :</div>
 											<input type="text" name="Username" th:value="${acc.Username}"
-												class="form-control">
+												class="form-control" required>
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Họ và tên</div>
 											<input type="text" name="Fullname" th:value="${acc.Fullname}"
-												class="form-control">
+												class="form-control" required>
 										</div>
 									</div>
 									<div class="row">
@@ -50,16 +49,18 @@
 										</div>
 										<div class="form-group col-sm-3">
 											<div>Mật khẩu:</div>
-											<input type="password" name="Password"
-												th:value="${acc.Password}" class="form-control">
+											<input type="password" name="Password" th:value="${acc.Password}"
+												class="form-control" required>
 										</div>
 										<div class="form-group col-sm-3">
 											<div>Trạng thái</div>
-											<select class="form-control" name="active"
-												data-live-search="true" style="height: 36px;">
-												<option hidden="true" th:value="${acc.active}" th:if="${acc.active}==true" >Đã kích hoạt</option>
-												<option hidden="true" th:value="${acc.active}" th:if="${acc.active}==false">Chưa kích hoạt</option>
-												
+											<select class="form-control" name="active" data-live-search="true"
+												style="height: 36px;">
+												<option hidden="true" th:value="${acc.active}"
+													th:if="${acc.active}==true">Đã kích hoạt</option>
+												<option hidden="true" th:value="${acc.active}"
+													th:if="${acc.active}==false">Chưa kích hoạt</option>
+
 												<option value="true">Đã kích hoạt</option>
 												<option value="false">Chưa kích hoạt</option>
 											</select>
@@ -67,25 +68,41 @@
 										<div class="form-group col-sm-6">
 											<div>Email</div>
 											<input type="email" name="Email" th:value="${acc.Email}"
-												class="form-control">
+												class="form-control" required>
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Số điện thoại</div>
-											<input type="text" name="Phone" th:value="${acc.Phone}"
-												class="form-control">
+											<input type="text" name="Phone" th:value="${acc.Phone}" class="form-control"
+												required oninput="validatePhone(this)">
+											<div id="phoneError" style="color: red;"></div>
 										</div>
+										<script>
+											function validatePhone(input) {
+												var phone = input.value;
+												var phoneError = document.getElementById("phoneError");
+												var regex = /^0[1-9]\d{8}$/;
+
+												if (!regex.test(phone)) {
+													phoneError.textContent = "Vui lòng nhập đúng định dạng.";
+													input.setCustomValidity("Vui lòng nhập đúng số điện thoại");
+												} else {
+													phoneError.textContent = "";
+													input.setCustomValidity("");
+												}
+											}
+										</script>
+
 
 									</div>
 
-									<button th:formaction="@{/admin/account/update}"
-										class="btn btn-round btn-info">
+									<button th:formaction="@{/admin/account/update}" class="btn btn-round btn-info">
 										<span class="glyphicon glyphicon-check"></span> Cập nhập
 									</button>
 									<a th:href="@{|/admin/account/delete/form/${acc.username}|}"
 										class='btn btn-round btn-danger'><span
-										class="glyphicon glyphicon-remove"></span> Xóa</a> <a
+											class="glyphicon glyphicon-remove"></span> Xóa</a> <a
 										tH:href=@{/admin/account/detail} class="btn btn-round btn-default"><span
-										class="glyphicon glyphicon-refresh"></span> Làm mới</a> <i
+											class="glyphicon glyphicon-refresh"></span> Làm mới</a> <i
 										th:utext="${message}"></i>
 								</div>
 							</div>
@@ -115,7 +132,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="box pull-up-1"  th:each="o,state:${order}">
+							<tr class="box pull-up-1" th:each="o,state:${order}">
 								<td>[[${o.order_id}]]</td>
 								<td>[[${#numbers.formatDecimal(o.price , 0 ,
 									'COMMA',0,'POINT')}]] Đ</td>
@@ -124,11 +141,13 @@
 								<td><b style="color: #00008B;">[[${o.status==0?'Đang xử
 										lý' :''}]]</b> <b style="color: #FFD700;">[[${o.status==1?'Đang
 										giao hàng' :''}]]</b> <b style="color: #2E8B57;">[[${o.status==3?'Đã
-										hoàn thành' :''}]]</b> 	<b style="color: #DC143C;">[[${o.status==2?'Hủy giao hàng' :''}]]</b>
-									<b style="color: #DC143C;">[[${o.status==4?'Đã hủy' :''}]]</b></td>
+										hoàn thành' :''}]]</b> <b style="color: #DC143C;">[[${o.status==2?'Hủy giao
+										hàng' :''}]]</b>
+									<b style="color: #DC143C;">[[${o.status==4?'Đã hủy' :''}]]</b>
+								</td>
 								<td><a th:href="@{|/admin/order/edit?order_id=${o.Order_id}|}"
-									class="btn btn-round btn-primary"> <i class="fa fa-pencil"></i>
-								</a></td>
+										class="btn btn-round btn-primary"> <i class="fa fa-pencil"></i>
+									</a></td>
 							</tr>
 
 						</tbody>
@@ -142,4 +161,5 @@
 
 	</main>
 </body>
+
 </html>

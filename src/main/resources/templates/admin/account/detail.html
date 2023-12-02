@@ -1,90 +1,110 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout/index :: dynamic(~{::main})}">
 
 
 <body>
-<main>
-<div class="row mt">
+	<main>
+		<div class="row mt">
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h3>&emsp;
 						<i class="fa fa-angle-right"></i> Thêm mới khách hàng
-						&nbsp;&nbsp;&nbsp;&nbsp; 
+						&nbsp;&nbsp;&nbsp;&nbsp;
 						<a style="float: right; padding: 0 15px;" tH:href=@{/admin/account/list}>
-							<i class="fa fa-mail-reply" style="font-size:18px"></i> Quay lại danh sách 
+							<i class="fa fa-mail-reply" style="font-size:18px"></i> Quay lại danh sách
 						</a>
-					</h3><div class="panel-body">
-			<form th:action="@{/admin/account/detail}" method="post" modelAttribute="acc"
-				enctype="multipart/form-data">
-				<i th:utext="${message}"></i>
-				<div class="panel-heading text-center" style="color: #54aee2;font-style:oblique;font-variant: inherit;font-weight: bolder; "></div>
-				<div class="row">
-					<div class="col-sm-4 text-center">
-						<label for="image"> <img
-							th:src="@{|/assets/images/${acc.photo}|}"
-							style="max-width: 100%; height: 200px;" alt="Photo User">
-						</label>
-						
-					</div>
-					<div class="col-sm-8">
-						<div class="row">
-							<div class="form-group col-sm-6">
-								<div>Tên tài khoản : </div>
-								<input type="text" name="Username" th:value="${acc.Username}"
-									class="form-control" required >
+					</h3>
+					<div class="panel-body">
+						<form th:action="@{/admin/account/detail}" method="post" modelAttribute="acc"
+							enctype="multipart/form-data">
+							<i th:utext="${message}"></i>
+							<div class="panel-heading text-center"
+								style="color: #54aee2;font-style:oblique;font-variant: inherit;font-weight: bolder; ">
 							</div>
-							<div class="form-group col-sm-6">
-								<div>Họ và tên</div>
-								<input type="text" name="Fullname" th:value="${acc.Fullname}"
-									class="form-control" required>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-sm-6">
-								<div>Hình ảnh</div>
-								<input type="hidden" name="Photo" th:value="${acc.Photo}">
-								<input type="file" name="photo_img" class="form-control">
-							</div>
-							<div class="form-group col-sm-3">
-								<div>Mật khẩu:</div>
-								<input type="password" name="Password" th:value="${acc.Password}"
-									class="form-control" required>
-							</div>
-							<div class="form-group col-sm-3">
-								<div>Trạng thái</div>
-											<select class="form-control" name="active"
-												data-live-search="true" style="height: 36px;">
-												
+							<div class="row">
+								<div class="col-sm-4 text-center">
+									<label for="image"> <img th:src="@{|/assets/images/${acc.photo}|}"
+											style="max-width: 100%; height: 200px;" alt="Photo User">
+									</label>
+
+								</div>
+								<div class="col-sm-8">
+									<div class="row">
+										<div class="form-group col-sm-6">
+											<div>Tên tài khoản : </div>
+											<input type="text" name="Username" th:value="${acc.Username}"
+												class="form-control" required>
+										</div>
+										<div class="form-group col-sm-6">
+											<div>Họ và tên</div>
+											<input type="text" name="Fullname" th:value="${acc.Fullname}"
+												class="form-control" required>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-sm-6">
+											<div>Hình ảnh</div>
+											<input type="hidden" name="Photo" th:value="${acc.Photo}">
+											<input type="file" name="photo_img" class="form-control">
+										</div>
+										<div class="form-group col-sm-3">
+											<div>Mật khẩu:</div>
+											<input type="password" name="Password" th:value="${acc.Password}"
+												class="form-control" required>
+										</div>
+										<div class="form-group col-sm-3">
+											<div>Trạng thái</div>
+											<select class="form-control" name="active" data-live-search="true"
+												style="height: 36px;">
+
 												<option value="true">Đã kích hoạt</option>
 												<option value="false">Chưa kích hoạt</option>
 											</select>
+										</div>
+										<div class="form-group col-sm-6">
+											<div>Email</div>
+											<input type="email" name="Email" th:value="${acc.Email}"
+												class="form-control" required>
+										</div>
+										<div class="form-group col-sm-6">
+											<div>Số điện thoại</div>
+											<input type="text" name="Phone" th:value="${acc.Phone}" class="form-control"
+												required oninput="validatePhone(this)">
+											<div id="phoneError" style="color: red;"></div>
+										</div>
+										<script>
+											function validatePhone(input) {
+												var phone = input.value;
+												var phoneError = document.getElementById("phoneError");
+												var regex = /^0[1-9]\d{8}$/;
+
+												if (!regex.test(phone)) {
+													phoneError.textContent = "Vui lòng nhập đúng định dạng.";
+													input.setCustomValidity("Vui lòng nhập đúng số điện thoại");
+												} else {
+													phoneError.textContent = "";
+													input.setCustomValidity("");
+												}
+											}
+										</script>
+
+									</div>
+
+									<button formaction="/admin/account/create" class="btn btn-round btn-info"><span
+											class="glyphicon glyphicon-check"></span> Tạo mới</button>
+
+									<a tH:href=@{/admin/account/detail} class="btn btn-round btn-default"><span
+											class="glyphicon glyphicon-refresh"></span> Làm mới</a>
+								</div>
 							</div>
-							<div class="form-group col-sm-6">
-								<div>Email</div>
-								<input type="email" name="Email" th:value="${acc.Email}"
-									class="form-control" required>
-							</div>
-							<div class="form-group col-sm-6">
-								<div>Số điện thoại</div>
-								<input type="text" name="Phone" th:value="${acc.Phone}"
-									class="form-control" required>
-							</div>
-						
-						</div>
-						
-						<button formaction="/admin/account/create" class="btn btn-round btn-info" ><span class="glyphicon glyphicon-check"></span> Tạo mới</button>
-						
-						<a tH:href=@{/admin/account/detail}  class="btn btn-round btn-default"><span class="glyphicon glyphicon-refresh"></span> Làm mới</a>
-						</div>
-						</div>
-			</form>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	</div>
-	</div>
-	
-	
-</main>
+
+
+	</main>
 </body>
+
 </html>

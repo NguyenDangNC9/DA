@@ -1,77 +1,108 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{user/layout/index :: dynamic(~{::main})}">
-	
-<body>
-	<main>
-	
-<!-- 		<div class="col-sm-4 col-lg-3 "> -->
-<!-- 			<div th:replace="/layout/_category.html"></div> -->
-<!-- 		</div> -->
-		
-        <div class="wrapper-cart tin__tuc">
-          <!-- contact  -->
-          <div class="row">
-            <div class="col-md-4 col-xs-12 contact mtb_20">
-              <div class="location mb_50">
-                <h5 class="capitalize mb_20"><strong>Địa Điểm Của Chúng Tôi</strong></h5>
-                <div class="address">Địa chỉ văn phòng
-                  <br> Cao đẳng FPT Polytechnic 
-                  <br> Cần Thơ</div>
-                <div class="call mt_10"><i class="fa fa-phone" aria-hidden="true"></i>0123456789</div>
-              </div>
-              <div class="Career mb_50">
-                <h5 class="capitalize mb_20"><strong>Nghề Nghiệp</strong></h5>
-                <div class="address">Sinh viên trường FPT Polytechnic</div>
-                <div class="email mt_10"><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:dangnhpc03881@fpt.edu.vn" target="_top">BlackBearShop@gmail.com</a></div>
-              </div>
-              <div class="Hello mb_50">
-                <h5 class="capitalize mb_20"><strong>Nói Xin Chào</strong></h5>
-                <div class="address">Uy tín - Chất lượng - tiện ích</div>
-                <div class="email mt_10"><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:dangnhpc03881@fpt.edu.vn" target="_top">BlackBearShop@gmail.com</a></div>
-              </div>
-            </div>
-            <div class="col-md-8 col-xs-12 contact-form mtb_20 ">
-              <!-- Contact FORM -->
-             <!-- Contact FORM -->
-              <div 	 class="form-group">
-                <form id="contact_body" method="post" action="contact">
-                  <!--                                <label class="full-with-form" ><span>Name</span></label>
--->
-                  <input style="    border-radius: 15px;" class="form-control" required type="text" name="content" th:value="${#request.remoteUser}" placeholder="Tên " data-required="true" readonly />
-                  <!--                <label class="full-with-form" ><span>Email Address</span></label>
--->
-                 
-                  <input style="    border-radius: 15px;" class="form-control  mt_30" required type="text" name="phone1" placeholder="Số điện thoại" maxlength="15" data-required="true" />
-                  <!--                <label class="full-with-form" ><span>Subject</span></label>
--->
-                  <input style="    border-radius: 15px;" class="form-control  mt_30" required type="text" name="subject" placeholder="Tiêu đề" data-required="true">
-                  <!--                                <label class="full-with-form" ><span>Attachment</span></label>
--->
-                  <!--                                <label class="full-with-form" ><span>Message</span></label>
--->
-                  <textarea class="form-control  mt_30" name="message" placeholder="Nội dung" data-required="true"></textarea>
-                  <div class="text-center">
-                  <button class="btn mt_30 "type="submit">Gửi mail</button>
-                  </div>
-                </form>
-                <div id="contact_results"></div>
-              </div>
-              <!-- END Contact FORM -->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layout/index :: dynamic(~{::main})}">
 
+<body>
+  <main>
+
+    <!-- 		<div class="col-sm-4 col-lg-3 "> -->
+    <!-- 			<div th:replace="/layout/_category.html"></div> -->
+    <!-- 		</div> -->
+
+    <div class="wrapper-cart tin__tuc">
+      <!-- contact  -->
+      <div class="row">
+        <div class="col-md-4 col-xs-12 contact mtb_20">
+          <div class="location mb_50">
+            <h5 class="capitalize mb_20"><strong>Địa Điểm Của Chúng Tôi</strong></h5>
+            <div class="address">Địa chỉ văn phòng
+              <br> Cao đẳng FPT Polytechnic
+              <br> Cần Thơ
             </div>
+            <div class="call mt_10"><i class="fa fa-phone" aria-hidden="true"></i>0123456789</div>
           </div>
-          <!-- map  -->
-          <div class="row">
-            <div class="col-xs-12 map mb_30">
-             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27805.529656941275!2d105.75326506442539!3d9.967007011914193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a08906415c355f%3A0x416815a99ebd841e!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1690451947587!5m2!1svi!2s" width="100%" height="700px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-	
-            </div>
+          <div class="Career mb_50">
+            <h5 class="capitalize mb_20"><strong>Nghề Nghiệp</strong></h5>
+            <div class="address">Sinh viên trường FPT Polytechnic</div>
+            <div class="email mt_10"><i class="fa fa-envelope" aria-hidden="true"></i><a
+                href="mailto:dangnhpc03881@fpt.edu.vn" target="_top">BlackBearShop@gmail.com</a></div>
+          </div>
+          <div class="Hello mb_50">
+            <h5 class="capitalize mb_20"><strong>Nói Xin Chào</strong></h5>
+            <div class="address">Uy tín - Chất lượng - Tiện ích</div>
+            <div class="email mt_10"><i class="fa fa-envelope" aria-hidden="true"></i><a
+                href="mailto:dangnhpc03881@fpt.edu.vn" target="_top">BlackBearShop@gmail.com</a></div>
           </div>
         </div>
-      </main>
-      
-      
+        <div class="col-md-8 col-xs-12 contact-form mtb_20 ">
+          <!-- Contact FORM -->
+          <!-- Contact FORM -->
+          <div class="form-group">
+            <form id="contact_body" method="post" action="contact">
+              <input style="border-radius: 15px;" class="form-control" required type="text" name="content"
+                th:value="${#request.remoteUser}" placeholder="Tên" data-required="true" readonly />
+              <div>
+                <input style="border-radius: 15px;" class="form-control mt_30" required type="text" name="phone1"
+                  placeholder="Số điện thoại" maxlength="15" data-required="true" oninput="validatePhone(this)" />
+                <div id="phoneError" style="color: red;"></div>
+              </div>
+              <script>
+                function validatePhone(input) {
+                  var phone = input.value;
+                  var phoneError = document.getElementById("phoneError");
+                  var regex = /^0[1-9]\d{8}$/;
+
+                  if (!regex.test(phone)) {
+                    phoneError.textContent = "Vui lòng nhập đúng định dạng.";
+                    input.setCustomValidity("Vui lòng nhập đúng số điện thoại");
+                  } else {
+                    phoneError.textContent = "";
+                    input.setCustomValidity("");
+                  }
+                }
+              </script>
+              <input style="border-radius: 15px;" class="form-control mt_30" required type="text" name="subject"
+                placeholder="Tiêu đề" data-required="true">
+
+              <textarea class="form-control mt_30" name="message" placeholder="Nội dung" data-required="true"
+                required></textarea>
+
+              <div class="text-center">
+                <button class="btn mt_30" type="submit">Gửi mail</button>
+              </div>
+            </form>
+
+            <script>
+              const form = document.getElementById('contact_body');
+
+              form.addEventListener('submit', function (event) {
+                // Kiểm tra trường nội dung có bị bỏ trống không
+                const contentInput = form.querySelector('input[name="content"]');
+                if (contentInput.value.trim() === '') {
+                  event.preventDefault();
+                  alert('Vui lòng nhập nội dung.');
+                  return;
+                }
+              });
+            </script>
+            <div id="contact_results"></div>
+          </div>
+          <!-- END Contact FORM -->
+
+        </div>
+      </div>
+      <!-- map  -->
+      <div class="row">
+        <div class="col-xs-12 map mb_30">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27805.529656941275!2d105.75326506442539!3d9.967007011914193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a08906415c355f%3A0x416815a99ebd841e!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1690451947587!5m2!1svi!2s"
+            width="100%" height="700px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+
 </body>
 
 </html>
