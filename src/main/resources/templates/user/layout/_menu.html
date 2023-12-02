@@ -43,8 +43,9 @@
 												src="/assets/images/{{item.image1}}" width="70px"
 												height="84px" alt="iPod Classic" title="iPod Classic"></a></td>
 										<td class="text-left product-name"><a href="#">{{item.name}}
-										</a> <span class="text-left price"><strike>{{item.unit_price
-													| number :0}} Đ</strike>:
+										</a> <span class="text-left price">
+										<!-- <strike>{{item.unit_price
+													| number :0}} Đ</strike>: -->
 												{{item.quantity*item.unit_price-((item.quantity*item.unit_price)*item.distcount/100)
 												| number:0}} Đ</span> <input class="cart-qty" name="product_quantity"
 											ng-change="cart.saveToLocalStorage()"
