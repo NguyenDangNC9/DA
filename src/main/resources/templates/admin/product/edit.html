@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout/index :: dynamic(~{::main})}">
+
 <body>
 	<main>
 		<div class="row mt">
@@ -9,32 +9,30 @@
 					<h3>
 						&emsp;<i class="fa fa-angle-right"></i> Chi tiết sản phẩm
 						&nbsp;&nbsp;&nbsp;&nbsp; <a style="float: right; padding: 0 15px;"
-							tH:href=@{/admin/product/list}> <i class="fa fa-mail-reply"
-							style="font-size: 18px"></i> Quay lại danh sách
+							tH:href=@{/admin/product/list}> <i class="fa fa-mail-reply" style="font-size: 18px"></i>
+							Quay lại danh sách
 						</a>
 					</h3>
 
 
 					<div class="panel-body">
-						<form th:action="@{/admin/product/update}" method="post"
-							modelAttribute="pro" enctype="multipart/form-data">
+						<form th:action="@{/admin/product/update}" method="post" modelAttribute="pro"
+							enctype="multipart/form-data">
 
 							<div class="panel-heading text-center"
-								style="color: #54aee2; font-style: oblique; font-variant: inherit; font-weight: bolder;"></div>
+								style="color: #54aee2; font-style: oblique; font-variant: inherit; font-weight: bolder;">
+							</div>
 							<div class="row">
 								<div class="col-sm-4 text-center">
-									<label for="image"> <img
-										th:src="@{|/assets/images/${pro.Image1}|}"
-										style="max-width: 100%; height: 200px;" alt="Photo Product">
-									</label> 
-									<label for="image"> <img
-										th:src="@{|/assets/images/${pro.Image2}|}"
-										style="max-width: 100%; height: 100px;" alt="Photo Product">
-									</label> 
-									<label for="image"> <img
-										th:src="@{|/assets/images/${pro.Image3}|}"
-										style="max-width: 100%; height: 100px;" alt="Photo Product">
-									</label> 
+									<label for="image"> <img th:src="@{|/assets/images/${pro.Image1}|}"
+											style="max-width: 100%; height: 200px;" alt="Photo Product">
+									</label>
+									<label for="image"> <img th:src="@{|/assets/images/${pro.Image2}|}"
+											style="max-width: 100%; height: 100px;" alt="Photo Product">
+									</label>
+									<label for="image"> <img th:src="@{|/assets/images/${pro.Image3}|}"
+											style="max-width: 100%; height: 100px;" alt="Photo Product">
+									</label>
 									<!-- <label for="image"> <img
 										th:src="@{|/assets/images/${pro.Image4}|}"
 										style="max-width: 100%; height: 100px;" alt="Photo User">
@@ -56,25 +54,23 @@
 									<div class="row">
 										<div class="form-group col-sm-6">
 											<div>Mã sản phẩm :</div>
-											<input type="number" name="Product_id"
-												th:value="${pro.Product_id}" class="form-control" readonly>
+											<input type="number" name="Product_id" th:value="${pro.Product_id}"
+												class="form-control" readonly>
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Tên sản Phẩm</div>
-											<input type="text" name="Name" th:value="${pro.Name}"
-												class="form-control">
+											<input type="text" name="Name" th:value="${pro.Name}" class="form-control">
 										</div>
 									</div>
 									<div class="row">
 										<div class="form-group col-sm-6">
 											<div>Tải ảnh lên</div>
 											<input type="hidden" name="Image1" th:value="${pro.Image1}">
-											<input type="file" name="photo_img" class="form-control"
-												multiple> <input type="hidden" name="Image2"
-												th:value="${pro.Image2}"> <input type="hidden"
-												name="Image3" th:value="${pro.Image3}"> 
-												
-												<!-- <input
+											<input type="file" name="photo_img" class="form-control" multiple> <input
+												type="hidden" name="Image2" th:value="${pro.Image2}"> <input
+												type="hidden" name="Image3" th:value="${pro.Image3}">
+
+											<!-- <input
 												type="hidden" name="Image4" th:value="${pro.Image4}">
 
 											<input type="hidden" name="Image5" th:value="${pro.Image5}">
@@ -85,18 +81,18 @@
 
 										<div class="form-group col-sm-6">
 											<div>Số lượng</div>
-											<input type="number" name="Quantity"
-												th:value="${pro.Quantity}" class="form-control">
+											<input type="number" name="Quantity" th:value="${pro.Quantity}"
+												class="form-control" required>
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Giá</div>
-											<input type="number" name="Unit_price"
-												th:value="${pro.unit_price} *1" class="form-control">
+											<input type="number" name="Unit_price" th:value="${pro.unit_price} *1"
+												class="form-control" required>
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Ngày nhập</div>
-											<input type="date" name="Product_date"
-												th:value="${pro.Product_date}" class="form-control">
+											<input type="date" name="Product_date" th:value="${pro.Product_date}"
+												class="form-control" required>
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Loại sản phẩm</div>
@@ -105,7 +101,8 @@
 											<select name="category.Category_id" data-live-search="true"
 												class="form-group col-sm-12 selectpicker show-tick"
 												style="height: 36px;">
-												<option hidden="true" th:value="${pro.category.Category_id}">[[${pro.category.Name}]]</option>
+												<option hidden="true" th:value="${pro.category.Category_id}">
+													[[${pro.category.Name}]]</option>
 												<div class="form-group selectpicker show-tick"
 													th:each="c,state:${cates}">
 													<option th:value="${c.Category_id}">[[${c.name}]]</option>
@@ -119,8 +116,8 @@
 											<select name="trademark.Trademark_id" data-live-search="true"
 												class="form-group col-sm-12 selectpicker show-tick"
 												style="height: 36px;">
-												<option hidden="true"
-													th:value="${pro.trademark.Trademark_id}">[[${pro.trademark.Name}]]</option>
+												<option hidden="true" th:value="${pro.trademark.Trademark_id}">
+													[[${pro.trademark.Name}]]</option>
 												<div class="form-group selectpicker show-tick"
 													th:each="t,state:${trads}">
 													<option th:value="${t.Trademark_id}">[[${t.Name}]]</option>
@@ -129,8 +126,8 @@
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Miêu tả</div>
-											<input type="text" name="Description"
-												th:value="${pro.Description}" class="form-control">
+											<input type="text" name="Description" th:value="${pro.Description}"
+												class="form-control" required>
 										</div>
 										<!-- <div class="form-group col-sm-6">
 											<div>Chip</div>
@@ -139,33 +136,33 @@
 										</div> -->
 										<div class="form-group col-sm-6">
 											<div>Color</div>
-											<input type="text" name="Color" th:value="${pro.Color}"
-												class="form-control">
+											<input type="text" name="Color" th:value="${pro.Color}" class="form-control"
+												required>
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Chất liệu</div>
 											<input type="text" name="Material" th:value="${pro.Material}"
-												class="form-control">
+												class="form-control" required>
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Kích thước</div>
-											<input type="text" name="Size"
-												th:value="${pro.Size}" class="form-control">
+											<input type="text" name="Size" th:value="${pro.Size}" class="form-control"
+												required>
 										</div>
-									<!-- 	<div class="form-group col-sm-6">
+										<!-- 	<div class="form-group col-sm-6">
 											<div>Pin</div>
 											<input type="text" name="Pin" th:value="${pro.Pin}"
 												class="form-control">
 										</div> -->
 										<div class="form-group col-sm-6">
 											<div>Khuyến mãi</div>
-											<input type="number" name="Distcount"
-												th:value="${pro.Distcount}" class="form-control">
+											<input type="number" name="Distcount" th:value="${pro.Distcount}"
+												class="form-control">
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Trạng thái</div>
-											<select class="form-control" name="Status"
-												data-live-search="true" style="height: 36px;">
+											<select class="form-control" name="Status" data-live-search="true"
+												style="height: 36px;">
 
 												<option hidden="true" th:value="${pro.Status}"
 													th:if="${pro.Status}==true">Hiển thị</option>
@@ -179,8 +176,8 @@
 
 										<div class="form-group col-sm-6">
 											<div>Đặc biệt</div>
-											<select class="form-control" name="Special"
-												data-live-search="true" style="height: 36px;">
+											<select class="form-control" name="Special" data-live-search="true"
+												style="height: 36px;">
 
 												<option hidden="true" th:value="${pro.Special}"
 													th:if="${pro.Special}==true">Có</option>
@@ -193,8 +190,8 @@
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Loại hàng</div>
-											<select class="form-control" name="Lastest"
-												data-live-search="true" style="height: 36px;">
+											<select class="form-control" name="Lastest" data-live-search="true"
+												style="height: 36px;">
 
 												<option hidden="true" th:value="${pro.Lastest}"
 													th:if="${pro.Lastest}==true">Hàng mới</option>
@@ -208,7 +205,7 @@
 										<div class="form-group col-sm-12">
 											<div>Chi tiết</div>
 											<textarea name="Detail" th:value="${pro.Detail}"
-												class="form-control ckeditor">[[${pro.Detail}]]</textarea>
+												class="form-control ckeditor" required>[[${pro.Detail}]]</textarea>
 										</div>
 									</div>
 
@@ -217,10 +214,9 @@
 									</button>
 									<a th:href="@{|/admin/product/delete/form/${pro.Product_id}|}"
 										class='btn btn-round btn-danger'><span
-										class="glyphicon glyphicon-remove"></span> Xóa</a> <a
-										tH:href=@{/admin/product/detail}
-										class="btn btn-round btn-default"><span
-										class="glyphicon glyphicon-refresh"></span> Làm mới</a> <i
+											class="glyphicon glyphicon-remove"></span> Xóa</a> <a
+										tH:href=@{/admin/product/detail} class="btn btn-round btn-default"><span
+											class="glyphicon glyphicon-refresh"></span> Làm mới</a> <i
 										th:utext="${message}"></i>
 								</div>
 							</div>
@@ -235,4 +231,5 @@
 
 	</main>
 </body>
+
 </html>

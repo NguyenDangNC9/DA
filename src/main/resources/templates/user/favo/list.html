@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{user/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layout/index :: dynamic(~{::main})}">
 
 <body>
-	<main >
+	<main>
 		<div class="wrapper-cart">
 			<div class="table-responsive">
 				<table class="table table-bordered">
@@ -18,25 +17,28 @@
 						</tr>
 					</thead>
 					<tbody border="1">
-						<tr th:each="favo,state:${listfavo}" > 
+						<tr th:each="favo,state:${listfavo}">
 							<td class="text-center">[[${state.index}]]</td>
 							<td class="text-center">[[${favo.product.Name}]]</td>
 							<td class="text-center"><img th:src="@{|/assets/images/${favo.product.Image1}|}"
-								style="height: 100px;"></td>
+									style="height: 100px;"></td>
 							<td class="text-center">[[${favo.product.Distcount}]] %</td>
-							<td class="text-center">[[${#numbers.formatDecimal(favo.product.Unit_price, 3 , 'COMMA',0,'POINT')}]] Đ</td>
-	
+							<td class="text-center">
+								[[${#numbers.formatDecimal(favo.product.Unit_price-((favo.product.Unit_price)*favo.product.distcount/100),
+								3 ,
+								'COMMA',0,'POINT')} ]] Đ</td>
+
 							<td>
-							<div>
-								<a th:href="@{|/product/detail/${favo.product.Product_id}|}" style="margin-bottom: 10px;"
-									class="btn btn-info "> <b class="fa fa-eye"></b>
-								</a>
-							</div>
-							<div>
-								<a th:href="@{|/favolist/remove/${favo.product.product_id}|}"
-									class="btn btn-info "> <b class="fa fa-trash"></b>
-								</a>
-							</div>
+								<div>
+									<a th:href="@{|/product/detail/${favo.product.Product_id}|}"
+										style="margin-bottom: 10px;" class="btn btn-info "> <b class="fa fa-eye"></b>
+									</a>
+								</div>
+								<div>
+									<a th:href="@{|/favolist/remove/${favo.product.product_id}|}" class="btn btn-info ">
+										<b class="fa fa-trash"></b>
+									</a>
+								</div>
 						</tr>
 					</tbody>
 				</table>
