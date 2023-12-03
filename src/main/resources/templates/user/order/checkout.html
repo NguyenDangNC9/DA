@@ -26,13 +26,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="province">Tỉnh/Thành
-                                phố</label> <select class="form-select form-control" id="province"></select>
+                                phố</label> <select class="form-select form-control" id="province" required></select>
                         </div>
                     </div>
 
                     <div class="form-group col-sm-6">
                         <div class="thongtin">Số điện thoại</div>
-                        <input ng-model="order1.phone" class="form-control" style="width: 200px">
+                        <input ng-model="order1.phone" class="form-control" style="width: 200px" required>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -106,9 +106,10 @@
                 <div class="panel-footer d-flex justify-content-right">
                     <div class="col-12 d-flex shopping-box text-center">
 
-                        
-                        <a type="button" class="ml-auto btn hvr-hover" data-toggle="modal" data-target="#myModal">Thanh
-                            toán sau khi nhận hàng</a> <!-- Modal -->
+
+                        <a type="button"  class="ml-auto btn hvr-hover" data-toggle="modal"
+                            data-target="#myModal">
+                            Mua hàng</a> <!-- Modal -->
                         <div class="modal fade" id="myModal" role="dialog">
                             <div class="modal-dialog">
 
@@ -130,7 +131,7 @@
                     <br>
                 </div>
 
-            </div>
+
 
     </main>
 </body>
@@ -142,11 +143,3 @@
         color: red;
     }
 </style>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-    integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script></script>

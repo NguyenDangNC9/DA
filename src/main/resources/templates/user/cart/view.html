@@ -52,37 +52,26 @@
 
 
 			<div class="wrapper-cart">
-				<h3 class="mtb_10 text-right" style="padding: 0 65px;">Tổng giá trị đơn hàng</h3>
+				<h3 class="mtb_10 text-right" style="padding: 0 65px;">Chi tiết khuyến mãi</h3>
 				<div class="col-sm-offset-8" style="padding: 0 65px;">
 					<table class="table table-bordered">
 						<tbody>
 							<tr>
-								<td class="text-right"><strong>Tổng :</strong></td>
+								<td class="text-right"><strong>Tổng tiền hàng :</strong></td>
 								<td class="text-right"> {{cart.amount1 | number:0}} Đ</td>
 								
 							</tr>
 							<tr>
-								<td class="text-right"><strong>Khuyến mãi</strong></td>
-								<td class="text-right"> {{cart.amount2 | number:0}} Đ</td>
+								<td class="text-right"><strong>Giảm giá sản phẩm</strong></td>
+								<td class="text-right">- {{cart.amount2 | number:0}} Đ</td>
 							</tr>
 							<tr>
-								<td class="text-right"><strong>Còn:</strong></td>
+								<td class="text-right"><strong>Tổng số tiền:</strong></td>
 								<td class="text-right"> {{cart.amount | number:0}} Đ</td>
 							</tr>
 
 
-							<!-- <tr>
-								<td class="text-right"><strong>Tổng :</strong></td>
-								<td class="text-right"> {{ cart.totalOriginalPrice | number:0 }} Đ</td>
-							</tr>
-							<tr>
-								<td class="text-right"><strong>Khuyến mãi</strong></td>
-								<td class="text-right"> {{ cart.totalDiscountPercentage | number:0 }}%</td>
-							</tr>
-							<tr>
-								<td class="text-right"><strong>Còn:</strong></td>
-								<td class="text-right"> {{ cart.totalPriceWithDiscount | number:0 }} Đ</td>
-							</tr> -->
+					
 						</tbody>
 					</table>
 				</div>
@@ -102,7 +91,7 @@
 			</a>
 			<a href='/thanhtoanonline'>
 				<input class="btn pull-right mt_30" style="margin-right: 10px;" type="submit"
-					value="Thanh toán bằng paypal" />
+					value="Thanh toán online" />
 			</a>
 		</div>
 		<br>

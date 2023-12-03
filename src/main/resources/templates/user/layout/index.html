@@ -2,32 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(main)">
 
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BlackBear</title>
-<link rel="stylesheet" type="text/css"
-	href="/assets/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/magnific-popup.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/owl.carousel.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BlackBear</title>
+	<link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/magnific-popup.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/owl.carousel.css">
 
-<link rel="shortcut icon" href="/assets/images/faviconGS.png">
-<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="/assets/images/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="/assets/images/apple-touch-icon-114x114.png">
-	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="shortcut icon" href="/assets/images/faviconGS.png">
+	<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/images/apple-touch-icon-114x114.png">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<script src="/assets/ckeditor/ckeditor.js" type="text/javascript"></script>
-	
-	
+
+
 </head>
 
 <body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
@@ -40,16 +36,16 @@
 				<div th:replace="user/layout/_menu.html"></div>
 			</div>
 			<div class="row ">
-                <div class="col-sm-12 mtb_10" th:replace="user/home/chatbot.html">
-            </div>
-        </div>
+				<div class="col-sm-12 mtb_10" th:replace="user/home/chatbot.html">
+				</div>
+			</div>
 
 		</header>
 		<div class="container">
 			<div class="row ">
 				<div th:replace="${main}"></div>
-				
-				
+
+
 			</div>
 
 		</div>
@@ -57,19 +53,16 @@
 		<script async defer crossorigin="anonymous"
 			src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1759690680890768&autoLogAppEvents=1"
 			nonce="xfm4qFPd"></script>
-   
+
 		<div class="footer pt_60">
-		
+
 			<div th:replace="user/layout/_footer.html"></div>
 		</div>
 	</div>
-	<!-- <script>
 
-              
-            </script> -->
-			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
-	<script src="/assets/js/api.js"></script>		
+	<script src="/assets/js/api.js"></script>
 	<script src="/assets/js/jQuery_v3.1.1.min.js"></script>
 	<script src="/assets/js/owl.carousel.min.js"></script>
 	<script src="/assets/js/bootstrap.min.js"></script>
@@ -77,13 +70,15 @@
 	<script src="/assets/js/jquery.firstVisitPopup.js"></script>
 	<script src="/assets/js/custom.js"></script>
 	<script src="/assets/js/jquery-ui.js"></script>
-	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAT3mI0RI16q19Oxv93gSxN0cF0wfxWN6w">
-  </script>
-  <script src="js/map.js"></script>
-    <script src="js/mail.js"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAT3mI0RI16q19Oxv93gSxN0cF0wfxWN6w">
+	</script>
+	<script src="js/map.js"></script>
+	<script src="js/mail.js"></script>
 	<!-- Shopping Cart JS -->
 	<script src="/assets/js/shopping-cart-app.js"></script>
 	<script src="/assets/js/price.js"></script>
+	<!-- bắt lỗi -->
+	<script src="/assets/js/batloi.js"></script>
 </body>
 
 </html>
