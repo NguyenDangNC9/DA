@@ -57,20 +57,21 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                     if (item) {
                         item.quantity++;
                         this.saveToLocalStorage();
-                        alert("Đã thêm sản phẩm vào giỏ hàng!");
+                        themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
 
-                    } else {
+                    }
+                    else {
                         // $http.get(`/rest/products/${product_id}`).then(resp => {
-                            $http.get('/rest/products/' + encodeURIComponent(product_id)).then(resp => {
+                        $http.get('/rest/products/' + encodeURIComponent(product_id)).then(resp => {
                             resp.data.quantity = 1;
                             this.items.push(resp.data);
                             this.saveToLocalStorage();
-                            alert("Đã thêm sản phẩm vào giỏ hàng!");
+                            themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
                         });
                     }
                 });
             } else {
-                alert("Vui lòng đăng nhập");
+                themSanPham("warning", "Vui lòng đăng nhập  !");
             }
 
         },
@@ -103,7 +104,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         }
         ,
         remove(product_id) {
-            alert("Xóa sản phẩm thành công")
+            // alert("Xóa sản phẩm thành công")
             var index = this.items.findIndex(item => item.product_id == product_id);
             this.items.splice(index, 1);
             this.saveToLocalStorage();
@@ -162,9 +163,9 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 
                 // Thêm trường checked cho mỗi sản phẩm
-                this.items.forEach(item => {
-                    item.checked = false; // Mặc định không chọn
-                });
+                // this.items.forEach(item => {
+                //     item.checked = false; // Mặc định không chọn
+                // });
             })
         }
 
@@ -301,12 +302,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 
 
-
-
-
-
-
-
     // thanh toan thuong
     $scope.order1 = {
         createDate: new Date(),
@@ -336,7 +331,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 var numericValue = parseFloat(totalValue.replace("Đ", "").replace(/\./g, "").replace(",", "."));
                 // Gán giá trị lấy được vào thuộc tính price của order1
                 this.price = numericValue;
-
             } else {
                 console.log("Không tìm thấy phần tử có id là 'total'");
             }
@@ -344,11 +338,9 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             var addressValue = document.getElementById("result").value;
 
             this.address = addressValue;
-
-
             var order = angular.copy(this);
             $http.post("/rest/orders", order).then(resp => {
-                alert("Đặt hàng thành công");
+                datHang("success", "Đặt hàng thành công!");
                 $scope.cart.clear();
                 if ($("#username").text()) {
                     $http.post(`/rest/carts/` + $("#username").text(), JSON.stringify(angular.copy(this.items))).then(resp => {
@@ -356,7 +348,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 }
                 location.href = "/order/detail/" + resp.data.order_id;
             }).catch(error => {
-                alert("Đặt hàng thất bại");
+                datHang("error", "Dặt hàng thất bại!");
                 console.log(error)
             })
         },
@@ -364,7 +356,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             var order = angular.copy(this);
             $http.post("/rest/orders", order).then(resp => {
             }).catch(error => {
-                alert("Đặt hàng thất bại");
+                datHang("error", "Dặt hàng thất bại!");
                 console.log(error)
             })
         },
@@ -421,11 +413,13 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             resp.data,
                 favorite_date = new Date(resp.data.favorite_date);
             $scope.facolist.push(resp.data);
-            alert("Đã thêm sản phẩm vào danh sách yêu thích");
+            // alert("Đã thêm sản phẩm vào danh sách yêu thích");
+            themYeuThich("success", "Đã thêm sản phẩm vào danh sách yêu thích");
 
             $scope.isShow = isShow;
         }).catch(error => {
-            alert("Bạn cần đăng nhập để sử dụng chức năng này");
+            // alert("Bạn cần đăng nhập để sử dụng chức năng này");
+            themYeuThich("warning", "Bạn cần đăng nhập để sử dụng chức năng này");
             console.log("Error", error);
         })
     }
@@ -435,11 +429,11 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     $scope.deleteFavoriteUser = function (idindex, isShow) {
         $scope.formfavo.product.product_id = idindex;
         $http.delete(`/rest/favorites/${$scope.formfavo.product.product_id}` + `/${$scope.formfavo.account.username}`).then(resp => {
-            alert("Đã xoá sản phẩm ra khỏi danh sách yêu thích");
 
+            themYeuThich("success", "Đã xoá sản phẩm ra khỏi danh sách yêu thích");
             $scope.isShow = isShow;
         }).catch(error => {
-            alert("Xoá sản phẩm ra khỏi danh sách yêu thích thất bại");
+            themYeuThich("success", "Xoá sản phẩm ra khỏi danh sách yêu thích thất bại");
             console.log("Error", error);
         })
     }
@@ -471,7 +465,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             $scope.commentform.comment_Content = "";
             $scope.cart.getinfComment(id);
         }).catch(error => {
-            alert("Bạn cần đăng nhập để sử dụng chức năng này");
+            themYeuThich("warning", "Bạn cần đăng nhập để sử dụng chức năng này");
             console.log("Error", error);
         })
     };
@@ -507,13 +501,9 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     }
 
 }
-)
-    ;
+);
 
-function dongThongBao() {
-    var customAlert = document.querySelector('.custom-alert');
-    customAlert.style.display = 'none';
-}
+
 
 $(document).ready(function () {
     var appElement = document.querySelector('[ng-app="shopping-cart-app"]');
