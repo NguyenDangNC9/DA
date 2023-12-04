@@ -62,7 +62,7 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-sm-6">
-								<div>Upload Ảnh <i  readonly>Chọn nhiều ảnh tải lên theo thứ tự chọn ảnh</i></div>
+								<div>Hình ảnh <i readonly>(tối đa 3 tệp)</i></div>
 								
 							<input type="hidden" name="Image1" th:value="${pro.Image1}">
 							<input type="file" name="photo_img" class="form-control" multiple>
@@ -76,18 +76,19 @@
 							</div>
 							<div class="form-group col-sm-6">
 								<div>Số lượng: </div>
-								<input type="number" name="Quantity" th:value="${pro.Quantity}"
+								<input type="number" name="Quantity"
 									class="form-control" required>
 							</div>
 							<div class="form-group col-sm-6">
-								<div>Giá cả:</div>
-								<input type="number" name="Unit_price" th:value="${pro.Unit_price}"
-									class="form-control" required>
+								<div>Giá sản phẩm:</div>
+								<input type="number" name="Unit_price" 
+									class="form-control" required placeholder="0">
+									
 							</div>
 							<div class="form-group col-sm-6">
 								<div>Ngày tạo sản phẩm: 	</div>
 							
-								<input type="date" name="Product_date" th:value="${pro.Product_date}"
+								<input type="date" name="Product_date"
 									class="form-control" required>
 							</div>
 							<div class="form-group col-sm-6">
@@ -143,8 +144,8 @@
 									class="form-control" required>
 							</div> -->
 							<div class="form-group col-sm-6">
-								<div>Khuyến mãi</div>
-								<input type="number" name="Distcount" th:value="${pro.Distcount}"
+								<div>Khuyến mãi (%)</div>
+								<input type="number" name="Distcount"
 									class="form-control" required>
 							</div>
 								<div class="form-group col-sm-6">
@@ -187,7 +188,7 @@
 							<div class="form-group col-sm-12">
 								<div>Chi tiết</div>
 								<textarea type="text" cols="7" rows="5" name="Detail" th:value="${pro.Detail}"
-									class="form-control">[[${pro.Detail}]]</textarea>
+									class="form-control ckeditor">[[${pro.Detail}]]</textarea>
 							</div>
 						</div>
 						<i class="pull-left text-success" th:utext="${message}"></i> <br>

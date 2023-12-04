@@ -158,15 +158,15 @@
 
 						<thead>
 							<tr style="font-size: 15px;">
-								<th>Mã SP</th>
-								<th>Tên sản phẩm</th>
+								<th>Mã</th>
+								<th>Tên SP</th>
 								<th>Giá</th>
-								<th>Số lượng</th>
-								<th>Ngày nhập kho</th>
+								<th>SL</th>
+								<th>Ngày nhập</th>
 								<th>Hình ảnh</th>
-								<th>Loại sản phẩm</th>
+								<th>Loại</th>
 								<th>Thương hiệu</th>
-								<th>Khuyễn mãi</th>
+								<th>Khuyến mãi</th>
 								<!-- <th>Chip</th> -->
 								<th>Màu</th>
 								<th>Chất liệu</th>
@@ -178,7 +178,7 @@
 							<tr class="box pull-up-1" th:each="p,state:${items.pageList}">
 								<td>&ensp;&ensp;[[${p.Product_id}]]</td>
 								<td>[[${p.Name}]]</td>
-								<td>[[${#numbers.formatDecimal(p.unit_price, 3 , 'COMMA',0,'POINT')}]] Đ</td>
+								<td>[[${#numbers.formatDecimal(p.unit_price, 3 , 'COMMA',0,'POINT')}]]</td>
 								<td>[[${p.quantity}]]<span th:if="${p.quantity} < 11   ">
 										<span class="label label-warning" th:if="${p.quantity} >0   ">Sắp
 											hết hàng</span>
