@@ -71,7 +71,7 @@ public class ForgotControler {
 	public String signup2(Model model, @RequestParam("name") String name, @RequestParam("email") String email) {
 		String username = name.trim();
 		Account acc = accservice.findById(username);
-			if(dao.existsById(acc.getUsername())) {
+			if(dao.existsById(acc.getUsername()) && email.equals(acc.getEmail())) {
 			
 			String urlActive = request.getRequestURL().toString().replace("forgotPW","account/reset-password?name="+ acc.getUsername());
 			SimpleMailMessage message = new SimpleMailMessage();
