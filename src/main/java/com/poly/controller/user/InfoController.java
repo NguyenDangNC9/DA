@@ -37,12 +37,12 @@ public class InfoController {
 			String filename = file.getOriginalFilename();
 			if (filename == "") {
 				accservice.update(acc);
-				model.addAttribute("message", "Update thành công");
+				model.addAttribute("message", "Cập nhật tài khoản thành công");
 				return "user/acc/info";
 			} else {
 				acc.setPhoto(filename);
 				accservice.update(acc);
-				model.addAttribute("message", "Update thành công");
+				model.addAttribute("message", "Cập nhật tài khoản thành công");
 				return "user/acc/info";
 			}
 		}

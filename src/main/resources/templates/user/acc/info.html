@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{user/acc/index ::dynamic(~{::main})}">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
 <main>
 	<div class="panel panel-info " >
 		
@@ -37,20 +39,20 @@
 							<div class="form-group col-sm-6">
 								<label>Họ và tên</label>
 								<input type="text" name="Fullname" th:value="${acc.Fullname}"
-									class="form-control">
+									class="form-control" required>
 							</div>
 							<div class="form-group col-sm-6">
 								<label>Email</label>
 								<input type="email" name="Email" th:value="${acc.Email}"
-									class="form-control">
+									class="form-control" required>
 							</div>
 							<div class="form-group col-sm-6">
 								<label>Điện thoại</label>
-								<input type="text" name="Phone" th:value="${acc.Phone}"
-									class="form-control">
+								<input type="number" name="Phone" th:value="${acc.Phone}"
+									class="form-control" required>
 							</div>
 						</div>
-						<i class="pull-left text-danger" th:text="${message}"></i> <br>
+						<i class="pull-left text-danger" th:text="${message}" style="font-weight: bold;"></i> <br>
 						<button type="submit" class="btn btn-success">Cập nhật</button>
 						</div>
 						</div>
