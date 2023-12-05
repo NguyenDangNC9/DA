@@ -44,10 +44,11 @@ app.controller("authority", function($scope, $http , $location) {
    $scope.grant_authority = function(authority){
        $http.post(`/rest/authorities`, authority).then(resp =>{
            $scope.authorities.push(resp.data);
-           alert("Cấp quyền sử dụng thành công");
+           capQuyen("success", "Cấp quyền sử dụng thành công");
        }).catch(error =>{
-           alert("Cấp quyền thất bại");
-            console.log("Error" , error);
+         
+           capQuyen("error", "Cấp quyền thất bại");
+           
        })
    }
 
@@ -56,9 +57,9 @@ app.controller("authority", function($scope, $http , $location) {
        $http.delete(`/rest/authorities/${authority.authorize_id}`).then(resp =>{
            var index = $scope.authorities.findIndex(a => a.Authorize_id == authority.authorize_id);
            $scope.authorities.splice(index ,1);
-           alert("Thu hồi quyền sử dụng thành công");
+           capQuyen("success", "Thu hồi quyền sử dụng thành công");
        }).catch(error =>{
-        alert("Thu hồi quyền sử dụng thất bại");
+        capQuyen("error", "Thu hồi quyền sử dụng thất bại");
         console.log("Eror",error );
        })
    }
@@ -94,6 +95,7 @@ app.controller("authority", function($scope, $http , $location) {
         }
     }
 });
+
 app.controller("trademark-ctrl", function($scope, $http) {
     $scope.items = [];
 
@@ -121,9 +123,11 @@ app.controller("trademark-ctrl", function($scope, $http) {
             resp.data, createDate = new Date(resp.data.createDate);
             $scope.items.push(resp.data);
             $scope.reset();
-            alert("Thêm mới thành công");
+            // alert("Thêm mới thành công");
+            themThuongHieu("success", "Thêm mới thành công")
+
         }).catch(error => {
-            alert("Thêm mới thất bại");
+            // alert("Thêm mới thất bại");
             console.log("Error", error);
         })
     }
@@ -132,9 +136,9 @@ app.controller("trademark-ctrl", function($scope, $http) {
         $http.put(`/rest/trademarks/${item.trademark_id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
-            alert("Cập nhập thành công");
+            // alert("Cập nhập thành công");
         }).catch(error => {
-            alert("Cập nhập thất bại");
+            // alert("Cập nhập thất bại");
             console.log("Error", error);
         })
     }
@@ -206,7 +210,9 @@ app.controller("category-ctrl", function($scope, $http) {
             resp.data, createDate = new Date(resp.data.createDate);
             $scope.items.push(resp.data);
             $scope.reset();
-            alert("Thêm mới thành công");
+            // alert("Thêm mới thành công");
+            themThuongHieu("success", "Thêm mới thành công")
+
         }).catch(error => {
             alert("Lỗi thêm mới loại sản phẩm");
             console.log("Error", error);

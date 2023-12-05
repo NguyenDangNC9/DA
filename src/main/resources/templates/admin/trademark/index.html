@@ -26,7 +26,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/highcharts.css">
 
-
+	<!-- Bao gồm thư viện SweetAlert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -257,6 +258,7 @@
 		</section>
 		<div th:replace="/admin/layout/_footer.html"></div>
 	</section>
+
 	<script src="/assets/admin/lib/jquery/jquery.min.js"></script>
 	<script src="/assets/admin/js/admin.js"></script>
 	<script src="/assets/admin/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -275,10 +277,33 @@
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	
+	<script>
+		// admin
+		function capQuyen(iconType, message) {
+		Swal.fire({
+		icon: iconType,
+		title: message,
+		showConfirmButton: false,
+		timer: 1500
+		});
 
+
+	}
+	function themThuongHieu(iconType, message) {
+		Swal.fire({
+		icon: iconType,
+		title: message,
+		showConfirmButton: false,
+		timer: 1500
+		});
+
+
+	}	
+
+</script>
 
 	<script type="application/javascript">
-
 		$(document).ready(function () {
 			$("#date-popover").popover({
 				html: true,

@@ -23,6 +23,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<script src="/assets/ckeditor/ckeditor.js" type="text/javascript"></script>
 
+	<!-- Bao gồm thư viện SweetAlert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -61,7 +63,35 @@
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script>
+		function themSanPham(iconType, message) {
+			Swal.fire({
+			icon: iconType,
+			title: message,
+			showConfirmButton: false,
+			timer: 1500
+			});
+		}
+	
+		function datHang(iconType, message) {
+			Swal.fire({
+			icon: iconType,
+			title: message,
+			showConfirmButton: false,
+			timer: 1500
+			});
+		}
 
+		function themYeuThich(iconType, message) {
+			Swal.fire({
+			icon: iconType,
+			title: message,
+			showConfirmButton: false,
+			timer: 1500
+			});
+		}
+		
+	</script>
 	<script src="/assets/js/api.js"></script>
 	<script src="/assets/js/jQuery_v3.1.1.min.js"></script>
 	<script src="/assets/js/owl.carousel.min.js"></script>
@@ -79,6 +109,6 @@
 	<script src="/assets/js/price.js"></script>
 	<!-- bắt lỗi -->
 	<script src="/assets/js/batloi.js"></script>
-</body>
 
+</body>
 </html>
