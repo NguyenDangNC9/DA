@@ -328,6 +328,22 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             if (totalElement) {
                 var totalValue = totalElement.innerText;
 
+                var username = document.getElementById("username").innerText.trim();
+                var phone = document.querySelector('input[ng-model="order1.phone"]').value.trim();
+                var province = document.getElementById("province").value.trim();
+                var district = document.getElementById("district").value.trim();
+                var service = document.getElementById("service").value.trim();
+                var ward = document.getElementById("ward").value.trim();
+                var address = document.getElementById("result").value.trim();
+
+
+                // Kiểm tra xem các trường thông tin có bị trống không
+                if (username === '' || phone === '' || province === '' || district === '' || service === '' || ward === '' || address === '') {   
+                    themSanPham("error", "Vui lòng điền đầy đủ thông tin");
+                    throw new Error("Vui lòng điền đầy đủ thông tin đặt hàng.");
+                  
+                }
+
                 var numericValue = parseFloat(totalValue.replace("Đ", "").replace(/\./g, "").replace(",", "."));
                 // Gán giá trị lấy được vào thuộc tính price của order1
                 this.price = numericValue;
@@ -365,6 +381,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         }
     }
 
+
+    
     //
     $scope.pager = {
         page: 0,

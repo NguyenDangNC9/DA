@@ -222,6 +222,9 @@
                 ", " + $("#district option:selected").text() + " ," +
                 $("#province option:selected").text();
             $("#result").val(result);
+
+            
+            //Lưu kết quả vào localStorage
             if (localStorage.getItem("address") != null) {
                 localStorage.removeItem("address");
             }

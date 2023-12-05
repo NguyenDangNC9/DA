@@ -86,10 +86,10 @@
 			<a ng-click="cart.clear()" style="margin-left: 10px;">
 				<input class="btn pull-left mt_30" type="submit" value="Xóa giỏ hàng" />
 			</a>
-			<a th:href="@{/order/checkout}" >
+			<a th:href="@{/order/checkout}" ng-show="cart.items.length > 0">
 				<input class="btn pull-right mt_30" type="submit" value="Thanh toán khi nhận hàng" />
 			</a>
-			<a href='/thanhtoanonline'>
+			<a href='/thanhtoanonline' ng-show="cart.items.length > 0">
 				<input class="btn pull-right mt_30" style="margin-right: 10px;" type="submit"
 					value="Thanh toán online" />
 			</a>

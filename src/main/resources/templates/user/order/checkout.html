@@ -33,7 +33,7 @@
 
                     <div class="form-group col-sm-6">
                         <div class="thongtin">Số điện thoại</div>
-                        <input ng-model="order1.phone" class="form-control" style="width: 200px" required>
+                        <input ng-model="order1.phone" class="form-control" style="width: 500px" required>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -105,31 +105,10 @@
 
 
                 <div class="panel-footer d-flex justify-content-right">
-                    <div class="col-12 d-flex shopping-box text-center">
+            
+                    <a type="button"  class="ml-auto btn hvr-hover" ng-click="order1.purchase()">
+                    Mua hàng</a> 
 
-
-                        <a type="button"  class="ml-auto btn hvr-hover" data-toggle="modal"
-                            data-target="#myModal">
-                            Mua hàng</a> <!-- Modal -->
-                        <div class="modal fade" id="myModal" role="dialog">
-                            <div class="modal-dialog">
-
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-body text-center">
-                                        <p style="color: red; font-size: 24px">Bạn có chắc muốn đặt hàng</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a ng-click="order1.purchase()" class="btn btn-warning">Đặt hàng</a>
-
-                                        <a type="button" class="btn btn-default" data-dismiss="modal">Đóng</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
                 </div>
 
 
@@ -143,4 +122,5 @@
         font-size: larger;
         color: red;
     }
+
 </style>
