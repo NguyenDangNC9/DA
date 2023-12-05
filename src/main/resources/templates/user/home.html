@@ -34,7 +34,7 @@
     
                         <div class="form-group col-sm-6">
                             <div class="thongtin">Số điện thoại</div>
-                            <input ng-model="order1.phone" class="form-control" style="width: 200px">
+                            <input ng-model="order1.phone" class="form-control" style="width: 500px">
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -102,12 +102,16 @@
                                 </tbody>
                             </table>
                         </div>
+                        
                     </div>
 
-                    <div class=" text-center">
-                        <input type="submit" ng-click="order.purchase1()" value="Xác nhận và thanh toán" class="btn ">
-                    </div>
+                    <a type="button"  class="ml-auto btn hvr-hover" ng-click="order.purchase1()">
+                        Mua hàng</a> 
+
+
                 </div>
+
+
             </form>
 
         </div>
@@ -120,10 +124,28 @@
         font-size: larger;
         color: red;
     }
+    .wrapper-cart {
+    padding: 0 30px;
+}
+
+.panel-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-dark {
+    color: #333;
+    font-weight: bold;
+}
+.btn.hvr-hover {
+    width: 200px; /* Thay đổi giá trị width tùy ý */
+}
+.ml-auto {
+    margin-left: 740px; /* Thay đổi giá trị margin-left tùy ý */
+}
+.btn {
+  width: 120px;
+}
+
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-    integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
