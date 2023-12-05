@@ -31,7 +31,7 @@
 
 </head>
 
-<body ng-app="admin-ctrl">
+<body ng-app="admin-ctrl" ng-controller="trademark-ctrl">
 	<section id="container">
 		<div th:replace="/admin/layout/_header.html"></div>
 		<div th:replace="/admin/layout/_aside.html"></div>
@@ -39,7 +39,7 @@
 			<section class="wrapper">
 				<div>
 
-					<div class="row mt" ng-controller="trademark-ctrl">
+					<div class="row mt">
 						<div class="col-md-6">
 							<div class="white-panel ">
 								<div class="panel-heading">
@@ -140,12 +140,11 @@
 
 												<div class="col-lg-offset-2 col-lg-10">
 
-													<button class="btn btn-theme02" data-toggle="modal"
-														data-target="#myModal1">
+													<button ng-click="create()" class="btn btn-theme02" >
 														<b class="glyphicon glyphicon-plus"></b>Thêm mới
 													</button>
 													<!-- Modal -->
-													<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+													<!-- <div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
 														aria-labelledby="myModalLabel" aria-hidden="true">
 														<div class="modal-dialog">
 															<div class="modal-content">
@@ -165,13 +164,12 @@
 																</div>
 															</div>
 														</div>
-													</div>
-													<button class="btn btn-theme" data-toggle="modal"
-														data-target="#myModal">
+													</div> -->
+													<button class="btn btn-theme" ng-click="update()">
 														<b class="glyphicon glyphicon-save"></b>Cập nhật
 													</button>
 													<!-- Modal -->
-													<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+													<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 														aria-labelledby="myModalLabel" aria-hidden="true">
 														<div class="modal-dialog">
 															<div class="modal-content">
@@ -191,13 +189,12 @@
 																</div>
 															</div>
 														</div>
-													</div>
-													<button class="btn btn-theme04" data-toggle="modal"
-														data-target="#myModal2">
+													</div> -->
+													<button class="btn btn-theme04" ng-click="delete(form)">
 														<b class="glyphicon glyphicon-trash"></b>Xóa
 													</button>
 													<!-- Modal -->
-													<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+													<!-- <div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
 														aria-labelledby="myModalLabel" aria-hidden="true">
 														<div class="modal-dialog">
 															<div class="modal-content">
@@ -216,7 +213,7 @@
 																</div>
 															</div>
 														</div>
-													</div>
+													</div> -->
 
 													<button ng-click="reset()" class="btn btn-theme01">
 														<b class="glyphicon glyphicon-refresh"></b>Làm mới

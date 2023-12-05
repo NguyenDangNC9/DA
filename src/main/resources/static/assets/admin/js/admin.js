@@ -107,6 +107,8 @@ app.controller("trademark-ctrl", function($scope, $http) {
            
         });
     }
+    
+   
     $scope.initialize();
     $scope.reset = function() {
         $scope.form = {
@@ -118,41 +120,63 @@ app.controller("trademark-ctrl", function($scope, $http) {
        
     }
     $scope.create = function() {
-        var item = angular.copy($scope.form);
-        $http.post(`/rest/trademarks`, item).then(resp => {
-            resp.data, createDate = new Date(resp.data.createDate);
-            $scope.items.push(resp.data);
-            $scope.reset();
-            // alert("Thêm mới thành công");
-            themThuongHieu("success", "Thêm mới thành công")
+    var item = angular.copy($scope.form);
 
-        }).catch(error => {
-            // alert("Thêm mới thất bại");
-            console.log("Error", error);
-        })
+    // Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
+    if (!item.name || !item.detail) {
+        //console.log("Vui lòng điền đầy đủ thông tin");
+        themThuongHieu("error", "Thêm mới thất bại");
+        // Thực hiện các hành động cần thiết khi dữ liệu không hợp lệ
+        return;
     }
+
+    $http.post(`/rest/trademarks`, item).then(resp => {
+        resp.data, createDate = new Date(resp.data.createDate);
+        $scope.items.push(resp.data);
+        $scope.reset();
+        themThuongHieu("success", "Thêm mới thành công");
+
+    }).catch(error => {
+        // Xử lý lỗi khi gửi yêu cầu POST
+        console.log("Error", error);
+        // alert("Thêm mới thất bại");
+    });
+}
+
     $scope.update = function(item) {
-        var item = angular.copy($scope.form);
-        $http.put(`/rest/trademarks/${item.trademark_id}`, item).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == item.id);
-            $scope.items[index] = item;
-            // alert("Cập nhập thành công");
-        }).catch(error => {
-            // alert("Cập nhập thất bại");
-            console.log("Error", error);
-        })
+    var item = angular.copy($scope.form);
+
+    // Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
+    if (!item.name || !item.detail) {
+        themThuongHieu("error", "Vui lòng điền đầy đủ thông tin");
+        return;
     }
-    $scope.delete = function(item) {
-        $http.delete(`/rest/trademarks/${item.trademark_id}`, item).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == item.id);
-            $scope.items.splice(index, 1);
-            $scope.reset();
-            alert("Xóa thành công");
-        }).catch(error => {
-            alert("Không thể xóa , vì vẫn còn hàng");
-            console.log("Error", error);
-        })
-    }
+
+    $http.put(`/rest/trademarks/${item.trademark_id}`, item).then(resp => {
+        var index = $scope.items.findIndex(p => p.id == item.id);
+       
+        $scope.items[index] = item;
+        themThuongHieu("success", "Cập nhật thành công");
+        
+    }).catch(error => {
+        //console.log("Error", error);
+        themThuongHieu("error", "Cập nhật thất bại");
+    })
+}
+    
+$scope.delete = function(item) {
+    $http.delete(`/rest/trademarks/${item.trademark_id}`, item).then(resp => {
+        // Nếu xóa thành công, cập nhật mảng items trong $scope
+        var index = $scope.items.findIndex(p => p.id === item.id);
+        
+            $scope.items.splice(index, 1); // Xóa phần tử khỏi mảng items
+            themThuongHieu("success", "Xóa thành công");
+        
+    }).catch(error => {
+        themThuongHieu("error", "Không thể xóa, vẫn còn hàng hoá liên quan");
+        //console.log("Error", error);
+    })
+}
     $scope.pager = {
         page: 0,
         size: 6,
@@ -205,27 +229,42 @@ app.controller("category-ctrl", function($scope, $http) {
        
     }
     $scope.create = function() {
-        var item = angular.copy($scope.form);
+		var item = angular.copy($scope.form);
+		// Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
+    if (!item.name || !item.detail) {
+        console.log("Vui lòng điền đầy đủ thông tin");
+        themLoaiHang("error", "Thêm mới thất bại");
+        // Thực hiện các hành động cần thiết khi dữ liệu không hợp lệ
+        return;
+    }
         $http.post(`/rest/categories`, item).then(resp => {
             resp.data, createDate = new Date(resp.data.createDate);
             $scope.items.push(resp.data);
             $scope.reset();
             // alert("Thêm mới thành công");
-            themThuongHieu("success", "Thêm mới thành công")
+            themLoaiHang("success", "Thêm mới thành công")
 
         }).catch(error => {
-            alert("Lỗi thêm mới loại sản phẩm");
+            themLoaiHang("error", "Lỗi thêm mới loại sản phẩm");
             console.log("Error", error);
         })
     }
     $scope.update = function(item) {
+		
         var item = angular.copy($scope.form);
+		// Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
+    if (!item.name || !item.detail) {
+        //console.log("Vui lòng điền đầy đủ thông tin");
+        themLoaiHang("error", "Cập nhật thất bại");
+        // Thực hiện các hành động cần thiết khi dữ liệu không hợp lệ
+        return;
+    }
         $http.put(`/rest/categories/${item.category_id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
-            alert("Cập nhập thành công");
+             themLoaiHang("success", "Cập nhật thành công")
         }).catch(error => {
-            alert("Cập nhập thất bại");
+            themLoaiHang("error", "Cập nhật thất bại")
             console.log("Error", error);
         })
     }
@@ -234,9 +273,9 @@ app.controller("category-ctrl", function($scope, $http) {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items.splice(index, 1);
             $scope.reset();
-            alert("Xóa thành công");
+            themLoaiHang("success", "Xóa thành công");
         }).catch(error => {
-            alert("Không thể xóa loại sản phẩm vì vẫn còn hàng trong kho");
+             themLoaiHang("error", "Không thể xóa loại sản phẩm vì vẫn còn hàng trong kho");
             console.log("Error", error);
         })
     }
