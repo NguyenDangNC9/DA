@@ -47,34 +47,65 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 
 
+        // add(product_id) {
+
+        //     if (isLoggedIn()) {
+        //         $http.get(`/rest/carts`).then(resp => {
+        //             this.items = resp.data;
+        //             var item = this.items.find(item => (item.product_id == product_id));
+
+        //             if (item) {
+        //                 item.quantity++;
+        //                 this.saveToLocalStorage();
+        //                 themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
+
+        //             }
+        //             else {
+        //                 // $http.get(`/rest/products/${product_id}`).then(resp => {
+        //                 $http.get('/rest/products/' + encodeURIComponent(product_id)).then(resp => {
+        //                     resp.data.quantity = 1;
+        //                     this.items.push(resp.data);
+        //                     this.saveToLocalStorage();
+        //                     themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
+        //                 });
+        //             }
+        //         });
+        //     } else {
+        //         themSanPham("warning", "Vui lòng đăng nhập  !");
+        //     }
+
+        // },
         add(product_id) {
-
             if (isLoggedIn()) {
-                $http.get(`/rest/carts`).then(resp => {
-                    this.items = resp.data;
-                    var item = this.items.find(item => (item.product_id == product_id));
-
-                    if (item) {
-                        item.quantity++;
-                        this.saveToLocalStorage();
-                        themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
-
-                    }
-                    else {
-                        // $http.get(`/rest/products/${product_id}`).then(resp => {
-                        $http.get('/rest/products/' + encodeURIComponent(product_id)).then(resp => {
-                            resp.data.quantity = 1;
-                            this.items.push(resp.data);
+                $http.get(`/rest/products/${product_id}`).then(resp => {
+                    let product = resp.data;
+        
+                    if (product && product.quantity > 0) {
+                        let item = this.items.find(item => item.product_id === product_id);
+        
+                        if (item) {
+                            if (item.quantity < product.quantity) {
+                                item.quantity++;
+                                this.saveToLocalStorage();
+                                themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
+                            } else {
+                                themSanPham("error", "Số lượng sản phẩm vượt quá số lượng trong kho!");
+                            }
+                        } else {
+                            item = { product_id: product_id, quantity: 1 };
+                            this.items.push(item);
                             this.saveToLocalStorage();
                             themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
-                        });
+                        }
+                    } else {
+                        themSanPham("error", "Sản phẩm không tồn tại hoặc đã hết hàng!");
                     }
                 });
             } else {
-                themSanPham("warning", "Vui lòng đăng nhập  !");
+                themSanPham("warning", "Vui lòng đăng nhập!");
             }
-
-        },
+        }
+        ,
         get_infoorderid(orderid) {
             this.get_orderid = orderid;
 
@@ -172,6 +203,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     }
 
+    
     // // Load dữ liệu giỏ hàng từ Local Storage khi trang được load
     // $scope.cart.loadFromLocalStorage();
 
