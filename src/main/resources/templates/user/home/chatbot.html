@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <!-- font awesome cdn link  -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- font awesome cdn link  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>
+  <title>
 
-    </title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-        .messenger-container {
+  </title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+    .messenger-container {
       position: fixed;
       bottom: 20px;
       right: 20px;
       z-index: 1;
-     
-      
+
+
     }
 
     .messenger-icon {
@@ -29,8 +32,8 @@
       color: white;
       margin-bottom: 70px;
 
-    
-    
+
+
     }
 
     .messenger-icon:hover {
@@ -39,7 +42,8 @@
 
     .chat-container {
       position: fixed;
-      bottom: 70px; /* Thay đổi vị trí của chat-container để tránh che phủ chữ "Mess" */
+      bottom: 70px;
+      /* Thay đổi vị trí của chat-container để tránh che phủ chữ "Mess" */
       right: 20px;
       max-width: 400px;
       background-color: White;
@@ -50,8 +54,9 @@
       z-index: 2;
     }
 
+    /* màu của chatbot */
     .chat-header {
-      background-color: #0000AA;
+      background-color: #333;
       color: white;
       padding: 15px;
       font-size: 15px;
@@ -63,7 +68,7 @@
 
     .chat-close {
       position: absolute;
-     right: 30px;
+      right: 30px;
       color: white;
       background: none;
       border: none;
@@ -77,7 +82,8 @@
       height: 500px;
     }
 
-    .user-message, .bot-message {
+    .user-message,
+    .bot-message {
       padding: 10px;
       margin-bottom: 10px;
       border-radius: 5px;
@@ -96,40 +102,46 @@
       color: #333;
       float: left;
     }
+
     .chat-input {
-  padding: 10px;
-  box-sizing: border-box;
-  border: none;
-  border-top: 1px solid #ddd;
-  outline: none;
-  width: calc(100% - 20px); /* Sử dụng thuộc tính calc để tính toán chiều rộng chính xác và trừ đi khoảng cách padding của phần tử cha */
-}
+      padding: 10px;
+      box-sizing: border-box;
+      border: none;
+      border-top: 1px solid #ddd;
+      outline: none;
+      width: calc(100% - 20px);
+      /* Sử dụng thuộc tính calc để tính toán chiều rộng chính xác và trừ đi khoảng cách padding của phần tử cha */
+    }
 
 
     div .chat-button {
-  
-    padding: 10px;
-    background-color: #0000AA;
-    color: white;
-  
-     
+
+      padding: 10px;
+      background-color: #0000AA;
+      color: white;
+
+
     }
+
     .chat-messages {
-            padding: 20px;
-            overflow-y: auto;
-            max-height: 300px;
-        }
+      padding: 20px;
+      overflow-y: auto;
+      max-height: 300px;
+    }
+
     .bot-message {
-            background-color: #eee;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: left;
-            margin-right: auto;
-        }
-    .bot-message img{
+      background-color: #eee;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: left;
+      margin-right: auto;
+    }
+
+    .bot-message img {
       width: 200px;
       height: 200px;
     }
+
     /* .messenger-icon img{
       width: 100px;
       height: 100px;
@@ -137,158 +149,167 @@
       margin-right: 5px;
     } */
     .messenger-icon {
-    cursor: pointer;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 5px;
-}
+      cursor: pointer;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+    }
 
-.messenger-icon i {
-    font-size: 2em; /* Điều chỉnh kích thước của icon */
-    margin-right: 5px;
-    margin-bottom: -10px; /* Di chuyển icon lên bằng cách đặt margin-bottom là một số âm */
-}
+    .messenger-icon i {
+      font-size: 2em;
+      /* Điều chỉnh kích thước của icon */
+      margin-right: 5px;
+      margin-bottom: -10px;
+      /* Di chuyển icon lên bằng cách đặt margin-bottom là một số âm */
+    }
 
-/* Nếu bạn muốn thêm khoảng trống giữa icon và văn bản "CHATBOT" */
-.messenger-icon i, .messenger-icon span {
-    margin-right: 5px;
-}
+    /* Nếu bạn muốn thêm khoảng trống giữa icon và văn bản "CHATBOT" */
+    .messenger-icon i,
+    .messenger-icon span {
+      margin-right: 5px;
+    }
 
-/* Thêm một container để căn giữa icon trong nút */
-.messenger-icon i {
-    display: inline-block;
-    vertical-align: middle;
-}
+    /* Thêm một container để căn giữa icon trong nút */
+    .messenger-icon i {
+      display: inline-block;
+      vertical-align: middle;
+    }
 
-.messenger-icon span {
-    display: inline-block;
-    vertical-align: middle;
-}
+    .messenger-icon span {
+      display: inline-block;
+      vertical-align: middle;
+    }
 
-/* Đặt khoảng cách giữa icon và văn bản */
-.messenger-icon span {
-    margin-left: 5px;
-}
-
-  
-
-    </style>
-    <script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
+    /* Đặt khoảng cách giữa icon và văn bản */
+    .messenger-icon span {
+      margin-left: 5px;
+    }
+  </style>
+  <script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
 </head>
+
 <body>
 
-    <div class="messenger-container">
-      <div class="messenger-icon" onclick="toggleChat()">
-        <i class="fas fa-robot"></i> 
+  <div class="messenger-container">
+    <div class="messenger-icon" onclick="toggleChat()">
+      <i class="fas fa-robot"></i>
     </div>
-    
-        
-        <div class="chat-container" id="chatContainer">
-          <div class="chat-header">
-      <br> Phục Vụ Bằng Trái Tim
-            <button class="chat-close" onclick="toggleChat()">X</button>
-          </div>
-          <div class="chat-messages">
-          <div class='bot-message'><p>Xin Chào, Chúng Tôi Là BlackBear.<br>Rất vui được phục vụ bạn</p>
-                 Cần chúng tôi tư vấn vui lòng nhập "Hi" nhé!</div>
-            <div id="chat"></div>
-          
-          </div>
-          <div >
-            <input type="text"  class="chat-input"  id="userInput" placeholder="Nhập Nội Dung">
-      <center> <button class="chat-button" onclick="sendMessage()">Gửi</button>  </center>
-        </div>
-        </div>
+
+
+    <div class="chat-container" id="chatContainer">
+      <div class="chat-header">
+        Nội thất đầy cảm hứng
+        <button class="chat-close" onclick="toggleChat()">X</button>
       </div>
+      <div class="chat-messages">
+        <div class='bot-message'>
+          <p>Xin Chào, Chúng Tôi Là BlackBear.<br>Rất vui được phục vụ bạn</p>
+          Cần chúng tôi tư vấn vui lòng nhập "Hi" nhé!
+        </div>
+        <div id="chat"></div>
 
-      <!-- Xử Lý Form -->
-      <script>
-        function toggleChat() {
-          var chatContainer = document.getElementById('chatContainer');
-          chatContainer.style.display = (chatContainer.style.display === 'none' || chatContainer.style.display === '') ? 'block' : 'none';
-        }
-     
-      </script>
-      <!--Kết Nối-->
-  
-   
+      </div>
+      <div>
+        <input type="text" class="chat-input" id="userInput" placeholder="Nhập Nội Dung">
+        <center> <button class="chat-button" onclick="sendMessage()">Gửi</button> </center>
+      </div>
+    </div>
+  </div>
 
-    <script>
-     
-       function sendMessage() {
-    var userInput = document.getElementById("userInput").value;
-    
+  <!-- Xử Lý Form -->
+  <script>
+    function toggleChat() {
+      var chatContainer = document.getElementById('chatContainer');
+      chatContainer.style.display = (chatContainer.style.display === 'none' || chatContainer.style.display === '') ? 'block' : 'none';
+    }
 
-    if (userInput.trim() === "") {
+  </script>
+  <!--Kết Nối-->
+
+
+
+  <script>
+
+    function sendMessage() {
+      var userInput = document.getElementById("userInput").value;
+
+
+      if (userInput.trim() === "") {
         // If the user input is empty or only contains whitespace, do nothing
         return;
-    }
+      }
       //Tên người chat
-    
-    // Khách hàng hoit
-    document.getElementById("chat").innerHTML += 
-    "<div class='user-message'><p> " + userInput + "</p></div>";
 
-    // Send the request to the Rasa API
-    fetch("http://localhost:5005/webhooks/rest/webhook", {
+      // Khách hàng hoit
+      document.getElementById("chat").innerHTML +=
+        "<div class='user-message'><p> " + userInput + "</p></div>";
+
+      // Send the request to the Rasa API
+      fetch("http://localhost:5005/webhooks/rest/webhook", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({ "sender": "user", "message": userInput })
-    })
-    .then(response => response.json())
-    .then(data => {
-        var botResponse = data[0].text;
-
-      
-
-        // Admin trả lời
-        document.getElementById("chat").innerHTML += 
-        "<div class='bot-message'><p>" + botResponse + " </p></div>";
-
-        if(userInput=="ghe" || userInput=="Ghế" ||userInput=="ghế"){
-          document.getElementById("chat").innerHTML += 
-          "<div class='bot-message'><center><p>Ghế</p><img src='http://localhost:8080/assets/images/ghe1%20-%20Copy.jpg'><center>"
-        +  "<a href='http://localhost:8080/product/detail/113'  class='btn'>Xem chi tiết</a></div>";
-        }
-        if(userInput=="ban" || userInput=="Ban" ||userInput=="bàn"){
-          document.getElementById("chat").innerHTML += 
-          "<div class='bot-message'><center><p>Ghế</p><img src='http://localhost:8080/assets/images/tham5.jpg'><center>"
-        +  "<a href='http://localhost:8080/product/list/find/1?MinPrice=0&MaxPrice=40000000&Category_id=3&Trademark_id=&Color=&Material=&Size='  class='btn'>Xem chi tiết</a></div>";
-        }
-        if(userInput=="Thảm" || userInput=="thảm" ||userInput=="THẢM"){
-          document.getElementById("chat").innerHTML += 
-          "<div class='bot-message'><center><p>Ghế</p><img src='http://localhost:8080/assets/images/tham5.jpg'><center>"
-        +  "<a href='http://localhost:8080/product/detail/117'  class='btn'>Xem chi tiết</a></div>";
-        }
-
-        if(userInput=="Đèn" || userInput=="ĐÈN" ||userInput=="đèn"){
-          document.getElementById("chat").innerHTML += 
-          "<div class='bot-message'><center><p>Ghế</p><img src='http://localhost:8080/assets/images/den1.jpg'><center>"
-        +  "<a href='http://localhost:8080/product/detail/111 '  class='btn'>Xem chi tiết</a></div>";
-        }
-        if(userInput=="Sofa" || userInput=="SOFA"||userInput=="sofa"){
-          document.getElementById("chat").innerHTML += 
-          "<div class='bot-message'><center><p>Ghế</p><img src='http://localhost:8080/assets/images/sofa1.jpg'><center>"
-        +  "<a href='http://localhost:8080/product/detail/115'  class='btn'>Xem chi tiết</a></div>";
-        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          var botResponse = data[0].text;
 
 
 
+          // Admin trả lời
+          document.getElementById("chat").innerHTML +=
+            "<div class='bot-message'><p>" + botResponse + " </p></div>";
 
-       
-        // Scroll the chat to the bottom
-        var chatContainer = document.getElementById("chat");
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    })
-    .catch(error => console.error('Error:', error));
+          if (userInput == "ghe" || userInput == "Ghế" || userInput == "ghế") {
+            document.getElementById("chat").innerHTML +=
+              "<div class='bot-message'><center><p>Ghế</p><img src='http://localhost:8080/assets/images/ghe1%20-%20Copy.jpg'><center>"
+              + "<a href='http://localhost:8080/product/detail/113'  class='btn'>Xem chi tiết</a></div>";
+          }
+          if (userInput == "ban" || userInput == "Ban" || userInput == "bàn") {
+            document.getElementById("chat").innerHTML +=
+              "<div class='bot-message'><center><p>Bàn</p><img src='http://localhost:8080/assets/images/tham5.jpg'><center>"
+              + "<a href='http://localhost:8080/product/list/find/1?MinPrice=0&MaxPrice=40000000&Category_id=3&Trademark_id=&Color=&Material=&Size='  class='btn'>Xem chi tiết</a></div>";
+          }
+          if (userInput == "Thảm" || userInput == "thảm" || userInput == "THẢM") {
+            document.getElementById("chat").innerHTML +=
+              "<div class='bot-message'><center><p>Thảm</p><img src='http://localhost:8080/assets/images/tham5.jpg'><center>"
+              + "<a href='http://localhost:8080/product/detail/117'  class='btn'>Xem chi tiết</a></div>";
+          }
 
-    // Clear the user input field
-    document.getElementById("userInput").value = "";
-}
+          if (userInput == "Đèn" || userInput == "ĐÈN" || userInput == "đèn") {
+            document.getElementById("chat").innerHTML +=
+              "<div class='bot-message'><center><p>Đèn</p><img src='http://localhost:8080/assets/images/den1.jpg'><center>"
+              + "<a href='http://localhost:8080/product/detail/111 '  class='btn'>Xem chi tiết</a></div>";
+          }
+          if (userInput == "Sofa" || userInput == "SOFA" || userInput == "sofa") {
+            document.getElementById("chat").innerHTML +=
+              "<div class='bot-message'><center><p>Sofa</p><img src='http://localhost:8080/assets/images/sofa1.jpg'><center>"
+              + "<a href='http://localhost:8080/product/detail/115'  class='btn'>Xem chi tiết</a></div>";
+          }
 
-    </script>
+          if (userInput == "địa chỉ" || userInput == "Địa Chỉ" || userInput == "ĐỊA CHỈ") {
+            document.getElementById("chat").innerHTML +=
+              "<div class='bot-message'><center><p>Địa chỉ</p><img src='http://localhost:8080/assets/images/logo.jpg'><center>"
+              + "<a href='http://localhost:8080/contact-us'  class='btn'>Xem chi tiết địa chỉ</a></div>";
+          }
+
+
+
+
+          // Scroll the chat to the bottom
+          var chatContainer = document.getElementById("chat");
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        })
+        .catch(error => console.error('Error:', error));
+
+      // Clear the user input field
+      document.getElementById("userInput").value = "";
+    }
+
+  </script>
 </body>
+
 </html>

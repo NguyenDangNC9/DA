@@ -716,11 +716,10 @@ table {
 
 
 .logo_menu{
-	width: 52%;
-	background: #025661;
+	width: 46%;
+	background: #cac9c9;
     margin: 10px 10rem 10px;
-    border-radius: 70px;
-    box-shadow: 0 0 8px 0 #dee2e6;
+
 }
 
 .social_icon_fb {
@@ -959,8 +958,8 @@ table {
     
     .dropdown-menu>li>a:hover,
     .dropdown-menu>li>a:focus {
-        background-color: #198997;
-        color: #fff;
+        background-color: #cac9c9;
+        color: #000000;
     }
     
     ul {
@@ -1569,7 +1568,7 @@ table {
     .nav>li>a:hover,
     .nav>li>a:focus {
         background: transparent;
-        color: #3ba5cf;
+        color: #494b4c;
     }
     
     #product-tab .nav li {
@@ -1981,8 +1980,15 @@ table {
     }
     
     .header-top a {
-        color: #9E9E9E;
-    }
+        color: #090909;
+        font-weight: bold;
+        font-size: 16px;
+      }
+      
+      .header-top a:hover {
+        color: #ff0000; /* Màu chữ khi hover */
+ 
+      }
     
     .header-top-left,
     .header-top-right {
@@ -2035,7 +2041,7 @@ table {
     }
     
     .header {
-        background: #025661;
+        background: #cac9c9;
     }
     /* ----------------------------------------------
 	2.2 Navbar
@@ -2046,7 +2052,7 @@ table {
         border-radius: 10px;
         margin: 0;
         padding: 0px 20px;
-        background: #198997;
+        background: #cac9c9;
         color: #FFF;
     }
     
@@ -2132,7 +2138,7 @@ table {
     .mega-dropdown-menu>li ul>li>a:focus {
         text-decoration: none;
         color: #ffff;
-        background-color: #198997;
+        background-color: #737b7c;
     }
     
     .mega-dropdown-menu .dropdown-header {
@@ -2156,7 +2162,8 @@ table {
     }
     
     .navbar-collapse {
-        background: #198997;
+        background: #cac9c9;
+     
     }
     
     #menu {
@@ -2169,7 +2176,7 @@ table {
         padding: 15px 18px;
         border-radius: 1rem;
         overflow: hidden;
-        color: #fff;
+        color: #1f1d1d;
         font-weight: bolder;
         text-transform: uppercase;
     }
@@ -2193,7 +2200,7 @@ table {
     .nav .open>a,
     .nav .open>a:hover,
     .nav .open>a:focus {
-        background-color: #198997;
+        background-color: #cac9c9;
         color: #fff;
     }
     
@@ -2262,7 +2269,7 @@ table {
         padding: 8px 13px;
         margin: 0;
         border: none;
-        color: #192e3f;
+  
         background-color: transparent;
     }
     
@@ -2348,7 +2355,7 @@ table {
     #cart>.btn {
         background: url(../images/sprite.png) no-repeat scroll -15px -102px;
         line-height: 20px;
-        color: #fff;
+        color: #000000;
         padding: 0 0 0 48px;
         border: none;
         float: right;
@@ -2363,6 +2370,8 @@ table {
     
     #cart>.btn:hover {
         background-position: -15px -152px;
+        color: #cb1515;
+
     }
     
     #cart.open>.btn {

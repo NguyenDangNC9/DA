@@ -8,12 +8,11 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <title>BlackBear-Admin</title>
-	
+
     <!-- Favicons -->
     <link href="/assets/admin/img/favicon.png" rel="icon">
     <link href="/assets/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
-	<link rel="stylesheet" type="text/css"
-	href="https://code.highcharts.com/css/highcharts.css">
+    <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/highcharts.css">
     <!-- Bootstrap core CSS -->
     <link href="/assets/admin/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--external css-->
@@ -23,80 +22,78 @@
     <!-- Custom styles for this template -->
     <link href="/assets/admin/css/style.css" rel="stylesheet">
     <link href="/assets/admin/css/style-responsive.css" rel="stylesheet">
-    <script type="text/javascript"
-    src="https://www.gstatic.com/charts/loader.js"></script>
-    <script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-	<link rel="stylesheet" type="text/css"
-	href="https://code.highcharts.com/css/highcharts.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/highcharts.css">
 
 
- 
+
 </head>
 
-<body  ng-app="admin-ctrl">
- 	<section id="container">
- 	 <div th:replace="/admin/layout/_header.html"></div>
- 	<div th:replace="/admin/layout/_aside.html"></div>
- 	 <section id="main-content">
-      <section class="wrapper">
- 	
- 	 <div class="row mt">
-           <div class="col-md-12">
-            <div class="content-panel">
-              <table class="table  table-advance table-hover">
-                <h3> &emsp;<i class="fa fa-angle-right"></i>Doanh thu theo Loại sản phẩm</h3>
-                <hr>
-                <thead>
-                  <tr>
-                    <th> Loại</th>
-                    <th> Tổng tiền </th>
-                    <th> Tổng số sản phẩm </th>
-                    <th> Giá mua nhỏ nhất</th>
-                     <th> Giá mua lớn nhất</th>
-                     <th>Giá trung bình</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="r:${items}">
-                    <td>
-                    &ensp;&ensp;[[${r.group}]]
-                    </td>
-                    <td > [[${#numbers.formatDecimal(r.sum, 0, 'COMMA', 0, 'POINT')}]] Đ</td>
-                    <td>[[${r.count}]] cái</td>
-                    <td>[[${#numbers.formatDecimal(r.min, 0, 'COMMA', 0, 'POINT')}]] Đ</td>
-                    <td>[[${#numbers.formatDecimal(r.max, 0, 'COMMA', 0, 'POINT')}]] Đ</td>
-                    <td >[[${#numbers.formatDecimal(r.avg, 0, 'COMMA', 0, 'POINT')} ]] Đ</td>
-                  </tr>
-   
-                </tbody>
-              </table>
-             
-            </div>
-            
-            <!-- /content-panel -->
-         
-        </div>
-        
-          <!-- /col-md-12 -->
-           <div class="col-md-12" >
-          <div class="content-panel" id="char2"></div>
-          </div>
-        </div>
+<body ng-app="admin-ctrl">
+    <section id="container">
+        <div th:replace="/admin/layout/_header.html"></div>
+        <div th:replace="/admin/layout/_aside.html"></div>
+        <section id="main-content">
+            <section class="wrapper">
 
-		
+                <div class="row mt">
+                    <div class="col-md-12">
+                        <div class="content-panel">
+                            <table class="table  table-advance table-hover">
+                                <h3> &emsp;<i class="fa fa-angle-right"></i>Doanh thu theo Loại sản phẩm</h3>
+                                <hr>
+                                <thead>
+                                    <tr>
+                                        <th> Loại</th>
+                                        <th> Tổng tiền </th>
+                                        <th> Tổng số sản phẩm </th>
+                                        <th> Giá mua nhỏ nhất</th>
+                                        <th> Giá mua lớn nhất</th>
+                                        <th>Giá trung bình</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="r:${items}">
+                                        <td>
+                                            &ensp;&ensp;[[${r.group}]]
+                                        </td>
+                                        <td> [[${#numbers.formatDecimal(r.sum, 0, 'COMMA', 0, 'POINT')}]] Đ</td>
+                                        <td>[[${r.count}]] cái</td>
+                                        <td>[[${#numbers.formatDecimal(r.min, 0, 'COMMA', 0, 'POINT')}]] Đ</td>
+                                        <td>[[${#numbers.formatDecimal(r.max, 0, 'COMMA', 0, 'POINT')}]] Đ</td>
+                                        <td>[[${#numbers.formatDecimal(r.avg, 0, 'COMMA', 0, 'POINT')} ]] Đ</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <!-- /content-panel -->
+
+                    </div>
+
+                    <!-- /col-md-12 -->
+                    <div class="col-md-12">
+                        <div class="content-panel" id="char2"></div>
+                    </div>
+                </div>
 
 
 
 
- 	
- 
- 	</section></section>
- 	<div th:replace="/admin/layout/_footer.html"></div>
- 	</section>
+
+
+
+
+            </section>
+        </section>
+        <div th:replace="/admin/layout/_footer.html"></div>
+    </section>
     <script src="/assets/admin/lib/jquery/jquery.min.js"></script>
- <script src="/assets/admin/js/admin.js"></script>
+    <script src="/assets/admin/js/admin.js"></script>
     <script src="/assets/admin/lib/bootstrap/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="/assets/admin/lib/jquery.dcjqaccordion.2.7.js"></script>
     <script src="/assets/admin/lib/jquery.scrollTo.min.js"></script>
@@ -109,28 +106,28 @@
     <!--script for this page-->
     <script src="/assets/admin/lib/sparkline-chart.js"></script>
     <script src="/assets/admin/lib/zabuto_calendar.js"></script>
-    	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script src="https://code.highcharts.com/modules/export-data.js"></script>
-	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-   
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 
     <script type="application/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#date-popover").popover({
                 html: true,
                 trigger: "manual"
             });
             $("#date-popover").hide();
-            $("#date-popover").click(function(e) {
+            $("#date-popover").click(function (e) {
                 $(this).hide();
             });
 
             $("#my-calendar").zabuto_calendar({
-                action: function() {
+                action: function () {
                     return myDateFunction(this.id, false);
                 },
-                action_nav: function() {
+                action_nav: function () {
                     return myNavFunction(this.id);
                 },
                 ajax: {
@@ -157,107 +154,107 @@
     </script>
 
 
-<script>
+    <script>
 
-	$.ajax({
-		url : "/rest/charcate",
-		success : function(result) {
-			var seri = [];
+        $.ajax({
+            url: "/rest/charcate",
+            success: function (result) {
+                var seri = [];
 
-			var data = [];
+                var data = [];
 
-			var datacolumn1 = [];
-			var datacolumn2 = [];
-			var name_product = [];
-			console.log(result);
-			for (var i = 0; i < result.length; i++) {
-				var name = {};
-				name = result[i].group;
-				
-				name_product.push(name);
-			}
-			for (var i = 0; i < result.length; i++) {
-				var colum = {};
-				colum = result[i].sum;
-				datacolumn1.push(colum);
-			}
-			for (var i = 0; i < result.length; i++) {
-				var colum = {};
-				colum = result[i].count;
-				datacolumn2.push(colum);
-			}
+                var datacolumn1 = [];
+                var datacolumn2 = [];
+                var name_product = [];
+                console.log(result);
+                for (var i = 0; i < result.length; i++) {
+                    var name = {};
+                    name = result[i].group;
 
-			for (var i = 0; i < result.length; i++) {
-				var object = {};
-				object.name = result[i].group;
-				object.y = result[i].sum;
-				data.push(object);
-			}
+                    name_product.push(name);
+                }
+                for (var i = 0; i < result.length; i++) {
+                    var colum = {};
+                    colum = result[i].sum;
+                    datacolumn1.push(colum);
+                }
+                for (var i = 0; i < result.length; i++) {
+                    var colum = {};
+                    colum = result[i].count;
+                    datacolumn2.push(colum);
+                }
 
-			var seriObject = {
-				name : 'Danh thu',
-				colorByPoint : true,
-				data : data,
-				showInLegend : true
-			}
+                for (var i = 0; i < result.length; i++) {
+                    var object = {};
+                    object.name = result[i].group;
+                    object.y = result[i].sum;
+                    data.push(object);
+                }
 
-			seri.push(seriObject);
-			drawColumnChart(datacolumn1, datacolumn2, name_product);
-		
+                var seriObject = {
+                    name: 'Danh thu',
+                    colorByPoint: true,
+                    data: data,
+                    showInLegend: true
+                }
 
-		}
-	});
+                seri.push(seriObject);
+                drawColumnChart(datacolumn1, datacolumn2, name_product);
 
-	function drawColumnChart(datacolumn1, datacolumn2, name_product) {
-		Highcharts.chart('char2', {
 
-			chart : {
-				type : 'column',
-				styledMode : true
-			},
+            }
+        });
 
-			title : {
-				text : 'Thống kê Doanh thu theo loại sản phẩm  '
-			},
-			xAxis : {
-				categories : name_product,
-				title : {
-					text : ' Loại sản phẩm'
-				}
-			},
-			yAxis : [ {
-				className : 'highcharts-color-0',
-				title : {
-					text : 'Doanh thu Đ'
-				}
-			}, {
-				className : 'highcharts-color-1',
-				opposite : true,
-				title : {
-					text : 'Số lượng   '
-				}
-			} ],
+        function drawColumnChart(datacolumn1, datacolumn2, name_product) {
+            Highcharts.chart('char2', {
 
-			plotOptions : {
-				column : {
-					borderRadius : 5
-				}
-			},
+                chart: {
+                    type: 'column',
+                    styledMode: true
+                },
 
-			series : [ {
-				name : 'Doanh thu (Đ)',
-				data :datacolumn1
-			}, {
-				name : 'Số lượng ',
-				data : datacolumn2,
-				yAxis : 1
-			} ]
+                title: {
+                    text: 'Thống kê Doanh thu theo loại sản phẩm  '
+                },
+                xAxis: {
+                    categories: name_product,
+                    title: {
+                        text: ' Loại sản phẩm'
+                    }
+                },
+                yAxis: [{
+                    className: 'highcharts-color-0',
+                    title: {
+                        text: 'Doanh thu Đ'
+                    }
+                }, {
+                    className: 'highcharts-color-1',
+                    opposite: true,
+                    title: {
+                        text: 'Số lượng   '
+                    }
+                }],
 
-		});
-	}
-	
-	
-</script>
+                plotOptions: {
+                    column: {
+                        borderRadius: 5
+                    }
+                },
+
+                series: [{
+                    name: 'Doanh thu (Đ)',
+                    data: datacolumn1
+                }, {
+                    name: 'Số lượng ',
+                    data: datacolumn2,
+                    yAxis: 1
+                }]
+
+            });
+        }
+
+
+    </script>
 
 
 
