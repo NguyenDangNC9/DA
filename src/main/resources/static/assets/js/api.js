@@ -211,13 +211,14 @@
         var wardcode = ward.value;
         console.log(wardcode)
         phivc(sid, dtid, wardcode)
-        //printResult();
+        printResult();
     });
 
     // Hàm hiển thị kết quả khi tất cả các lựa chọn đã được chọn
     var printResult = () => {
         if ($("#district").val() != "" && $("#province").val() != "" &&
             $("#ward").val() != "") {
+                 // Tạo chuỗi kết quả từ các giá trị được chọn
             let result = $("#ward option:selected").text() +
                 ", " + $("#district option:selected").text() + " ," +
                 $("#province option:selected").text();
@@ -230,6 +231,7 @@
             }
             localStorage.setItem("address", result);
 
+            
         }
     }
 

@@ -47,65 +47,42 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 
 
-        // add(product_id) {
-
-        //     if (isLoggedIn()) {
-        //         $http.get(`/rest/carts`).then(resp => {
-        //             this.items = resp.data;
-        //             var item = this.items.find(item => (item.product_id == product_id));
-
-        //             if (item) {
-        //                 item.quantity++;
-        //                 this.saveToLocalStorage();
-        //                 themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
-
-        //             }
-        //             else {
-        //                 // $http.get(`/rest/products/${product_id}`).then(resp => {
-        //                 $http.get('/rest/products/' + encodeURIComponent(product_id)).then(resp => {
-        //                     resp.data.quantity = 1;
-        //                     this.items.push(resp.data);
-        //                     this.saveToLocalStorage();
-        //                     themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
-        //                 });
-        //             }
-        //         });
-        //     } else {
-        //         themSanPham("warning", "Vui lòng đăng nhập  !");
-        //     }
-
-        // },
         add(product_id) {
             if (isLoggedIn()) {
                 $http.get(`/rest/products/${product_id}`).then(resp => {
-                    let product = resp.data;
+                    const product = resp.data;
         
-                    if (product && product.quantity > 0) {
-                        let item = this.items.find(item => item.product_id === product_id);
+                    if (product.quantity <= 0) {
+                        // Hiển thị thông báo sản phẩm đã hết hàng
+                        themSanPham("error", "Sản phẩm đã hết hàng!");
+                    } else {
+                        $http.get(`/rest/carts`).then(resp => {
+                            this.items = resp.data;
+                            var item = this.items.find(item => item.product_id === product_id);
         
-                        if (item) {
-                            if (item.quantity < product.quantity) {
-                                item.quantity++;
+                            if (item) {
+                                // Kiểm tra nếu số lượng sản phẩm trong kho vẫn còn thì tăng số lượng
+                                if (item.quantity < product.quantity) {
+                                    item.quantity++;
+                                    this.saveToLocalStorage();
+                                    themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
+                                } else {
+                                    // Hiển thị thông báo khi vượt quá số lượng trong kho
+                                    themSanPham("error", "Số lượng sản phẩm trong kho không đủ!");
+                                }
+                            } else {
+                                product.quantity = 1;
+                                this.items.push(product);
                                 this.saveToLocalStorage();
                                 themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
-                            } else {
-                                themSanPham("error", "Số lượng sản phẩm vượt quá số lượng trong kho!");
                             }
-                        } else {
-                            item = { product_id: product_id, quantity: 1 };
-                            this.items.push(item);
-                            this.saveToLocalStorage();
-                            themSanPham("success", "Đã thêm sản phẩm vào giỏ hàng!");
-                        }
-                    } else {
-                        themSanPham("error", "Sản phẩm không tồn tại hoặc đã hết hàng!");
+                        });
                     }
                 });
             } else {
                 themSanPham("warning", "Vui lòng đăng nhập!");
             }
-        }
-        ,
+        },  
         get_infoorderid(orderid) {
             this.get_orderid = orderid;
 
@@ -203,7 +180,36 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     }
 
-    
+// test bắt lỗi thêm sản phảm vào giỏ hàng
+$scope.checkQuantity = function(item) {
+    $http.get(`/rest/products/${item.product_id}`).then(resp => {
+        const availableQuantity = resp.data.quantity; // Số lượng có sẵn trong cơ sở dữ liệu
+        const requestedQuantity = item.quantity; // Số lượng người dùng muốn thêm vào giỏ hàng
+
+        if (requestedQuantity <= 0) {
+            themSanPham("error", "Số lượng không hợp lệ!");
+            item.quantity = 1;
+        } else if (requestedQuantity > availableQuantity) {
+            themSanPham("error", "Sản phẩm không đủ số lượng!");
+            item.quantity = availableQuantity; // Đặt lại số lượng về số lượng có sẵn trong cơ sở dữ liệu
+        } else {
+            // Cập nhật số lượng sản phẩm trong localStorage
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingItemIndex = cart.findIndex(cartItem => cartItem.product_id === item.product_id);
+
+            if (existingItemIndex !== -1) {
+                cart[existingItemIndex].quantity = requestedQuantity; // Cập nhật số lượng sản phẩm
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            // themSanPham("success", "Số lượng sản phẩm đã được cập nhật!");
+        }
+        // Bạn có thể thêm các xử lý khác ở đây
+    });
+};
+
+
+
     // // Load dữ liệu giỏ hàng từ Local Storage khi trang được load
     // $scope.cart.loadFromLocalStorage();
 
@@ -370,10 +376,10 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 
                 // Kiểm tra xem các trường thông tin có bị trống không
-                if (username === '' || phone === '' || province === '' || district === '' || service === '' || ward === '' || address === '') {   
+                if (username === '' || phone === '' || province === '' || district === '' || service === '' || ward === '' || address === '') {
                     themSanPham("error", "Vui lòng điền đầy đủ thông tin");
                     throw new Error("Vui lòng điền đầy đủ thông tin đặt hàng.");
-                  
+
                 }
 
                 var numericValue = parseFloat(totalValue.replace("Đ", "").replace(/\./g, "").replace(",", "."));
@@ -414,7 +420,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     }
 
 
-    
+
     //
     $scope.pager = {
         page: 0,
