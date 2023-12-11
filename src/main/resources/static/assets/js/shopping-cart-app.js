@@ -19,8 +19,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         getcomment: [],
         get_orderid: 0,
         prod: [],
-
-        //
         saveToLocalStorage: function () {
             var cartData = {
                 username: $("#username").text(), // Lưu thông tin tài khoản người dùng
@@ -168,8 +166,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         initData() {
             $http.get(`/rest/carts`).then(resp => {
                 this.items = resp.data;
-
-
                 // Thêm trường checked cho mỗi sản phẩm
                 // this.items.forEach(item => {
                 //     item.checked = false; // Mặc định không chọn
@@ -180,7 +176,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     }
 
-// test bắt lỗi thêm sản phảm vào giỏ hàng
+// bắt lỗi thêm sản phảm vào giỏ hàng
 $scope.checkQuantity = function(item) {
     $http.get(`/rest/products/${item.product_id}`).then(resp => {
         const availableQuantity = resp.data.quantity; // Số lượng có sẵn trong cơ sở dữ liệu
@@ -282,92 +278,6 @@ $scope.checkQuantity = function(item) {
     //     // Xử lý khi giá trị không hợp lệ
     //     console.error('Giá trị không hợp lệ');
     // }
-
-
-// thanh toán vnpay
-    //Thanh toán vnpay	
-	$scope.generatePayment = function() {
-
-		var tongtienthanhtoanElement = document.getElementById("total");
-
-		// Lấy nội dung từ phần tử
-		var tongtienthanhtoanText = tongtienthanhtoanElement.innerHTML;
-
-		// Chuyển đổi chuỗi thành kiểu số
-		var tongtienthanhtoan = parseFloat(tongtienthanhtoanText.replace(',', ''));
-
-		console.log(total);
-		var params = {
-			bankCode: "NCB",
-			amount: total,
-		};
-		console.log('Request Params:', params)
-		$http.get(`/api/vnpay/createpayment`, { params: params })
-			.then(function(response) {
-				console.log('Response:', response);
-				$scope.payment = response.data;
-				window.location.href = $scope.payment;
-			})
-			.catch(function(error) {
-				console.error('Error:', error);
-			});
-	};  
-
-	$scope.thanhtoanvnpay = function() {
-
-		//Lấy dữ liệu từ localStore
-		$scope.selectedItems = JSON.parse(localStorage.getItem('selectedItems'));
-
-
-		$scope.bill = {
-			createdate: new Date(),
-			address: $scope.address,
-			totalamount: $scope.tongtienthanhtoan,
-			ship: $scope.ship,
-			account: {
-				username: $scope.username
-			},
-			phone: $("#phone").val(),
-			voucher: {
-				id: $scope.coupon
-			},
-			status: {
-				id: 1
-			},
-			statusorder: $scope.statusorder,
-			message: $("#message").text(),
-			get orderdetail() {
-				return $scope.selectedItems.map(item => {
-					return {
-						product: {
-							id: item.product.id
-						},
-						price: item.price,
-						quantity: item.quantity,
-						weight: item.weightvalue
-					}
-				});
-			},
-			purchase() {
-				var order = angular.copy(this);
-				$scope.weightquantt = [];
-				$http.post("/rest/order/createvnpay", order).then(resp => {
-					for (var i = 0; i < $scope.selectedItems.length; i++) {
-						$scope.deleteida($scope.selectedItems[i].id)
-					}
-					localStorage.clear();
-					sessionStorage.clear();
-					console.log(resp);
-
-				}).catch(error => {
-					Swal.fire("Error", "Đặt hàng thất bại!", "error");
-					console.log(error)
-				})
-			}
-		}
-		$scope.bill.purchase();
-	}
-
 
 
 
@@ -553,12 +463,9 @@ $scope.checkQuantity = function(item) {
             resp.data,
                 favorite_date = new Date(resp.data.favorite_date);
             $scope.facolist.push(resp.data);
-            // alert("Đã thêm sản phẩm vào danh sách yêu thích");
             themYeuThich("success", "Đã thêm sản phẩm vào danh sách yêu thích");
-
             $scope.isShow = isShow;
         }).catch(error => {
-            // alert("Bạn cần đăng nhập để sử dụng chức năng này");
             themYeuThich("warning", "Bạn cần đăng nhập để sử dụng chức năng này");
             console.log("Error", error);
         })
@@ -578,9 +485,8 @@ $scope.checkQuantity = function(item) {
         })
     }
 
-
+    // bình luận
     $scope.isUsername = $("#isusername").text();
-
     $scope.commentList = [];
     $scope.commentedit = {};
     $scope.commentform = {
@@ -596,6 +502,11 @@ $scope.checkQuantity = function(item) {
     }
 
     $scope.AddComment = function (id) {
+        if (!$scope.commentform.comment_Content) {
+            themSanPham("error","Vui lòng nhập nội dung!");
+            return; 
+        }
+
         $scope.commentform.product.product_id = id;
         var comm = angular.copy($scope.commentform);
         $http.post(`/rest/comments`, comm).then(resp => {
@@ -623,6 +534,10 @@ $scope.checkQuantity = function(item) {
     };
 
     $scope.UpdateComment = function () {
+        if (!$scope.commentedit || !$scope.commentedit.comment_id || !$scope.commentedit.comment_Content) {
+            themSanPham("error","Không được trống bình luận");
+            return; 
+        }
         var comm = angular.copy($scope.commentedit);
         $http.put(`/rest/comments/${comm.comment_id}`, comm).then(resp => {
             var index = $scope.cart.getcomment.findIndex(cmts => cmts.comment_id == comm.comment_id);
