@@ -19,32 +19,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         getcomment: [],
         get_orderid: 0,
         prod: [],
-        saveToLocalStorage: function () {
-            var cartData = {
-                username: $("#username").text(), // Lưu thông tin tài khoản người dùng
-                items: this.items // Lưu dữ liệu giỏ hàng
-            };
-            localStorage.setItem("cartData", JSON.stringify(cartData));
-        },
-
-        loadFromLocalStorage: function () {
-            var savedCartData = localStorage.getItem("cartData");
-            if (savedCartData) {
-                var cartData = JSON.parse(savedCartData);
-                if (cartData.username === $("#username").text()) {
-                    this.items = cartData.items; // Nạp dữ liệu giỏ hàng từ Local Storage
-                }
-            }
-        },
-
-        clearLocalStorage: function () {
-            localStorage.removeItem("cartData"); // Xóa dữ liệu giỏ hàng khi đăng xuất
-            this.items = []; // Xóa dữ liệu giỏ hàng trong ứng dụng
-        },
-        //
-
-
-
         add(product_id) {
             if (isLoggedIn()) {
                 $http.get(`/rest/products/${product_id}`).then(resp => {
@@ -198,11 +172,17 @@ $scope.checkQuantity = function(item) {
             }
 
             localStorage.setItem('cart', JSON.stringify(cart));
-            // themSanPham("success", "Số lượng sản phẩm đã được cập nhật!");
+           
         }
-        // Bạn có thể thêm các xử lý khác ở đây
     });
 };
+// chặn nhập số âm  
+$scope.preventNegativeInput = function(event) {
+    if (event.charCode !== 0 && (event.which < 48 || event.which > 57)) {
+        event.preventDefault();
+    }
+};
+
 
 
 
@@ -229,10 +209,6 @@ $scope.checkQuantity = function(item) {
     // $scope.clearCart = function () {
     //     $scope.cart.clear();
     // };
-
-
-
-
 
     // $scope.updateTotal = function () {
 
