@@ -284,6 +284,90 @@ $scope.checkQuantity = function(item) {
     // }
 
 
+// thanh toán vnpay
+    //Thanh toán vnpay	
+	$scope.generatePayment = function() {
+
+		var tongtienthanhtoanElement = document.getElementById("total");
+
+		// Lấy nội dung từ phần tử
+		var tongtienthanhtoanText = tongtienthanhtoanElement.innerHTML;
+
+		// Chuyển đổi chuỗi thành kiểu số
+		var tongtienthanhtoan = parseFloat(tongtienthanhtoanText.replace(',', ''));
+
+		console.log(total);
+		var params = {
+			bankCode: "NCB",
+			amount: total,
+		};
+		console.log('Request Params:', params)
+		$http.get(`/api/vnpay/createpayment`, { params: params })
+			.then(function(response) {
+				console.log('Response:', response);
+				$scope.payment = response.data;
+				window.location.href = $scope.payment;
+			})
+			.catch(function(error) {
+				console.error('Error:', error);
+			});
+	};  
+
+	$scope.thanhtoanvnpay = function() {
+
+		//Lấy dữ liệu từ localStore
+		$scope.selectedItems = JSON.parse(localStorage.getItem('selectedItems'));
+
+
+		$scope.bill = {
+			createdate: new Date(),
+			address: $scope.address,
+			totalamount: $scope.tongtienthanhtoan,
+			ship: $scope.ship,
+			account: {
+				username: $scope.username
+			},
+			phone: $("#phone").val(),
+			voucher: {
+				id: $scope.coupon
+			},
+			status: {
+				id: 1
+			},
+			statusorder: $scope.statusorder,
+			message: $("#message").text(),
+			get orderdetail() {
+				return $scope.selectedItems.map(item => {
+					return {
+						product: {
+							id: item.product.id
+						},
+						price: item.price,
+						quantity: item.quantity,
+						weight: item.weightvalue
+					}
+				});
+			},
+			purchase() {
+				var order = angular.copy(this);
+				$scope.weightquantt = [];
+				$http.post("/rest/order/createvnpay", order).then(resp => {
+					for (var i = 0; i < $scope.selectedItems.length; i++) {
+						$scope.deleteida($scope.selectedItems[i].id)
+					}
+					localStorage.clear();
+					sessionStorage.clear();
+					console.log(resp);
+
+				}).catch(error => {
+					Swal.fire("Error", "Đặt hàng thất bại!", "error");
+					console.log(error)
+				})
+			}
+		}
+		$scope.bill.purchase();
+	}
+
 
 
 
