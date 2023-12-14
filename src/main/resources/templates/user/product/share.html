@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Template</title>
+</head>
+<body  style="font-family: Arial, sans-serif;">
+    <p th:text="${greeting}"></p>
+    <p>Hãy nhấp vào liên kết bên dưới để xem chi tiết sản phẩm:</p>
+    <p><a th:href="${url}">Chi tiết sản phẩm</a></p>
+    <p>Xin cảm ơn!</p>
+</body>
+</html>

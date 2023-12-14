@@ -25,13 +25,11 @@ import java.util.List;
 public class CartRestController {
     @Autowired
     CartDao cartDao;
-
     @Autowired
     CartDetailDao cartDetailDao;
-
     @Autowired
     AccountDao accountDao;
-
+    // tất cả các sản phẩm có trong giỏ hàng của người dùng đang được xác thực
     @GetMapping()
     public ResponseEntity<List<Product>> getAllProductCart() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
