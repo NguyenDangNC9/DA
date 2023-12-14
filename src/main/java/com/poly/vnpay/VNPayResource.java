@@ -128,11 +128,11 @@ public class VNPayResource {
                     orderdao.save(order.get());
                 }
 
-                response.sendRedirect("http://localhost:8080/order/detail");
+                response.sendRedirect("http://localhost:8080/order/detail/" + orderid);
             } else {
                 // Giao dịch thất bại
                 // Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
-                response.sendRedirect("http://localhost:8080/");
+                response.sendRedirect("http://localhost:8080/api/v1/payment-callback");
 
             }
         }

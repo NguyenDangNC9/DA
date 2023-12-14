@@ -138,7 +138,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         initData() {
             $http.get(`/rest/carts`).then(resp => {
                 this.items = resp.data;
-             
+
             })
         }
 
@@ -178,13 +178,69 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         }
     };
 
-
-
+    $scope.generatePayment = function () {
+        var tongtienthanhtoanElement = document.getElementById("total");
+        // Lấy nội dung từ phần tử
+        var tongtienthanhtoanText = tongtienthanhtoanElement.innerHTML;
+        // Chuyển đổi chuỗi thành kiểu số
+        var total = parseFloat(tongtienthanhtoanText.replace(',', ''));
+        console.log(total);
+        var params = {
+            bankCode: "NCB",
+            amount: total,
+        };
+        console.log('Request Params:', params)
+        $http.get(`/api/v1/pay`, { params: params })
+            .then(function (response) {
+                console.log('Response:', response);
+                $scope.payment = response.data;
+                window.location.href = $scope.payment;
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
+    };
     //Thanh toán vnpay	
-  
+    $scope.payment = function () {
+        var phone = document.getElementById("phone").value;
+        $scope.order = {
+            createDate: new Date(),
+            phone: phone,
+            address: localStorage.getItem("address"),
+            account: {
+                username: $("#username").text()
+            },
+            status: "Đã thanh toán",
+            get orderDetails() {
+                return $scope.cart.items.map(item => {
+                    return {
+                        product: { product_id: item.product_id },
+                        price: item.unit_price,
+                        quantity: item.quantity
+                    }
+                });
+            },
+
+            purchase() {
+                var order = angular.copy(this);
+                $http.post(`/rest/orders`, order).then(resp => {
+                    console.log(resp.data);
+                }).catch(error => {
+                    alert("đặt hàng thất bại");
+                    console.log(error)
+                })
+            }
+        }
+        $scope.order.purchase();
+    }
 
 
+    $scope.cbthanhtoan = function () {
+        $scope.payment();
+        $scope.generatePayment();
 
+    }
+    
     // thanh toan thuong
     $scope.order1 = {
         createDate: new Date(),
