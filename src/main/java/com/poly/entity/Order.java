@@ -20,12 +20,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @SuppressWarnings("serial")
 @Data
 @Entity 
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Orders")
 public class Order implements Serializable{
 	@Id
@@ -47,7 +50,6 @@ public class Order implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "Username")
 	Account account;
-	
 	@JsonIgnore
 	@OneToMany(mappedBy = "order")
 	List<OrderDetail> orderDetails;

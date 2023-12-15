@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{user/layout/index :: dynamic(~{::main})}">
+
+
+<body>
+<main>
+
+	<form th:action="@{/security/login}" method="post"
+		class="col-sm-6 col-sm-offset-3 mtb_20">
+		
+		<div   class="product-thumb">
+			<br> <br> <br>
+		<div class="panel-heading text-center" > <h2> <strong> Thanh toán thất bại! </strong></h2></div>
+		
+		<div class="form-group text-center" >
+			<i class=" social_icon_tt fa fa-check" style="font-size: 24px"></i>
+		</div>
+		<br> <br>
+	
+		<div class="form-group">
+			<div class="row">
+				<div class="col-sm-8 col-sm-offset-2">
+					<div class="text-center">
+						<a class="form-control btn "  href="/product/list">Tiếp tục mua hàng</a>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		</div>
+	</form>
+	
+	</main>
+	</body>

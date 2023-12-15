@@ -45,24 +45,24 @@ public class SecurityController {
 		return "user/security/login";
 	}
 	
-	@Autowired
-	SecurityConfig securityConfig;
-	
-	@RequestMapping("/security2/login/success")
-	public String success(OAuth2AuthenticationToken oauth2 , HttpServletRequest requet) {
-		securityConfig.loginFromOAuth2(oauth2);
-		String pw = RandomString.make(10);
-		if(!accdao.existsById(requet.getRemoteUser())) {
-		Account acc = new Account();
-		acc.setUsername(requet.getRemoteUser());
-		acc.setPassword(pw);
-		acc.setPhoto("avata.jpg");
-		acc.setEmail(oauth2.getPrincipal().getAttribute("email"));
-		acc.setFullname(oauth2.getPrincipal().getAttribute("name"));
-		acc.setActive(true);
-		accdao.save(acc);
+		@Autowired
+		SecurityConfig securityConfig;
+		
+		@RequestMapping("/security2/login/success")
+		public String success(OAuth2AuthenticationToken oauth2 , HttpServletRequest requet) {
+			securityConfig.loginFromOAuth2(oauth2);
+			String pw = RandomString.make(10);
+			if(!accdao.existsById(requet.getRemoteUser())) {
+			Account acc = new Account();
+			acc.setUsername(requet.getRemoteUser());
+			acc.setPassword(pw);
+			acc.setPhoto("avata.jpg");
+			acc.setEmail(oauth2.getPrincipal().getAttribute("email"));
+			acc.setFullname(oauth2.getPrincipal().getAttribute("name"));
+			acc.setActive(true);
+			accdao.save(acc);
+			}
+			return"forward:/home/index";
+				
 		}
-		return"forward:/home/index";
-			
-	}
 }
