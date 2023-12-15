@@ -92,6 +92,7 @@ public class ProductAdminController {
 		model.addAttribute("totalPageCount", totalPageCount);
 		model.addAttribute("baseUrl", baseUrl);
 		model.addAttribute("items", pages);
+		// laay dữ lieeju pan trang
 		return "/admin/product/list";
 	}
 
