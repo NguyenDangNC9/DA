@@ -201,6 +201,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 console.log('Response:', response);
                 $scope.payment = response.data;
                 window.location.href = $scope.payment;
+                
             })
             .catch(function (error) {
                 console.error('Error:', error);

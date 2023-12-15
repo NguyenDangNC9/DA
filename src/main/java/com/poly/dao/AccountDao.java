@@ -16,5 +16,4 @@ public interface AccountDao extends JpaRepository<Account, String>{
 	@Query(value = "select * from Accounts where Username like %:kw% or \r\n"
 			+ " Fullname like %:kw%  or \r\n" +" Email like %:kw%" , nativeQuery = true)
 	List<Account> finbyIdOrName(@Param("kw") String keyword);
-
 }
