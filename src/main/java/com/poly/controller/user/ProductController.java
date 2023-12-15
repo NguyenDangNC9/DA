@@ -3,6 +3,7 @@ package com.poly.controller.user;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,9 @@ import com.poly.entity.Product;
 import com.poly.entity.Vote;
 import com.poly.service.ProductService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+
 @Controller
 public class ProductController {
 	@Autowired
@@ -41,6 +46,9 @@ public class ProductController {
 	VoteDao votedao;
 	@Autowired
 	JavaMailSender javaMailSender;
+
+	@Autowired
+    private ApplicationContext applicationContext;
 
 //	@RequestMapping({ "/" })
 //	public String home() {
@@ -429,17 +437,45 @@ public class ProductController {
 	}
 	
 
-	@RequestMapping("/send1")
-	public String sendMailShare(HttpServletRequest request, @RequestParam("id") Integer id, @RequestParam("to") String to, @RequestParam("subject") String subject, @RequestParam("content") String content) {
-		SimpleMailMessage msg = new SimpleMailMessage();
-		String url = request.getRequestURL().toString().replace("send1", "product/detail/" + id);
-		msg.setTo(to);
-		msg.setText(content + "'" + url + "'");
-		msg.setSubject(subject);
-		javaMailSender.send(msg);
-		return "user/result";
+	// @RequestMapping("/send1")
+	// public String sendMailShare(HttpServletRequest request, @RequestParam("id") Integer id, @RequestParam("to") String to, @RequestParam("subject") String subject, @RequestParam("content") String content) {
+	// 	SimpleMailMessage msg = new SimpleMailMessage();
+	// 	String url = request.getRequestURL().toString().replace("send1", "product/detail/" + id);
+	// 	msg.setTo(to);
+	// 	msg.setText(content + "'" + url + "'");
+	// 	msg.setSubject(subject);
+	// 	javaMailSender.send(msg);
+	// 	return "user/result";
 	
-	}
+	// }
+	@RequestMapping("/send1")
+public String sendMailShare(@RequestParam("id") Integer id, @RequestParam("to") String to, @RequestParam("subject") String subject) {
+    MimeMessage message = javaMailSender.createMimeMessage();
+
+    try {
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        String url = "http://localhost:8080/product/detail/" + id;
+        String emailContent = "<html><head> <meta charset='UTF-8'> </head><body>" +
+		"<p style='font-family: Arial, sans-serif;'>Đây là một ví dụ về chữ tiếng Việt.</p>" +
+                                "<p>Xin chào,</p>" +
+                                "<p>Hãy nhấp vào liên kết bên dưới để xem chi tiết sản phẩm:</p>" +
+                                "<p><a href='" + url + "'>Chi tiết sản phẩm</a></p>" +
+                                "<p>Xin cảm ơn!</p>" +
+                              "</body></html>";
+
+        helper.setTo(to);
+        helper.setText(emailContent, true);
+        helper.setSubject(subject);
+        javaMailSender.send(message);
+        return "user/result";
+    } catch (Exception e) {
+        return "error";
+    }
+}
+
+
+	
 	
 	
 	@RequestMapping("/contact-us")
@@ -454,7 +490,15 @@ public class ProductController {
 		return "user/contact/about";
 	}
 	
-	
-	
-	
+
+	// thanh toán thành công vnpay
+		@RequestMapping("/product/success")
+	public String index1(Model model) {
+		return "user/product/success";
+	}
+
+	@RequestMapping("/product/cancel")
+	public String index2(Model model) {
+		return "user/product/cancel";
+	}
 }
