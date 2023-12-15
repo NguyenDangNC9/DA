@@ -43,11 +43,10 @@ import com.poly.entity.Order;
 @RequestMapping("api/v1")
 public class VNPayResource {
     @Autowired
-     OrderDao orderdao;
+    OrderDao orderdao;
 
-    @Autowired 
+    @Autowired
     HttpSession session;
-    
 
     @GetMapping("pay")
     public ResponseEntity<?> getPay(@RequestParam("price") Long price, @RequestParam("orderid") Integer orderid)
@@ -57,8 +56,8 @@ public class VNPayResource {
         String vnp_Command = "pay";
         String orderType = "other";
         Long amount = price * 100;
-        System.out.println(price);
-        System.out.println(orderid);
+        // System.out.println(price);
+        // System.out.println(orderid);
         session.setAttribute("orderType", orderid);
         String bankCode = "NCB";
         String vnp_TxnRef = Config.getRandomNumber(8);
@@ -137,20 +136,19 @@ public class VNPayResource {
             if ("00".equals(vnp_ResponseCode)) {
                 // Giao dịch thành công
                 // Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
-                // Optional<Order> order = orderdao.findById(Integer.parseInt(queryParams.get("orderid")));
-            Integer id = (Integer) session.getAttribute("orderType");
-            Order order = orderdao.findById(id).get();
-            
-              
-                    order.setDescription("Đã thanh toán");
-                    orderdao.save(order);
-                
+                // Optional<Order> order =
+                // orderdao.findById(Integer.parseInt(queryParams.get("orderid")));
+                Integer id = (Integer) session.getAttribute("orderType");
+                Order order = orderdao.findById(id).get();
+                order.setDescription("Đã thanh toán");
+                orderdao.save(order);
 
-                response.sendRedirect("http://localhost:8080/order/detail/" + orderid);
+            // response.sendRedirect("http://localhost:8080/order/detail/" + orderid);
+                response.sendRedirect("http://localhost:8080/product/success");
             } else {
                 // Giao dịch thất bại
                 // Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
-                response.sendRedirect("http://localhost:8080/user/cancle");
+                response.sendRedirect("http://localhost:8080/product/cancel");
 
             }
         }

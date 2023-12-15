@@ -159,7 +159,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 item.quantity = availableQuantity; // Đặt lại số lượng về số lượng có sẵn trong cơ sở dữ liệu
             } else {
                 // Cập nhật số lượng sản phẩm trong localStorage
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cart = JSON.parse(localStorage.getItem('cart')) || []; 
                 const existingItemIndex = cart.findIndex(cartItem => cartItem.product_id === item.product_id);
 
                 if (existingItemIndex !== -1) {
@@ -179,7 +179,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     };
 
 
-
+    
+    // chuyển đến vnpay
     $scope.generatePayment = function () {
         var tongtienthanhtoanElement = document.getElementById("total");
         // Lấy nội dung từ phần tử
@@ -206,10 +207,10 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 console.error('Error:', error);
             });
     };
+
     //Thanh toán vnpay	
     $scope.payment = function () {
         var phone = document.getElementById("phone").value;
-
         var tongtienthanhtoanElement = document.getElementById("total");
         // Lấy nội dung từ phần tử
         var tongtienthanhtoanText = tongtienthanhtoanElement.innerHTML;
@@ -217,8 +218,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         // var total = parseFloat(tongtienthanhtoanText.replace('.', ''));
         var total = parseFloat(tongtienthanhtoanText.replace(/\./g, ''));
         console.log(total);
-
-
         $scope.order = {
             createDate: new Date(),
             phone: phone,
@@ -255,14 +254,12 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 })
             }
         }
-       
+        $scope.order.purchase();
     }
 
-
     $scope.thanhtoan = function () {
-        $scope.payment();
         $scope.generatePayment();
-
+        $scope.payment();
     }
 
     // thanh toan thuong

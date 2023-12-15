@@ -490,7 +490,15 @@ public String sendMailShare(@RequestParam("id") Integer id, @RequestParam("to") 
 		return "user/contact/about";
 	}
 	
-	
-	
-	
+
+	// thanh toán thành công vnpay
+		@RequestMapping("/product/success")
+	public String index1(Model model) {
+		return "user/product/success";
+	}
+
+	@RequestMapping("/product/cancel")
+	public String index2(Model model) {
+		return "user/product/cancel";
+	}
 }
