@@ -33,72 +33,80 @@ public class OrderController {
 
 	@Autowired
 	OrderDetailDao orderDetailDao;
+
+	// Nút xác nhận thanh toán trực tiếp khi nhận hàng
 	@RequestMapping("/order/checkout")
 	public String checkout() {
 		return "user/order/checkout";
 	}
+
+	// Hiển thị danh sách đơn hàng của mình
 	@RequestMapping("/order/list")
-	public String list(Model model , HttpServletRequest request, @RequestParam("page") Optional<Integer> page) {
-		
-		String username= request.getRemoteUser();
+	public String list(Model model, HttpServletRequest request, @RequestParam("page") Optional<Integer> page) {
+
+		String username = request.getRemoteUser();
 		model.addAttribute("orders", orderService.findByUsername(username));
 		return "user/order/list";
 	}
-	
+
+	// Nút xem đơn hàng chi tiết
 	@RequestMapping("/order/detail/{id}")
-	public String detail(@PathVariable("id") Integer id , Model model) {
+	public String detail(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("order", orderService.findById(id));
 		return "user/order/detail";
 	}
-	
+
+	// Xóa đơn hàng
 	@RequestMapping("/order/remove")
 	public String remove(@RequestParam("order_id") Integer id) {
-//		int id_order = Integer.parseInt(id);
+		// int id_order = Integer.parseInt(id);
 		Order order = odao.getById(id);
 		order.setStatus(4);
 		odao.save(order);
 		return "redirect:/order/list";
 	}
+
+	// Gửi mail cho bản thân về đơn hàng vừa mua
 	@RequestMapping("/send")
-	public String sendMail(@RequestParam("to") String to, @RequestParam("subject") String subject, @RequestParam("content") String content,
+	public String sendMail(@RequestParam("to") String to, @RequestParam("subject") String subject,
+			@RequestParam("content") String content,
 			@ModelAttribute("order") Order order) {
 		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(to);
 		msg.setText(
-				"Tên người đặt hàng : " 
-		+ content 
-		+ "\n"
-		+ "Phương thức thanh toán :  "
-		+ order.getMethod() 
-		+ "\n"
-				+ "Số điện thoại người đặt hàng : "
-		+ order.getPhone()
-		+ "\n"
-		+ "Đơn hàng có giá trị :"
-				+ order.getPrice() 
-				+ "\n" 
-				+ "Loại tiền tệ : " 
-				+ order.getCurrency() 
-				+ "\n"
-				+ "Intent : "
-				+ order.getIntent() 
-				+ "\n" 
-				+ "Description : " 
-				+ order.getStatus()
-				+ "\n" 
-				+ "Ngày tạo đơn : "
-				+ order.getCreateDate() 
-				+ "\n" 
-				+ "Địa chỉ nhận hàng : " 
-				+ order.getAddress() 
-				+ "\n" 
-		+ "\n" 
-		+ "================================");
+				"Tên người đặt hàng : "
+						+ content
+						+ "\n"
+						+ "Phương thức thanh toán :  "
+						+ order.getMethod()
+						+ "\n"
+						+ "Số điện thoại người đặt hàng : "
+						+ order.getPhone()
+						+ "\n"
+						+ "Đơn hàng có giá trị :"
+						+ order.getPrice()
+						+ "\n"
+						+ "Loại tiền tệ : "
+						+ order.getCurrency()
+						+ "\n"
+						+ "Intent : "
+						+ order.getIntent()
+						+ "\n"
+						+ "Description : "
+						+ order.getStatus()
+						+ "\n"
+						+ "Ngày tạo đơn : "
+						+ order.getCreateDate()
+						+ "\n"
+						+ "Địa chỉ nhận hàng : "
+						+ order.getAddress()
+						+ "\n"
+						+ "\n"
+						+ "================================");
 
 		msg.setSubject("Đơn hàng số : " + subject);
 		javaMailSender.send(msg);
 		return "user/result";
 	}
 
-	
 }

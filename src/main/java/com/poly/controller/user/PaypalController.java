@@ -35,48 +35,44 @@ public class PaypalController {
 		return "user/home";
 	}
 
-	
-
-
-
-	// @PostMapping("/pay")
-	// public String payment(@ModelAttribute("order") Order order) {
-	// 	try {
-	// 		Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
-	// 				order.getIntent(), order.getDescription(), "http://localhost:8080/" + CANCEL_URL,
-	// 				"http://localhost:8080/" + SUCCESS_URL);
-	// 		for(Links link:payment.getLinks()) {
-	// 			if(link.getRel().equals("approval_url")) {
-	// 				return "redirect:"+link.getHref();
-	// 			}
-	// 		}
+	@PostMapping("/pay")
+	public String payment(@ModelAttribute("order") Order order) {
+		try {
+			Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
+					order.getIntent(), order.getDescription(), "http://localhost:8080/" + CANCEL_URL,
+					"http://localhost:8080/" + SUCCESS_URL);
+			for(Links link:payment.getLinks()) {
+				if(link.getRel().equals("approval_url")) {
+					return "redirect:"+link.getHref();
+				}
+			}
 			
-	// 	} catch (PayPalRESTException e) {
+		} catch (PayPalRESTException e) {
 		
-	// 		e.printStackTrace();
-	// 	}
-	// 	return "redirect:/";
-	// }
+			e.printStackTrace();
+		}
+		return "redirect:/";
+	}
 	
-	//  @GetMapping(value = CANCEL_URL)
-	//     public String cancelPay() {
-	//         return "user/cancel";
-	//     }
+	 @GetMapping(value = CANCEL_URL)
+	    public String cancelPay() {
+	        return "user/cancel";
+	    }
 
-	//     @GetMapping(value = SUCCESS_URL)
-	//     public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
-	//         try {
-	//             Payment payment = service.executePayment(paymentId, payerId);
-	//             System.out.println(payment.toJSON());
-	//             if (payment.getState().equals("approved")) {
+	    @GetMapping(value = SUCCESS_URL)
+	    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
+	        try {
+	            Payment payment = service.executePayment(paymentId, payerId);
+	            System.out.println(payment.toJSON());
+	            if (payment.getState().equals("approved")) {
 	            	 
 				   
-	//                 return "user/success";
-	//             }
-	//         } catch (PayPalRESTException e) {
-	//          System.out.println(e.getMessage());
-	//         }
-	//         return "/user/success";
-	//     }
+	                return "user/success";
+	            }
+	        } catch (PayPalRESTException e) {
+	         System.out.println(e.getMessage());
+	        }
+	        return "/user/success";
+	    }
 
 }

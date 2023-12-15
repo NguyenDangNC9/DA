@@ -90,8 +90,15 @@
 
 									</div>
 
-									<button formaction="/admin/account/create" class="btn btn-round btn-info"><span
-											class="glyphicon glyphicon-check"></span> Tạo mới</button>
+									<button formaction="/admin/account/create" class="btn btn-round btn-info"
+										onclick="return createAccount();"><span
+											class="glyphicon glyphicon-check"></span>
+										Tạo mới</button>
+									<script>
+										function createAccount() {
+											return themtaikhoan('success', 'Tạo tài khoản thành công');
+										}
+									</script>
 
 									<a tH:href=@{/admin/account/detail} class="btn btn-round btn-default"><span
 											class="glyphicon glyphicon-refresh"></span> Làm mới</a>

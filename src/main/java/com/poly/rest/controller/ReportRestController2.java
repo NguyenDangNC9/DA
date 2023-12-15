@@ -19,17 +19,22 @@ import com.poly.service.ProductService;
 public class ReportRestController2 {
 	@Autowired
 	ReportDao reportDao;
-	
+
+	// Theo khách hàng
 	@RequestMapping("/rest/report1")
-	public List<Report>  getAll() {
+	public List<Report> getAll() {
 		return reportDao.revenueByCustomer();
 	}
+
+	// Theo loại sản phẩm
 	@RequestMapping("/rest/charcate")
-	public List<Report>  charcate() {
+	public List<Report> charcate() {
 		return reportDao.revenueByCategory();
 	}
+
+	// Theo loại thương hiệu
 	@RequestMapping("/rest/chartrak")
-	public List<Report>  chartrak() {
+	public List<Report> chartrak() {
 		return reportDao.revenueByTrak();
 	}
 }

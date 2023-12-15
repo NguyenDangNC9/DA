@@ -41,20 +41,21 @@ public class ProductController {
 	@Autowired
 	HttpServletRequest request;
 	@Autowired
-	FavoriteDao  fadao;
+	FavoriteDao fadao;
 	@Autowired
 	VoteDao votedao;
 	@Autowired
 	JavaMailSender javaMailSender;
 
 	@Autowired
-    private ApplicationContext applicationContext;
+	private ApplicationContext applicationContext;
 
-//	@RequestMapping({ "/" })
-//	public String home() {
-//		return "redirect:/product/list";
-//	}
+	// @RequestMapping({ "/" })
+	// public String home() {
+	// return "redirect:/product/list";
+	// }
 
+	// Hiển thị trang sản phẩm người dùng
 	@GetMapping("/product/list")
 	public String index(Model model, HttpServletRequest request, RedirectAttributes redirect) {
 		request.getSession().setAttribute("productlist", null);
@@ -63,13 +64,14 @@ public class ProductController {
 		return "redirect:/product/list/page/1";
 	}
 
+	// Phân trang sản phẩm
 	@GetMapping("/product/list/page/{pageNumber}")
 	public String showProductPage(HttpServletRequest request, @PathVariable int pageNumber, Model model) {
 		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
 		int pagesize = 9;
 		List<Product> list = (List<Product>) productService.findAll();
 		model.addAttribute("sizepro", productService.findAll().size());
-		
+
 		if (pages == null) {
 			pages = new PagedListHolder<>(list);
 			pages.setPageSize(pagesize);
@@ -94,127 +96,128 @@ public class ProductController {
 		return "user/product/list";
 	}
 
-
+	// Xem sản phẩm chi tiết
 	@RequestMapping("/product/detail/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id) {
 		double vote_arg = 0;
 		Product item = productService.findById(id);
-		String username= request.getRemoteUser();
+		String username = request.getRemoteUser();
 		List<Vote> VoteList = votedao.findbyProductId(id);
-		if(VoteList.size()!=0) {
-		for(int i=0 ; i < VoteList.size() ; i++) {
-			vote_arg +=VoteList.get(i).getVote(); 
-		}
-		model.addAttribute("vote_arage",vote_arg/VoteList.size());
-		}
-		else {
-		model.addAttribute("vote_arage",0);
+		if (VoteList.size() != 0) {
+			for (int i = 0; i < VoteList.size(); i++) {
+				vote_arg += VoteList.get(i).getVote();
+			}
+			model.addAttribute("vote_arage", vote_arg / VoteList.size());
+		} else {
+			model.addAttribute("vote_arage", 0);
 		}
 		model.addAttribute("votes", VoteList);
 		model.addAttribute("votesize", VoteList.size());
-		
-		
+
 		List<Favorite> listcheck = fadao.checkFavaritesAdmin(id, username);
 		model.addAttribute("checklist", listcheck.size());
 		model.addAttribute("item", item);
 		return "user/product/detail";
 	}
 
-
+	// Hiển thị danh sách sang sản khuyến mãi và phân trang đó
 	@RequestMapping("/product/discount/{pageNumber}")
 	public String discount(Model model, @RequestParam("cid") Optional<Integer> cid,
 			HttpServletRequest request,
 			@PathVariable int pageNumber) {
-		
-			List<Product> list = pdao.findByDis();
-			model.addAttribute("items", list);
 
-			PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
-			int pagesize = 4;
-			pages = new PagedListHolder<>(list);
-			pages.setPageSize(pagesize);
-			final int goToPage = pageNumber - 1;
-			if (goToPage <= pages.getPageCount() && goToPage >= 0) {
-				pages.setPage(goToPage);
-			}
-			request.getSession().setAttribute("productlist", pages);
-			int current = pages.getPage() + 1;
-			int begin = Math.max(1, current - list.size());
-			int end = Math.min(begin + 5, pages.getPageCount());
-			int totalPageCount = pages.getPageCount();
-			String baseUrl = "/product/discount/";
-			model.addAttribute("beginIndex", begin);
-			model.addAttribute("endIndex", end);
-			model.addAttribute("currentIndex", current);
-			model.addAttribute("totalPageCount", totalPageCount);
-			model.addAttribute("baseUrl", baseUrl);
-			model.addAttribute("items", pages);
+		List<Product> list = pdao.findByDis();
+		model.addAttribute("items", list);
+
+		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
+		int pagesize = 4;
+		pages = new PagedListHolder<>(list);
+		pages.setPageSize(pagesize);
+		final int goToPage = pageNumber - 1;
+		if (goToPage <= pages.getPageCount() && goToPage >= 0) {
+			pages.setPage(goToPage);
+		}
+		request.getSession().setAttribute("productlist", pages);
+		int current = pages.getPage() + 1;
+		int begin = Math.max(1, current - list.size());
+		int end = Math.min(begin + 5, pages.getPageCount());
+		int totalPageCount = pages.getPageCount();
+		String baseUrl = "/product/discount/";
+		model.addAttribute("beginIndex", begin);
+		model.addAttribute("endIndex", end);
+		model.addAttribute("currentIndex", current);
+		model.addAttribute("totalPageCount", totalPageCount);
+		model.addAttribute("baseUrl", baseUrl);
+		model.addAttribute("items", pages);
 
 		return "user/product/discount";
 	}
 
+	// Hiển thị danh sách sản phẩm mới nhất
 	@RequestMapping("/product/latest/{pageNumber}")
-	public String latest(Model model, @RequestParam("cid") Optional<Integer> cid,HttpServletRequest request,
+	public String latest(Model model, @RequestParam("cid") Optional<Integer> cid, HttpServletRequest request,
 			@PathVariable int pageNumber) {
-	
-			List<Product> list = pdao.findByLatest();
-			model.addAttribute("items", list);
-		
-			PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
-			int pagesize = 4;
-			pages = new PagedListHolder<>(list);
-			pages.setPageSize(pagesize);
-			final int goToPage = pageNumber - 1;
-			if (goToPage <= pages.getPageCount() && goToPage >= 0) {
-				pages.setPage(goToPage);
-			}
-			request.getSession().setAttribute("productlist", pages);
-			int current = pages.getPage() + 1;
-			int begin = Math.max(1, current - list.size());
-			int end = Math.min(begin + 5, pages.getPageCount());
-			int totalPageCount = pages.getPageCount();
-			String baseUrl = "/product/latest/";
-			model.addAttribute("beginIndex", begin);
-			model.addAttribute("endIndex", end);
-			model.addAttribute("currentIndex", current);
-			model.addAttribute("totalPageCount", totalPageCount);
-			model.addAttribute("baseUrl", baseUrl);
-			model.addAttribute("items", pages);
+
+		List<Product> list = pdao.findByLatest();
+		model.addAttribute("items", list);
+
+		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
+		int pagesize = 4;
+		pages = new PagedListHolder<>(list);
+		pages.setPageSize(pagesize);
+		final int goToPage = pageNumber - 1;
+		if (goToPage <= pages.getPageCount() && goToPage >= 0) {
+			pages.setPage(goToPage);
+		}
+		request.getSession().setAttribute("productlist", pages);
+		int current = pages.getPage() + 1;
+		int begin = Math.max(1, current - list.size());
+		int end = Math.min(begin + 5, pages.getPageCount());
+		int totalPageCount = pages.getPageCount();
+		String baseUrl = "/product/latest/";
+		model.addAttribute("beginIndex", begin);
+		model.addAttribute("endIndex", end);
+		model.addAttribute("currentIndex", current);
+		model.addAttribute("totalPageCount", totalPageCount);
+		model.addAttribute("baseUrl", baseUrl);
+		model.addAttribute("items", pages);
 		return "user/product/latest";
 	}
 
+	// Hiển thị danh sách sản phẩm đặc biệt
 	@RequestMapping("/product/special/{pageNumber}")
 	public String special(Model model, @RequestParam("cid") Optional<Integer> cid,
 			HttpServletRequest request,
 			@PathVariable int pageNumber) {
-		
-			List<Product> list = pdao.findBySpecial();
-			model.addAttribute("items", list);
 
-			PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
-			int pagesize = 4;
-			pages = new PagedListHolder<>(list);
-			pages.setPageSize(pagesize);
-			final int goToPage = pageNumber - 1;
-			if (goToPage <= pages.getPageCount() && goToPage >= 0) {
-				pages.setPage(goToPage);
-			}
-			request.getSession().setAttribute("productlist", pages);
-			int current = pages.getPage() + 1;
-			int begin = Math.max(1, current - list.size());
-			int end = Math.min(begin + 5, pages.getPageCount());
-			int totalPageCount = pages.getPageCount();
-			String baseUrl = "/product/special/";
-			model.addAttribute("beginIndex", begin);
-			model.addAttribute("endIndex", end);
-			model.addAttribute("currentIndex", current);
-			model.addAttribute("totalPageCount", totalPageCount);
-			model.addAttribute("baseUrl", baseUrl);
-			model.addAttribute("items", pages);
-		
+		List<Product> list = pdao.findBySpecial();
+		model.addAttribute("items", list);
+
+		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
+		int pagesize = 4;
+		pages = new PagedListHolder<>(list);
+		pages.setPageSize(pagesize);
+		final int goToPage = pageNumber - 1;
+		if (goToPage <= pages.getPageCount() && goToPage >= 0) {
+			pages.setPage(goToPage);
+		}
+		request.getSession().setAttribute("productlist", pages);
+		int current = pages.getPage() + 1;
+		int begin = Math.max(1, current - list.size());
+		int end = Math.min(begin + 5, pages.getPageCount());
+		int totalPageCount = pages.getPageCount();
+		String baseUrl = "/product/special/";
+		model.addAttribute("beginIndex", begin);
+		model.addAttribute("endIndex", end);
+		model.addAttribute("currentIndex", current);
+		model.addAttribute("totalPageCount", totalPageCount);
+		model.addAttribute("baseUrl", baseUrl);
+		model.addAttribute("items", pages);
+
 		return "user/product/special";
 	}
 
+	// Tìm kiếm sản phẩm
 	@GetMapping("/product/list/search")
 	public String search(@RequestParam("keywords") String keywords, Model model) {
 		if (keywords.equals("")) {
@@ -224,6 +227,7 @@ public class ProductController {
 		return "list";
 	}
 
+	// Phân trang tìm kiếm sản phẩm
 	@GetMapping("/product/list/search/{pageNumber}")
 	public String search(@RequestParam("keywords") String keywords, Model model, HttpServletRequest request,
 			@PathVariable int pageNumber) {
@@ -258,6 +262,7 @@ public class ProductController {
 		return "user/product/list";
 	}
 
+	// Tìm kiếm sản phẩm theo dữ liệu
 	@RequestMapping("product/list/find")
 	public String find(Model model) {
 		List<Product> list = pdao.findAll();
@@ -265,15 +270,21 @@ public class ProductController {
 		return "list";
 	}
 
+	// Phân trang tìm kiếm theo dữ liệu
 	@RequestMapping("/product/list/find/{pageNumber}")
-	public String find(Model model, @RequestParam("Category_id") String Category_id, @RequestParam("Trademark_id") String Trademark_id,
-			@RequestParam("Color") String Color, @RequestParam("Material") String Material, @RequestParam("Size") String Size,
-			@RequestParam("MinPrice") Integer unit_price, @RequestParam("MaxPrice") Integer unit_price1, HttpServletRequest request,
+	public String find(Model model, @RequestParam("Category_id") String Category_id,
+			@RequestParam("Trademark_id") String Trademark_id,
+			@RequestParam("Color") String Color, @RequestParam("Material") String Material,
+			@RequestParam("Size") String Size,
+			@RequestParam("MinPrice") Integer unit_price, @RequestParam("MaxPrice") Integer unit_price1,
+			HttpServletRequest request,
 			@PathVariable int pageNumber) {
-		List<Product> list = pdao.findByAllKeyWord(unit_price, unit_price1, Category_id, Trademark_id,Color, Material, Size);
+		List<Product> list = pdao.findByAllKeyWord(unit_price, unit_price1, Category_id, Trademark_id, Color, Material,
+				Size);
 		model.addAttribute("items.pageList", list);
-		
-		model.addAttribute("sizepro", pdao.findByAllKeyWord(unit_price, unit_price1, Category_id, Trademark_id, Color, Material, Size).size());
+
+		model.addAttribute("sizepro", pdao
+				.findByAllKeyWord(unit_price, unit_price1, Category_id, Trademark_id, Color, Material, Size).size());
 		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
 		int pagesize = 9;
 		pages = new PagedListHolder<>(list);
@@ -298,7 +309,7 @@ public class ProductController {
 
 	}
 
-
+	// Tìm kiếm theo thương hiệu
 	@GetMapping("/product/list/findByTrademarkId")
 	public String trademark(@RequestParam("tid") Integer tid, Model model) {
 		if (tid.equals("")) {
@@ -306,10 +317,11 @@ public class ProductController {
 		}
 		model.addAttribute("items", productService.findByTrademarkId(tid));
 		model.addAttribute("sizepro", productService.findByTrademarkId(tid).size());
-		
+
 		return "list";
 	}
 
+	// Phân trang tìm kiếm theo thương hiệu
 	@GetMapping("/product/list/findByTrademarkId/{pageNumber}")
 	public String trademark(@RequestParam("tid") Integer tid, Model model, HttpServletRequest request,
 			@PathVariable int pageNumber) {
@@ -344,6 +356,7 @@ public class ProductController {
 		return "user/product/list";
 	}
 
+	// Hiển thị top 10 sản phẩm
 	@GetMapping("/product/list/top10/{pageNumber}")
 	public String getTop10(Model model, HttpServletRequest request, @PathVariable int pageNumber) {
 
@@ -373,7 +386,8 @@ public class ProductController {
 		model.addAttribute("items", pages);
 		return "user/product/list";
 	}
-	
+
+	// Sắp xếp danh sách sản phẩm theo thứ tự giảm dần
 	@GetMapping("/product/list/desc/{pageNumber}")
 	public String getDesc(Model model, HttpServletRequest request, @PathVariable int pageNumber) {
 		List<Product> list = pdao.getDesc();
@@ -404,7 +418,8 @@ public class ProductController {
 		model.addAttribute("items", pages);
 		return "user/product/list";
 	}
-	
+
+	// Sắp xếp danh sách sản phẩm theo thứ tự tăng dần
 	@GetMapping("/product/list/asc/{pageNumber}")
 	public String getAsc(Model model, HttpServletRequest request, @PathVariable int pageNumber) {
 		List<Product> list = pdao.getAsc();
@@ -435,64 +450,63 @@ public class ProductController {
 		model.addAttribute("items", pages);
 		return "user/product/list";
 	}
-	
 
 	// @RequestMapping("/send1")
-	// public String sendMailShare(HttpServletRequest request, @RequestParam("id") Integer id, @RequestParam("to") String to, @RequestParam("subject") String subject, @RequestParam("content") String content) {
-	// 	SimpleMailMessage msg = new SimpleMailMessage();
-	// 	String url = request.getRequestURL().toString().replace("send1", "product/detail/" + id);
-	// 	msg.setTo(to);
-	// 	msg.setText(content + "'" + url + "'");
-	// 	msg.setSubject(subject);
-	// 	javaMailSender.send(msg);
-	// 	return "user/result";
-	
+	// public String sendMailShare(HttpServletRequest request, @RequestParam("id")
+	// Integer id, @RequestParam("to") String to, @RequestParam("subject") String
+	// subject, @RequestParam("content") String content) {
+	// SimpleMailMessage msg = new SimpleMailMessage();
+	// String url = request.getRequestURL().toString().replace("send1",
+	// "product/detail/" + id);
+	// msg.setTo(to);
+	// msg.setText(content + "'" + url + "'");
+	// msg.setSubject(subject);
+	// javaMailSender.send(msg);
+	// return "user/result";
+
 	// }
 	@RequestMapping("/send1")
-public String sendMailShare(@RequestParam("id") Integer id, @RequestParam("to") String to, @RequestParam("subject") String subject) {
-    MimeMessage message = javaMailSender.createMimeMessage();
+	public String sendMailShare(@RequestParam("id") Integer id, @RequestParam("to") String to,
+			@RequestParam("subject") String subject) {
+		MimeMessage message = javaMailSender.createMimeMessage();
 
-    try {
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        String url = "http://localhost:8080/product/detail/" + id;
-        String emailContent = "<html><head> <meta charset='UTF-8'> </head><body>" +
-		"<p style='font-family: Arial, sans-serif;'>Đây là một ví dụ về chữ tiếng Việt.</p>" +
-                                "<p>Xin chào,</p>" +
-                                "<p>Hãy nhấp vào liên kết bên dưới để xem chi tiết sản phẩm:</p>" +
-                                "<p><a href='" + url + "'>Chi tiết sản phẩm</a></p>" +
-                                "<p>Xin cảm ơn!</p>" +
-                              "</body></html>";
+			String url = "http://localhost:8080/product/detail/" + id;
+			String emailContent = "<html><head> <meta charset='UTF-8'> </head><body>" +
+					"<p style='font-family: Arial, sans-serif;'>Đây là một ví dụ về chữ tiếng Việt.</p>" +
+					"<p>Xin chào,</p>" +
+					"<p>Hãy nhấp vào liên kết bên dưới để xem chi tiết sản phẩm:</p>" +
+					"<p><a href='" + url + "'>Chi tiết sản phẩm</a></p>" +
+					"<p>Xin cảm ơn!</p>" +
+					"</body></html>";
 
-        helper.setTo(to);
-        helper.setText(emailContent, true);
-        helper.setSubject(subject);
-        javaMailSender.send(message);
-        return "user/result";
-    } catch (Exception e) {
-        return "error";
-    }
-}
+			helper.setTo(to);
+			helper.setText(emailContent, true);
+			helper.setSubject(subject);
+			javaMailSender.send(message);
+			return "user/result";
+		} catch (Exception e) {
+			return "error";
+		}
+	}
 
-
-	
-	
-	
 	@RequestMapping("/contact-us")
 	public String contact(Model model) {
 
 		return "user/contact/contact_us";
 	}
-	
+
+	// Mở trang giới thiệu
 	@RequestMapping("/about")
 	public String about(Model model) {
 
 		return "user/contact/about";
 	}
-	
 
 	// thanh toán thành công vnpay
-		@RequestMapping("/product/success")
+	@RequestMapping("/product/success")
 	public String index1(Model model) {
 		return "user/product/success";
 	}
@@ -501,4 +515,5 @@ public String sendMailShare(@RequestParam("id") Integer id, @RequestParam("to") 
 	public String index2(Model model) {
 		return "user/product/cancel";
 	}
+
 }

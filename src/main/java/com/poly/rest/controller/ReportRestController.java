@@ -19,13 +19,16 @@ import com.poly.service.ProductService;
 public class ReportRestController {
 	@Autowired
 	ReportDao reportDao;
-	
+
+	// Theo tháng
 	@GetMapping("/rest/report")
-	public List<Report>  getAll() {
+	public List<Report> getAll() {
 		return reportDao.revenueByMonth();
 	}
+
+	// Theo năm
 	@GetMapping("/rest/reportWeek")
-	public List<Report>  getAll1() {
+	public List<Report> getAll1() {
 		return reportDao.revenueByWeek();
 	}
 }

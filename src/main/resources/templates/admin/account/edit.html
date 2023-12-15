@@ -33,7 +33,7 @@
 										<div class="form-group col-sm-6">
 											<div>Tên tài khoản :</div>
 											<input type="text" name="Username" th:value="${acc.Username}"
-												class="form-control" required>
+												class="form-control" readonly>
 										</div>
 										<div class="form-group col-sm-6">
 											<div>Họ và tên</div>
@@ -99,9 +99,25 @@
 										<span class="glyphicon glyphicon-check"></span> Cập nhập
 									</button>
 									<a th:href="@{|/admin/account/delete/form/${acc.username}|}"
-										class='btn btn-round btn-danger'><span
-											class="glyphicon glyphicon-remove"></span> Xóa</a> <a
-										tH:href=@{/admin/account/detail} class="btn btn-round btn-default"><span
+										class="btn btn-round btn-danger" onclick="return confirmDelete();">
+										<span class="glyphicon glyphicon-remove"></span> Xóa
+									</a>
+									<script th:inline="javascript">
+										var hasOrders = /*[[${listOrder > 0}]]*/ false;
+
+										function confirmDelete() {
+											if (hasOrders) {
+												batloitaikhoan("error", "Không thể xóa tài khoản khi có đơn hàng.");
+												return false; // Ngăn người dùng thực hiện hành động xóa
+											}
+
+											return thongbaoxoataikhoan("success", "Xóa tài khoản thành công");
+											setTimeout(function () {
+												// Chuyển hướng trang sau khi thông báo hiển thị trong 2 giây												
+											}, 2000); // Đợi 2 giây trước khi chuyển hướng
+										}
+									</script>
+									<a tH:href=@{/admin/account/detail} class="btn btn-round btn-default"><span
 											class="glyphicon glyphicon-refresh"></span> Làm mới</a> <i
 										th:utext="${message}"></i>
 								</div>

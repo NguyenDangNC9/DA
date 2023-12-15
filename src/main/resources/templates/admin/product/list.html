@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout/index :: dynamic(~{::main})}">
 
 
 <body>
@@ -13,13 +12,12 @@
 							&emsp;<i class="fa fa-angle-right"></i> Danh sách sản phẩm
 						</h3>
 						<ul class="nav nav-tabs" style="background: #ffffff;">
-							<li class="nav-item"><a class="nav-link active"
-								data-toggle="tab" href="#home">Tìm kiếm</a></li>
-							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#menu1">Tìm kiếm nâng cao</a></li>
-							<li><a tH:href=@{/admin/product/detail}
-								class=" btn btn-info btn-xs"><span
-									class="glyphicon glyphicon-plus"></span> Thêm mới</a></li>
+							<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Tìm kiếm</a>
+							</li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">Tìm kiếm nâng
+									cao</a></li>
+							<li><a tH:href=@{/admin/product/detail} class=" btn btn-info btn-xs"><span
+										class="glyphicon glyphicon-plus"></span> Thêm mới</a></li>
 						</ul>
 						<div class="tab-content">
 							<div id="home" class=" tab-pane active">
@@ -29,22 +27,23 @@
 											<br>
 
 											<div class="form-group col-sm-4">
-											
-												<input type="text" value="" name="keyword"
-													class="form-control" placeholder="Tìm theo id hoặc tên sản phẩm">
+
+												<input type="text" value="" name="keyword" class="form-control"
+													placeholder="Tìm theo id hoặc tên sản phẩm">
 											</div>
-											
+
 											<button class="btn btn-round btn-default" type="submit">Tìm
 												kiếm</button>
-												
-										
-											<i style="float: right; margin: 10px;" >Hiển thị  [[${sizepro} ]]  sản phẩm </i>
-										
-							
+
+
+											<i style="float: right; margin: 10px;">Hiển thị [[${sizepro} ]] sản phẩm
+											</i>
+
+
 										</div>
 									</div>
 								</form>
-								
+
 							</div>
 							<div id="menu1" class="tab-pane fade">
 								<form th:action="@{/admin/product/findallkeyword/1}">
@@ -101,14 +100,14 @@
 													</div>
 												</select>
 											</div>
-										<!-- 	<div class="form-group col-sm-4">
+											<!-- 	<div class="form-group col-sm-4">
 												<div>Chip</div>
 												<input type="text" name="Chip" class="form-control">
 											</div> -->
 											<div class="form-group col-sm-4">
 												<div>Màu</div>
-												<select class="form-control" name="Color"
-													data-live-search="true" style="height: 36px;">
+												<select class="form-control" name="Color" data-live-search="true"
+													style="height: 36px;">
 													<option value="">Tất cả</option>
 													<option value="Trắng">Trắng</option>
 													<option value="Đen">Đen</option>
@@ -116,8 +115,8 @@
 											</div>
 											<div class="form-group col-sm-4">
 												<div>Chất liệu</div>
-												<select class="form-control" name="Material"
-													data-live-search="true" style="height: 36px;">
+												<select class="form-control" name="Material" data-live-search="true"
+													style="height: 36px;">
 													<option value="">Tất cả</option>
 													<option value="Gỗ">Gỗ</option>
 													<option value="Nhôm">Nhôm</option>
@@ -125,8 +124,8 @@
 											</div>
 											<div class="form-group col-sm-4">
 												<div>Tình trạng</div>
-												<select class="form-control" name="Status"
-													data-live-search="true" style="height: 36px;">
+												<select class="form-control" name="Status" data-live-search="true"
+													style="height: 36px;">
 													<option value="">Tất cả</option>
 													<option value="1">Hiển thị</option>
 													<option value="0">Ẩn</option>
@@ -134,8 +133,8 @@
 											</div>
 											<div class="form-group col-sm-4">
 												<div>Kích thước</div>
-												<select class="form-control" name="Size"
-													data-live-search="true" style="height: 36px;">
+												<select class="form-control" name="Size" data-live-search="true"
+													style="height: 36px;">
 													<option value="">Tất cả</option>
 													<option value="20-60">20-60</option>
 													<option value="40-80">40-80</option>
@@ -146,7 +145,7 @@
 												<button class="btn btn-round btn-default" type="submit">Tìm
 													kiếm</button>
 												<i th:utext="${message}"></i>
-												
+
 											</div>
 										</div>
 
@@ -170,7 +169,7 @@
 								<!-- <th>Chip</th> -->
 								<th>Màu</th>
 								<th>Chất liệu</th>
-							 <th>Kích thước</th>
+								<th>Kích thước</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -184,17 +183,17 @@
 								<td>[[${p.quantity}]]<span th:if="${p.quantity} < 11   ">
 										<span class="label label-warning" th:if="${p.quantity} >0   ">Sắp
 											hết hàng</span>
-								</span> <span class="label label-danger" th:if="${p.quantity} == 0">Hết
+									</span> <span class="label label-danger" th:if="${p.quantity} == 0">Hết
 										hàng</span>
 
 								</td>
 								<td>[[${p.product_date}]]</td>
 								<td><img th:src="@{|/assets/images/${p.image1}|}"
-									style="max-width: 70px; height: 70px;"></td>
+										style="max-width: 70px; height: 70px;"></td>
 								<td>[[${p.category.Name}]]</td>
 								<td>[[${p.trademark.Name}]]</td>
 								<td>[[${p.distcount}]] %</td>
-						
+
 								<td>[[${p.color}]]</td>
 								<td>[[${p.material}]]</td>
 								<td>[[${p.size}]]</td>
@@ -206,13 +205,12 @@
 								<!-- 									class="btn btn-round btn-success"><i class="fa fa-check"></i></a> -->
 								<!-- 									<a th:if="${p.special}==false" class="btn btn-round btn-danger"><i -->
 								<!-- 										class="fa fa-check"></i></a></td> -->
-								<td><a 
-									th:href="@{|/admin/product/edit?product_id=${p.product_id}|}"
-									class="btn btn-round btn-primary"> <i class="fa fa-pencil"></i>
-								</a> <a  th:href="@{|/admin/product/delete/${p.product_id}|}"
-									class="btn btn-round btn-danger"> <i class="fa fa-trash-o "></i>
-										
-								</a>
+								<td><a th:href="@{|/admin/product/edit?product_id=${p.product_id}|}"
+										class="btn btn-round btn-primary"> <i class="fa fa-pencil"></i>
+									</a> <a th:href="@{|/admin/product/delete/${p.product_id}|}"
+										class="btn btn-round btn-danger"> <i class="fa fa-trash-o "></i>
+
+									</a>
 								</td>
 							</tr>
 
@@ -220,76 +218,71 @@
 						</tbody>
 
 					</table>
-					
+
 					<div class="text-center">
-					<div class="dataTables_paginate paging_bootstrap pagination" >
-						<ul>
-							<li
-								th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'">
-								<a class="page-link" th:href="@{/admin/product/list}">Đầu</a>
-							</li>
-							<li
-								th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' ">
-								<a class="page-link" aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex - 1}|}"
-								title='Lùi 1 trang'><span aria-hidden="true">«</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-							<li th:if="${currentIndex - 2} > 0">
-								<a class="page-link" aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex - 2}|}"
-								><span aria-hidden="true">[[${currentIndex} -2]]</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-							<li th:if="${currentIndex - 1} != 0">
-								<a class="page-link" aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex - 1}|}"
-								><span aria-hidden="true">[[${currentIndex} -1]]</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-							<li  class="page-item active">
-								<a class="page-link " aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex}|}"
-								><span aria-hidden="true">[[${currentIndex}]]</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-						
-							<li th:if="${currentIndex +1} <= ${totalPageCount}">
-								<a class="page-link" aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex + 1}|}"
-								><span aria-hidden="true">[[${currentIndex} +1]]</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-							<li th:if="${currentIndex +2} <= ${totalPageCount}">
-								<a class="page-link" aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex + 2}|}"
-								><span aria-hidden="true">[[${currentIndex} +2]]</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-							
-<!-- 							<li -->
-<!-- 								th:each="item : ${#numbers.sequence(beginIndex,totalPageCount)}" -->
-<!-- 								th:class="${item == currentIndex ? 'page-item active' :'page-item' }"> -->
-<!-- 								<a  class="page-link" th:href="@{|${baseUrl}${item}|}"> <span -->
-<!-- 									th:text='${item}'></span> -->
-<!-- 							</a> -->
-<!-- 							</li> -->
-							
-							<li
-								th:class="${currentIndex == totalPageCount}? 'page-item disabled': 'page-item'">
-								<a class="page-link" aria-label="Next"
-								th:href="@{|${baseUrl}${currentIndex + 1}|}"
-								title='Tiến 1 trang'><span aria-hidden="true">»</span> <span
-									class="sr-only">Next</span></a>
-							</li>
-							<li
-								th:class="${currentIndex == totalPageCount}? 'page-item disabled':'page-item'">
-								<a class="page-link" th:href="@{|${baseUrl}${totalPageCount}|}">Cuối</a>
-							</li>
-						</ul>
+						<div class="dataTables_paginate paging_bootstrap pagination">
+							<ul>
+								<li th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'">
+									<a class="page-link" th:href="@{/admin/product/list}">Đầu</a>
+								</li>
+								<li th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' ">
+									<a class="page-link" aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex - 1}|}" title='Lùi 1 trang'><span
+											aria-hidden="true">«</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+								<li th:if="${currentIndex - 2} > 0">
+									<a class="page-link" aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex - 2}|}"><span
+											aria-hidden="true">[[${currentIndex} -2]]</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+								<li th:if="${currentIndex - 1} != 0">
+									<a class="page-link" aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex - 1}|}"><span
+											aria-hidden="true">[[${currentIndex} -1]]</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+								<li class="page-item active">
+									<a class="page-link " aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex}|}"><span
+											aria-hidden="true">[[${currentIndex}]]</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+
+								<li th:if="${currentIndex +1} <= ${totalPageCount}">
+									<a class="page-link" aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex + 1}|}"><span
+											aria-hidden="true">[[${currentIndex} +1]]</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+								<li th:if="${currentIndex +2} <= ${totalPageCount}">
+									<a class="page-link" aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex + 2}|}"><span
+											aria-hidden="true">[[${currentIndex} +2]]</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+
+								<!-- 							<li -->
+								<!-- 								th:each="item : ${#numbers.sequence(beginIndex,totalPageCount)}" -->
+								<!-- 								th:class="${item == currentIndex ? 'page-item active' :'page-item' }"> -->
+								<!-- 								<a  class="page-link" th:href="@{|${baseUrl}${item}|}"> <span -->
+								<!-- 									th:text='${item}'></span> -->
+								<!-- 							</a> -->
+								<!-- 							</li> -->
+
+								<li th:class="${currentIndex == totalPageCount}? 'page-item disabled': 'page-item'">
+									<a class="page-link" aria-label="Next" th:href="@{|${baseUrl}${currentIndex + 1}|}"
+										title='Tiến 1 trang'><span aria-hidden="true">»</span> <span
+											class="sr-only">Next</span></a>
+								</li>
+								<li th:class="${currentIndex == totalPageCount}? 'page-item disabled':'page-item'">
+									<a class="page-link" th:href="@{|${baseUrl}${totalPageCount}|}">Cuối</a>
+								</li>
+							</ul>
+						</div>
 					</div>
-					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -297,4 +290,5 @@
 
 	</main>
 </body>
+
 </html>

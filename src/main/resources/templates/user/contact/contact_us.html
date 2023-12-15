@@ -63,27 +63,15 @@
               <input style="border-radius: 15px;" class="form-control mt_30" required type="text" name="subject"
                 placeholder="Tiêu đề" data-required="true">
 
-              <textarea class="form-control mt_30" name="message" placeholder="Nội dung" data-required="true"
-                required></textarea>
+              <textarea class="form-control mt_30" name="message" placeholder="Nội dung" data-required="true" required
+                type="text"></textarea>
 
               <div class="text-center">
                 <button class="btn mt_30" type="submit">Gửi mail</button>
               </div>
             </form>
 
-            <script>
-              const form = document.getElementById('contact_body');
-
-              form.addEventListener('submit', function (event) {
-                // Kiểm tra trường nội dung có bị bỏ trống không
-                const contentInput = form.querySelector('input[name="content"]');
-                if (contentInput.value.trim() === '') {
-                  event.preventDefault();
-                  alert('Vui lòng nhập nội dung.');
-                  return;
-                }
-              });
-            </script>
+         
             <div id="contact_results"></div>
           </div>
           <!-- END Contact FORM -->
