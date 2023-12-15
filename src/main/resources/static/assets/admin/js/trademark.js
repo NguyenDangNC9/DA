@@ -8,12 +8,14 @@ $.ajax({
 			var datacolumn1 = [];
 			var datacolumn2 = [];
 			var name_category = [];
+			// lưu trữ dữ liệu từ kết quả trả về
 			console.log(result);
 			for (var i = 0; i < result.length; i++) {
 				var cates = {};
 				cates = result[i].trademark_name;
 				name_category.push(cates);
 			}
+			//lấy dữ liệu từ kết quả trả về và đẩy vào các mảng tương ứng.
 			for (var i = 0; i < result.length; i++) {
 				var colum = {};
 				colum = result[i].sum;
@@ -38,12 +40,13 @@ $.ajax({
 				data : data,
 				showInLegend : true
 			}
-
+			//chứa thông tin về biểu đồ
 			seri.push(seriObject);
 			drawColumnChart(datacolumn1, datacolumn2, name_category);
 			drawPieChart(seri);
 
 		}
+		//đối tượng seriObject được đẩy vào mảng seri.
 	});
 
 	function drawColumnChart(datacolumn1, datacolumn2, name_category) {

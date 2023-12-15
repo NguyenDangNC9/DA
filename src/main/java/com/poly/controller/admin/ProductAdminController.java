@@ -50,11 +50,11 @@ public class ProductAdminController {
 	@Autowired
 	TrademarkDao tradao;
 
-//	@RequestMapping({"/"})
-//	public String home() { 
-//		return "redirect:/product/list";
-//	}
-
+	// @RequestMapping({"/"})
+	// public String home() {
+	// return "redirect:/product/list";
+	// }
+	// Code load trang đơn hàng admin
 	@GetMapping("/admin/product/list")
 	public String index(Model model, HttpServletRequest request, RedirectAttributes redirect) {
 		request.getSession().setAttribute("productlist", null);
@@ -63,6 +63,7 @@ public class ProductAdminController {
 		return "redirect:/admin/product/list/page/1";
 	}
 
+	// Phân trang hiện tại
 	@GetMapping("/admin/product/list/page/{pageNumber}")
 	public String showProductPage(HttpServletRequest request, @PathVariable int pageNumber, Model model) {
 		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("productlist");
@@ -92,9 +93,11 @@ public class ProductAdminController {
 		model.addAttribute("totalPageCount", totalPageCount);
 		model.addAttribute("baseUrl", baseUrl);
 		model.addAttribute("items", pages);
+		// laay dữ lieeju pan trang
 		return "/admin/product/list";
 	}
 
+	// Tìm kiếm sản phẩm theo tên và id
 	@GetMapping("/admin/product/findIdorName")
 	public String search(@RequestParam("keyword") String keyword, Model model) {
 		if (keyword.equals("")) {
@@ -105,6 +108,7 @@ public class ProductAdminController {
 		return "list";
 	}
 
+	// Phân trang tìm kiếm sản phẩm theo tên và id
 	@RequestMapping("/admin/product/findIdorName/{pageNumber}")
 	public String findIdorName(Model model, @RequestParam("keyword") String keyword, HttpServletRequest request,
 			@PathVariable int pageNumber) {
@@ -141,6 +145,7 @@ public class ProductAdminController {
 		return "/admin/product/list";
 	}
 
+	// Tìm kiếm nâng cao
 	@RequestMapping("/admin/product/findallkeyword")
 	public String findallkeyword(Model model) {
 		List<Product> list = dao.findAll();
@@ -148,10 +153,11 @@ public class ProductAdminController {
 		return "list";
 	}
 
+	// Phân trang tìm kiếm nâng cao
 	@RequestMapping("/admin/product/findallkeyword/{pageNumber}")
 	public String findallkeyword(Model model, @RequestParam("Category_id") String Category_id,
 			@RequestParam("Trademark_id") String Trademark_id, @RequestParam("Status") String Status,
-		 @RequestParam("Color") String Color, @RequestParam("Material") String Material,
+			@RequestParam("Color") String Color, @RequestParam("Material") String Material,
 			@RequestParam("Size") String Size, @RequestParam("MinPrice") Integer unit_price,
 			@RequestParam("MaxPrice") Integer unit_price1, HttpServletRequest request, @PathVariable int pageNumber) {
 
@@ -183,23 +189,24 @@ public class ProductAdminController {
 		return "/admin/product/list";
 	}
 
+	// Làm mới chỉnh sửa sản phẩm
 	@RequestMapping("/admin/product/detail")
 	public String detail(Model model) {
 		Product pro = new Product();
 		pro.setName("");
-//		pro.setChip(null);
+		// pro.setChip(null);
 		pro.setImage1("");
 		pro.setImage2("");
 		pro.setImage3("");
-//		pro.setImage4("");
-//		pro.setImage5("");
-//		pro.setImage6("");
-//		pro.setImage7("");
-//		pro.setChip(null);
+		// pro.setImage4("");
+		// pro.setImage5("");
+		// pro.setImage6("");
+		// pro.setImage7("");
+		// pro.setChip(null);
 		pro.setDetail("");
 		pro.setDescription("");
 		pro.setDistcount(0.0);
-//		pro.setPin(null);
+		// pro.setPin(null);
 		pro.setUnit_price(0.0);
 		pro.setStatus(null);
 		pro.setSpecial(null);
@@ -217,15 +224,16 @@ public class ProductAdminController {
 		return "admin/product/detail";
 	}
 
+	// Hiển thị thông tin sản phẩm cần chỉnh sửa
 	@RequestMapping("/admin/product/edit")
 	public String edit(Model model, @RequestParam("product_id") Integer product_id) {
 		try {
 			Product pro = dao.findById(product_id).get();
-//			List<Category> cateList = catedao.findAll();
-//			List<Trademark> tradeList = tradao.findAll();
+			// List<Category> cateList = catedao.findAll();
+			// List<Trademark> tradeList = tradao.findAll();
 			model.addAttribute("pro", pro);
-//			model.addAttribute("cate", cateList);
-//			model.addAttribute("trade", tradeList);
+			// model.addAttribute("cate", cateList);
+			// model.addAttribute("trade", tradeList);
 			model.addAttribute("message", "Thao tác thành công");
 			return "admin/product/edit";
 		} catch (Exception e) {
@@ -234,6 +242,7 @@ public class ProductAdminController {
 		}
 	}
 
+	// Xóa sản phẩm
 	@RequestMapping("/admin/product/delete/{id}")
 	public String delete(Model model, @PathVariable("id") Integer id) {
 		try {
@@ -248,6 +257,7 @@ public class ProductAdminController {
 
 	}
 
+	// Thêm sản phẩm
 	@PostMapping("/admin/product/create")
 	public String create(Product pro, Model model, @RequestParam("photo_img") MultipartFile[] file) throws IOException {
 		model.addAttribute("pro", pro);
@@ -272,26 +282,26 @@ public class ProductAdminController {
 					pro.setImage3(file[i].getOriginalFilename());
 				}
 				;
-//				if (i == 3) {
-//					File saveFile = proservice.save(file[i], "/assets/images");
-//					pro.setImage4(file[i].getOriginalFilename());
-//				}
-//				;
-//				if (i == 4) {
-//					File saveFile = proservice.save(file[i], "/assets/images");
-//					pro.setImage5(file[i].getOriginalFilename());
-//				}
-//				;
-//				if (i == 5) {
-//					File saveFile = proservice.save(file[i], "/assets/images");
-//					pro.setImage6(file[i].getOriginalFilename());
-//				}
-//				;
-//				if (i == 6) {
-//					File saveFile = proservice.save(file[i], "/assets/images");
-//					pro.setImage7(file[i].getOriginalFilename());
-//				}
-//				;
+				// if (i == 3) {
+				// File saveFile = proservice.save(file[i], "/assets/images");
+				// pro.setImage4(file[i].getOriginalFilename());
+				// }
+				// ;
+				// if (i == 4) {
+				// File saveFile = proservice.save(file[i], "/assets/images");
+				// pro.setImage5(file[i].getOriginalFilename());
+				// }
+				// ;
+				// if (i == 5) {
+				// File saveFile = proservice.save(file[i], "/assets/images");
+				// pro.setImage6(file[i].getOriginalFilename());
+				// }
+				// ;
+				// if (i == 6) {
+				// File saveFile = proservice.save(file[i], "/assets/images");
+				// pro.setImage7(file[i].getOriginalFilename());
+				// }
+				// ;
 			}
 			pro.setProduct_date(new Date());
 			dao.save(pro);
@@ -304,29 +314,31 @@ public class ProductAdminController {
 		}
 	}
 
-//	@RequestMapping("product/update")
-//	public String update(Product pro, Model model, @RequestParam("photo_img1") MultipartFile file1) throws IOException {
-//		model.addAttribute("pro", pro);
-//		if (dao.existsById(pro.getProduct_id())) {
-//			File saveFile1 = proservice.save(file1 , "/assets/images");
-//			String filename1 = file1.getOriginalFilename();
-//			pro.setProduct_date(new Date());
-//			if (filename1 == "") {
-//				dao.save(pro);
-//				model.addAttribute("message", "Cập nhập thành công");
-//				return "redirect:/product/edit?product_id=" + pro.getProduct_id();
-//			} else {
-//				pro.setImage1(filename1);
-//				dao.save(pro);
-//				model.addAttribute("message", "Cập nhập thành công");
-//				return "redirect:/product/edit?product_id=" + pro.getProduct_id();
-//			}
-//		} else {
-//			model.addAttribute("message", "Cập nhập thất bại");
-//			return "redirect:/product/edit?product_id=" + pro.getProduct_id();
-//		}
-//	}
+	// @RequestMapping("product/update")
+	// public String update(Product pro, Model model, @RequestParam("photo_img1")
+	// MultipartFile file1) throws IOException {
+	// model.addAttribute("pro", pro);
+	// if (dao.existsById(pro.getProduct_id())) {
+	// File saveFile1 = proservice.save(file1 , "/assets/images");
+	// String filename1 = file1.getOriginalFilename();
+	// pro.setProduct_date(new Date());
+	// if (filename1 == "") {
+	// dao.save(pro);
+	// model.addAttribute("message", "Cập nhập thành công");
+	// return "redirect:/product/edit?product_id=" + pro.getProduct_id();
+	// } else {
+	// pro.setImage1(filename1);
+	// dao.save(pro);
+	// model.addAttribute("message", "Cập nhập thành công");
+	// return "redirect:/product/edit?product_id=" + pro.getProduct_id();
+	// }
+	// } else {
+	// model.addAttribute("message", "Cập nhập thất bại");
+	// return "redirect:/product/edit?product_id=" + pro.getProduct_id();
+	// }
+	// }
 
+	// Chỉnh sửa thông tin sản phẩm
 	@RequestMapping("/admin/product/update")
 	public String update(Product pro, Model model, @RequestParam("photo_img") MultipartFile[] file) throws IOException {
 		model.addAttribute("pro", pro);
@@ -352,29 +364,29 @@ public class ProductAdminController {
 						pro.setImage3(file[i].getOriginalFilename());
 					}
 					;
-//					if (i == 3) {
-//						File saveFile = proservice.save(file[i], "/assets/images");
-//						pro.setImage4(file[i].getOriginalFilename());
-//					}
-//					;
-//					if (i == 4) {
-//						File saveFile = proservice.save(file[i], "/assets/images");
-//						pro.setImage5(file[i].getOriginalFilename());
-//					}
-//					;
-//					if (i == 5) {
-//						File saveFile = proservice.save(file[i], "/assets/images");
-//						pro.setImage6(file[i].getOriginalFilename());
-//					}
-//					;
-//					if (i == 6) {
-//						File saveFile = proservice.save(file[i], "/assets/images");
-//						pro.setImage7(file[i].getOriginalFilename());
-//					}
-//					;
+					// if (i == 3) {
+					// File saveFile = proservice.save(file[i], "/assets/images");
+					// pro.setImage4(file[i].getOriginalFilename());
+					// }
+					// ;
+					// if (i == 4) {
+					// File saveFile = proservice.save(file[i], "/assets/images");
+					// pro.setImage5(file[i].getOriginalFilename());
+					// }
+					// ;
+					// if (i == 5) {
+					// File saveFile = proservice.save(file[i], "/assets/images");
+					// pro.setImage6(file[i].getOriginalFilename());
+					// }
+					// ;
+					// if (i == 6) {
+					// File saveFile = proservice.save(file[i], "/assets/images");
+					// pro.setImage7(file[i].getOriginalFilename());
+					// }
+					// ;
 				}
-//			File saveFile1 = proservice.save(file1 , "/assets/images");
-//			String filename1 = file1.getOriginalFilename();
+				// File saveFile1 = proservice.save(file1 , "/assets/images");
+				// String filename1 = file1.getOriginalFilename();
 				pro.setProduct_date(new Date());
 				dao.save(pro);
 				model.addAttribute("message", "Cập nhập thành công");
@@ -390,6 +402,7 @@ public class ProductAdminController {
 		}
 	}
 
+	// Xóa sản phẩm trên form
 	@RequestMapping("/admin/product/delete/form/{id}")
 	public String deleteform(Model model, @PathVariable("id") Integer id) {
 		try {

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout/index :: dynamic(~{::main})}">
 
 
 <body>
@@ -9,45 +8,46 @@
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h3>
-						&emsp;<i class="fa fa-angle-right"></i> Phân quyền 
+						&emsp;<i class="fa fa-angle-right"></i> Phân quyền
 
 					</h3>
 					<table class="table  ">
 						<thead>
 							<tr>
-								<th ><big><b>Tên nhân viên</b></big></th>
-								<th  class="text-center"><big><b>Khách hàng</b></big></th>
-								
-								<th  class="text-center"><big><b>Nhân viên</b></big></th>
-								
+								<th><big><b>Tên nhân viên</b></big></th>
+								<th class="text-center"><big><b>Khách hàng</b></big></th>
+
+								<th class="text-center"><big><b>Nhân viên</b></big></th>
+
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="box pull-up-1"  ng-repeat="acc in pager.admins">
+							<tr class="box pull-up-1" ng-repeat="acc in pager.admins">
 								<td>&ensp;&ensp;{{acc.fullname}}</td>
 								<th ng-repeat="role in roles" class="text-center"><input
-									ng-checked="authority_of(acc,role)"
-									ng-click="authority_changed(acc,role)" type="checkbox">
+										ng-checked="authority_of(acc,role)" ng-click="authority_changed(acc,role)"
+										type="checkbox">
 								</th>
 							</tr>
 						</tbody>
 					</table>
 					<div class=" text-center">
 						<button ng-click="pager.first()" class="btn btn-theme03">
-							<b class="glyphicon glyphicon-hand-up"></b>
+							<div>Đầu</div>
 						</button>
 						<button ng-click="pager.prev()" class="btn btn-theme03">
-							<b class="glyphicon glyphicon-hand-left"></b>
+							<div>
+								<< </div>
 						</button>
-						<button class="btn btn-theme03">{{pager.page + 1}} of
+						<button class="btn btn-theme03">
 							{{pager.count}}</button>
 						<button ng-click="pager.next()" class="btn btn-theme03">
-							<b class="glyphicon glyphicon-hand-right"></b>
+							<div>>></div>
 						</button>
 						<button ng-click="pager.last()" class="btn btn-theme03">
-							<b class="glyphicon glyphicon-hand-down"></b>
+							<div>Cuối</div>
 						</button>
-					
+
 					</div>
 				</div>
 			</div>
@@ -55,4 +55,5 @@
 
 	</main>
 </body>
+
 </html>
