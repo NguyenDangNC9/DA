@@ -24,13 +24,15 @@ public class HomeController {
 	ProductDao pdao;
 	@Autowired
 	AccountService accservice;
-	
+
 	@Autowired
 	AccountDao dao;
+
 	@RequestMapping("/")
-	public String index () {
+	public String index() {
 		return "redirect:/home/index";
 	}
+
 	@RequestMapping("/home/index")
 	public String home(Model model) {
 		List<Product> list = pdao.findByAllDis();
@@ -39,7 +41,7 @@ public class HomeController {
 		model.addAttribute("item2", list1);
 		List<Product> list2 = pdao.getTop10();
 		model.addAttribute("item3", list2);
-	
+
 		return "user/home/index";
 	}
 

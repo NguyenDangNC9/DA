@@ -47,20 +47,13 @@ public class ProductController {
 	@Autowired
 	JavaMailSender javaMailSender;
 
-<<<<<<< HEAD
+	@Autowired
+	private ApplicationContext applicationContext;
+
 	// @RequestMapping({ "/" })
 	// public String home() {
 	// return "redirect:/product/list";
 	// }
-=======
-	@Autowired
-    private ApplicationContext applicationContext;
-
-//	@RequestMapping({ "/" })
-//	public String home() {
-//		return "redirect:/product/list";
-//	}
->>>>>>> 0970d5b3d3a114fb1e7061f5bfc72b45eb0b9bc8
 
 	// Hiển thị trang sản phẩm người dùng
 	@GetMapping("/product/list")
@@ -458,66 +451,47 @@ public class ProductController {
 		return "user/product/list";
 	}
 
-<<<<<<< HEAD
-	// Giới thiệu sản phẩm tới email người khác
-	@RequestMapping("/send1")
-	public String sendMailShare(HttpServletRequest request, @RequestParam("id") Integer id,
-			@RequestParam("to") String to, @RequestParam("subject") String subject,
-			@RequestParam("content") String content) {
-		SimpleMailMessage msg = new SimpleMailMessage();
-		String url = request.getRequestURL().toString().replace("send1", "product/detail/" + id);
-		msg.setTo(to);
-		msg.setText(content + "'" + url + "'");
-		msg.setSubject(subject);
-		javaMailSender.send(msg);
-		return "user/result";
-
-	}
-
-	// Mở trang liên hệ
-=======
 	// @RequestMapping("/send1")
-	// public String sendMailShare(HttpServletRequest request, @RequestParam("id") Integer id, @RequestParam("to") String to, @RequestParam("subject") String subject, @RequestParam("content") String content) {
-	// 	SimpleMailMessage msg = new SimpleMailMessage();
-	// 	String url = request.getRequestURL().toString().replace("send1", "product/detail/" + id);
-	// 	msg.setTo(to);
-	// 	msg.setText(content + "'" + url + "'");
-	// 	msg.setSubject(subject);
-	// 	javaMailSender.send(msg);
-	// 	return "user/result";
-	
+	// public String sendMailShare(HttpServletRequest request, @RequestParam("id")
+	// Integer id, @RequestParam("to") String to, @RequestParam("subject") String
+	// subject, @RequestParam("content") String content) {
+	// SimpleMailMessage msg = new SimpleMailMessage();
+	// String url = request.getRequestURL().toString().replace("send1",
+	// "product/detail/" + id);
+	// msg.setTo(to);
+	// msg.setText(content + "'" + url + "'");
+	// msg.setSubject(subject);
+	// javaMailSender.send(msg);
+	// return "user/result";
+
 	// }
 	@RequestMapping("/send1")
-public String sendMailShare(@RequestParam("id") Integer id, @RequestParam("to") String to, @RequestParam("subject") String subject) {
-    MimeMessage message = javaMailSender.createMimeMessage();
+	public String sendMailShare(@RequestParam("id") Integer id, @RequestParam("to") String to,
+			@RequestParam("subject") String subject) {
+		MimeMessage message = javaMailSender.createMimeMessage();
 
-    try {
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        String url = "http://localhost:8080/product/detail/" + id;
-        String emailContent = "<html><head> <meta charset='UTF-8'> </head><body>" +
-		"<p style='font-family: Arial, sans-serif;'>Đây là một ví dụ về chữ tiếng Việt.</p>" +
-                                "<p>Xin chào,</p>" +
-                                "<p>Hãy nhấp vào liên kết bên dưới để xem chi tiết sản phẩm:</p>" +
-                                "<p><a href='" + url + "'>Chi tiết sản phẩm</a></p>" +
-                                "<p>Xin cảm ơn!</p>" +
-                              "</body></html>";
+			String url = "http://localhost:8080/product/detail/" + id;
+			String emailContent = "<html><head> <meta charset='UTF-8'> </head><body>" +
+					"<p style='font-family: Arial, sans-serif;'>Đây là một ví dụ về chữ tiếng Việt.</p>" +
+					"<p>Xin chào,</p>" +
+					"<p>Hãy nhấp vào liên kết bên dưới để xem chi tiết sản phẩm:</p>" +
+					"<p><a href='" + url + "'>Chi tiết sản phẩm</a></p>" +
+					"<p>Xin cảm ơn!</p>" +
+					"</body></html>";
 
-        helper.setTo(to);
-        helper.setText(emailContent, true);
-        helper.setSubject(subject);
-        javaMailSender.send(message);
-        return "user/result";
-    } catch (Exception e) {
-        return "error";
-    }
-}
+			helper.setTo(to);
+			helper.setText(emailContent, true);
+			helper.setSubject(subject);
+			javaMailSender.send(message);
+			return "user/result";
+		} catch (Exception e) {
+			return "error";
+		}
+	}
 
-
-	
-	
-	
->>>>>>> 0970d5b3d3a114fb1e7061f5bfc72b45eb0b9bc8
 	@RequestMapping("/contact-us")
 	public String contact(Model model) {
 
@@ -530,13 +504,9 @@ public String sendMailShare(@RequestParam("id") Integer id, @RequestParam("to") 
 
 		return "user/contact/about";
 	}
-<<<<<<< HEAD
-
-=======
-	
 
 	// thanh toán thành công vnpay
-		@RequestMapping("/product/success")
+	@RequestMapping("/product/success")
 	public String index1(Model model) {
 		return "user/product/success";
 	}
@@ -545,5 +515,5 @@ public String sendMailShare(@RequestParam("id") Integer id, @RequestParam("to") 
 	public String index2(Model model) {
 		return "user/product/cancel";
 	}
->>>>>>> 0970d5b3d3a114fb1e7061f5bfc72b45eb0b9bc8
+
 }
