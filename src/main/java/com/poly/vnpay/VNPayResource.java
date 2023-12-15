@@ -15,12 +15,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TimeZone;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.text.html.Option;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import javax.servlet.http.HttpSession;
 import com.poly.dao.OrderDao;
 import com.poly.entity.Order;
 
@@ -39,18 +43,24 @@ import com.poly.entity.Order;
 @RequestMapping("api/v1")
 public class VNPayResource {
     @Autowired
-    private OrderDao orderdao;
+     OrderDao orderdao;
+
+    @Autowired 
+    HttpSession session;
+    
 
     @GetMapping("pay")
-    public String getPay(@PathParam("price") long price, @PathParam("orderid") Integer orderid)
+    public ResponseEntity<?> getPay(@RequestParam("price") Long price, @RequestParam("orderid") Integer orderid)
             throws UnsupportedEncodingException {
 
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
-        long amount = price * 100;
+        Long amount = price * 100;
+        System.out.println(price);
+        System.out.println(orderid);
+        session.setAttribute("orderType", orderid);
         String bankCode = "NCB";
-
         String vnp_TxnRef = Config.getRandomNumber(8);
         String vnp_IpAddr = "127.0.0.1";
 
@@ -109,7 +119,12 @@ public class VNPayResource {
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
 
-        return paymentUrl;
+        String htmlResponse = paymentUrl;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_HTML);
+
+        return new ResponseEntity<>(htmlResponse, headers, HttpStatus.OK);
     }
 
     @GetMapping("payment-callback")
@@ -117,22 +132,25 @@ public class VNPayResource {
             throws IOException {
         String vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
         String orderid = queryParams.get("orderid");
-
+        System.out.println(orderid);
         if (orderid != null && !orderid.equals("")) {
             if ("00".equals(vnp_ResponseCode)) {
                 // Giao dịch thành công
                 // Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
-                Optional<Order> order = orderdao.findById(Integer.parseInt(queryParams.get("orderid")));
-                if (order.isPresent()) {
-                    order.get().setStatus(3);
-                    orderdao.save(order.get());
-                }
+                // Optional<Order> order = orderdao.findById(Integer.parseInt(queryParams.get("orderid")));
+            Integer id = (Integer) session.getAttribute("orderType");
+            Order order = orderdao.findById(id).get();
+            
+              
+                    order.setDescription("Đã thanh toán");
+                    orderdao.save(order);
+                
 
                 response.sendRedirect("http://localhost:8080/order/detail/" + orderid);
             } else {
                 // Giao dịch thất bại
                 // Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
-                response.sendRedirect("http://localhost:8080/api/v1/payment-callback");
+                response.sendRedirect("http://localhost:8080/user/cancle");
 
             }
         }

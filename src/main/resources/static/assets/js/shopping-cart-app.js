@@ -178,16 +178,22 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         }
     };
 
+
+
     $scope.generatePayment = function () {
         var tongtienthanhtoanElement = document.getElementById("total");
         // Lấy nội dung từ phần tử
         var tongtienthanhtoanText = tongtienthanhtoanElement.innerHTML;
         // Chuyển đổi chuỗi thành kiểu số
-        var total = parseFloat(tongtienthanhtoanText.replace(',', ''));
+        // var total = parseFloat(tongtienthanhtoanText.replace('.', ''));
+        var total = parseFloat(tongtienthanhtoanText.replace(/\./g, ''));
         console.log(total);
+        var storedValue = sessionStorage.getItem('orderid');
+        console.log(sessionStorage.getItem('orderid'))
         var params = {
             bankCode: "NCB",
-            amount: total,
+            price: total,
+            orderid: sessionStorage.getItem('orderid'),
         };
         console.log('Request Params:', params)
         $http.get(`/api/v1/pay`, { params: params })
@@ -203,14 +209,29 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     //Thanh toán vnpay	
     $scope.payment = function () {
         var phone = document.getElementById("phone").value;
+
+        var tongtienthanhtoanElement = document.getElementById("total");
+        // Lấy nội dung từ phần tử
+        var tongtienthanhtoanText = tongtienthanhtoanElement.innerHTML;
+        // Chuyển đổi chuỗi thành kiểu số
+        // var total = parseFloat(tongtienthanhtoanText.replace('.', ''));
+        var total = parseFloat(tongtienthanhtoanText.replace(/\./g, ''));
+        console.log(total);
+
+
         $scope.order = {
             createDate: new Date(),
             phone: phone,
+            status: 0,
+            intent: 'Sale',
+            method: 'Trả trước',
+            currency: 'VND',
             address: localStorage.getItem("address"),
+            price: total,
             account: {
                 username: $("#username").text()
             },
-            status: "Đã thanh toán",
+            description: "Đã thanh toán",
             get orderDetails() {
                 return $scope.cart.items.map(item => {
                     return {
@@ -220,27 +241,30 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                     }
                 });
             },
-
             purchase() {
                 var order = angular.copy(this);
+                console.log(order);
                 $http.post(`/rest/orders`, order).then(resp => {
                     console.log(resp.data);
+                    console.log(resp.data.order_id);
+                    sessionStorage.setItem('orderid', resp.data.order_id);
+                    $scope.cart.clear();
                 }).catch(error => {
-                    alert("đặt hàng thất bại");
+                    alert("Đặt hàng thất bại");
                     console.log(error)
                 })
             }
         }
-        $scope.order.purchase();
+       
     }
 
 
-    $scope.cbthanhtoan = function () {
+    $scope.thanhtoan = function () {
         $scope.payment();
         $scope.generatePayment();
 
     }
-    
+
     // thanh toan thuong
     $scope.order1 = {
         createDate: new Date(),
@@ -267,7 +291,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             var totalElement = document.getElementById("total");
             if (totalElement) {
                 var totalValue = totalElement.innerText;
-
                 var username = document.getElementById("username").innerText.trim();
                 var phone = document.querySelector('input[ng-model="order1.phone"]').value.trim();
                 var province = document.getElementById("province").value.trim();
@@ -276,14 +299,12 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 var ward = document.getElementById("ward").value.trim();
                 var address = document.getElementById("result").value.trim();
 
-
                 // Kiểm tra xem các trường thông tin có bị trống không
                 if (username === '' || phone === '' || province === '' || district === '' || service === '' || ward === '' || address === '') {
                     themSanPham("error", "Vui lòng điền đầy đủ thông tin");
                     throw new Error("Vui lòng điền đầy đủ thông tin đặt hàng.");
 
                 }
-
                 var numericValue = parseFloat(totalValue.replace("Đ", "").replace(/\./g, "").replace(",", "."));
                 // Gán giá trị lấy được vào thuộc tính price của order1
                 this.price = numericValue;
