@@ -6,7 +6,6 @@ jQuery(document).ready(function ($) {
 });
 app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
-
     // Kiểm tra đăng nhập
     function isLoggedIn() {
         return $("#username").text().trim() !== "";
