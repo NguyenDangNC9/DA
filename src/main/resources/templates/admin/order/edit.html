@@ -1,115 +1,121 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout/index :: dynamic(~{::main})}">
 
 
 <body>
-<main>
-	<div class="row mt">
+	<main>
+		<div class="row mt">
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h3>
 						&emsp;<i class="fa fa-angle-right"></i> Thông tin chi tiết
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<a style="float: right; padding: 0 30px;" tH:href=@{/admin/order/list}>
-							<i class="fa fa-mail-reply" style="font-size:18px"></i> Quay lại danh sách 
+							<i class="fa fa-mail-reply" style="font-size:18px"></i> Quay lại danh sách
 						</a>
 					</h3>
-		<div class="panel-body">
-			<form th:action="@{/admin/order/update}" method="post" modelAttribute="ord">
-			
-				<div class="panel-heading text-center" style="color: #54aee2;font-style:oblique;font-variant: inherit;font-weight: bolder; "></div>
-					<div class="col-sm-12">
-						<div class="row">
-							<div class="form-group col-sm-6">
-								<div>Mã đơn hàng: </div>
-								<input type="number" name="Order_id" th:value="${ord.Order_id}"
-									class="form-control" readonly>
+					<div class="panel-body">
+						<form th:action="@{/admin/order/update}" method="post" modelAttribute="ord">
+
+							<div class="panel-heading text-center"
+								style="color: #54aee2;font-style:oblique;font-variant: inherit;font-weight: bolder; ">
 							</div>
-							<div class="form-group col-sm-6">
-								<div>Tên khách hàng</div>
-								<input type="text" name="account.Username" th:value="${ord.account.Username}"
-									class="form-control" readonly>
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="form-group col-sm-6">
+										<div>Mã đơn hàng: </div>
+										<input type="number" name="Order_id" th:value="${ord.Order_id}"
+											class="form-control" readonly>
+									</div>
+									<div class="form-group col-sm-6">
+										<div>Tên khách hàng</div>
+										<input type="text" name="account.Username" th:value="${ord.account.Username}"
+											class="form-control" readonly>
+									</div>
+									<div class="form-group col-sm-6">
+										<div>Số điện thoại</div>
+										<input type="text" name="Phone" th:value="${ord.Phone}" class="form-control"
+											readonly>
+									</div>
+									<div class="form-group col-sm-6">
+										<div>Ngày đặt hàng:</div>
+										<input name="CreateDate"
+											th:value="*{#dates.format(ord.CreateDate, 'yyyy-MM-dd HH:mm')}"
+											class="form-control" readonly>
+									</div>
+									<div class="form-group col-sm-6">
+										<div>Trạng thái thanh toán</div>
+										<input type="text" name="description" th:value="${ord.description}"
+											class="form-control" readonly>
+									</div>
+									<div hidden="TRUE" class="form-group col-sm-6">
+										<div>Tiền tệ </div>
+										<input type="text" name="currency" th:value="${ord.currency}"
+											class="form-control" readonly>
+									</div>
+									<div class="form-group col-sm-6">
+										<div>Hình thức thanh toán</div>
+										<input type="text" name="method" th:value="${ord.method}" class="form-control"
+											readonly>
+									</div>
+									<div hidden="TRUE" class="form-group col-sm-6">
+										<div>Intent</div>
+										<input type="text" name="intent" th:value="${ord.intent}" class="form-control"
+											readonly>
+									</div>
+									<div class="form-group col-sm-6">
+										<div>Tổng tiền</div>
+										<input type="number" name="price" th:value="${ord.price} *1"
+											class="form-control" readonly>
+									</div>
+									<div class="form-group col-sm-6">
+										<div>Trạng thái</div>
+										<select name="Status" class="form-control">
+											<option hidden="true" th:value="${ord.Status}">
+												<b style="color: #00008B;">[[${ord.status==0?'Đang xử lý' :''}]]</b>
+												<b style="color: #FFD700;">[[${ord.status==1?'Đang giao hàng' :''}]]</b>
+												<b style="color: #2E8B57;">[[${ord.status==3?'Hoàn thành đơn hành'
+													:''}]]</b>
+												<b style="color: #DC143C;">[[${ord.status==2?'Hủy giao hàng·' :''}]]</b>
+												<b style="color: #DC143C;">[[${ord.status==4?'Đã hủy·' :''}]]</b>
+
+											</option>
+											<option value="0">Đang xử lý </option>
+											<option value="1">Đang giao hàng</option>
+											<option value="3">Hoàn thành đơn hành</option>
+											<option value="2">Hủy giao hàng </option>
+											<option value="4">Đã hủy </option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group ">
+									<div>Địa chỉ</div>
+									<textarea type="text" cols="7" rows="5" name="Address" th:value="${ord.Address}"
+										class="form-control" readonly>[[${ord.Address}]]</textarea>
+								</div>
 							</div>
-							<div class="form-group col-sm-6">
-								<div>Số điện thoại</div>
-								<input type="text" name="Phone" th:value="${ord.Phone}"
-									class="form-control" readonly>
-							</div>
-							<div class="form-group col-sm-6">
-								<div>Ngày đặt hàng:</div>
-								<input name="CreateDate" th:value="*{#dates.format(ord.CreateDate, 'yyyy-MM-dd HH:mm')}"
-									class="form-control" readonly>
-							</div>
-							<div class="form-group col-sm-6">
-								<div>Trạng thái thanh toán</div>
-								<input type="text" name="description" th:value="${ord.description}"
-									class="form-control" readonly>
-							</div>
-							<div hidden="TRUE" class="form-group col-sm-6">
-								<div>Tiền tệ </div>
-								<input type="text" name="currency" th:value="${ord.currency}"
-									class="form-control" readonly>
-							</div>
-							<div class="form-group col-sm-6">
-								<div>Hình thức thanh toán</div>
-								<input type="text" name="method" th:value="${ord.method}"
-									class="form-control" readonly>
-							</div>
-							<div hidden="TRUE" class="form-group col-sm-6">
-								<div>Intent</div>
-								<input type="text" name="intent" th:value="${ord.intent}"
-									class="form-control" readonly>
-							</div>
-							<div class="form-group col-sm-6">
-								<div>Tổng tiền</div>
-								<input type="number" name="price" th:value="${ord.price} *1"
-									class="form-control" readonly> 
-							</div>
-							<div class="form-group col-sm-6">
-								<div>Trạng thái</div>
-								<select name="Status" class="form-control">
-									<option hidden="true" th:value="${ord.Status}"> 
-									<b style="color: #00008B;">[[${ord.status==0?'Đang xử lý' :''}]]</b>
-									<b style="color: #FFD700;">[[${ord.status==1?'Đang giao hàng' :''}]]</b>
-									<b style="color: #2E8B57;">[[${ord.status==3?'Hoàn thành đơn hành' :''}]]</b>
-									<b style="color: #DC143C;">[[${ord.status==2?'Hủy giao hàng·' :''}]]</b>
-									<b style="color: #DC143C;">[[${ord.status==4?'Đã hủy·' :''}]]</b>
-						
-									</option>
-									<option  value="0">Đang xử lý </option>
-									<option  value="1">Đang giao hàng</option>
-									<option  value="3">Hoàn thành đơn hành</option>
-										<option  value="2">Hủy giao hàng </option>
-									<option  value="4">Đã hủy </option>
-								</select>
-							</div>
-						</div>
-						
-							<div class="form-group ">
-								<div>Địa chỉ</div>
-								<textarea type="text" cols="7" rows="5" name="Address" th:value="${ord.Address}"
-									class="form-control" readonly>[[${ord.Address}]]</textarea>
-							</div>
-						</div>
-						<div class="text-center">
-						
-						<button th:if="${ord.Status}>2" type="submit" class="btn btn-round btn-info" disabled="disabled"><span class="glyphicon glyphicon-check"></span> Cập nhật</button>
-				
-						<button th:if="${ord.Status}<3" type="submit" class="btn btn-round btn-info" ><span class="glyphicon glyphicon-check"></span> Cập nhật</button>
-						
-						<a th:href="@{|/admin/order/sent/${ord.Order_id}|}"
-										class='btn btn-round btn-info'><span
+							<div class="text-center">
+
+								<button th:if="${ord.Status}>2" type="submit" class="btn btn-round btn-info"
+									disabled="disabled"><span class="glyphicon glyphicon-check"></span> Cập
+									nhật</button>
+
+								<button th:if="${ord.Status}<3" type="submit" class="btn btn-round btn-info"><span
+										class="glyphicon glyphicon-check"></span> Cập nhật</button>
+
+								<a th:href="@{|/admin/order/sent/${ord.Order_id}|}" class='btn btn-round btn-info'><span
 										class="fa fa-envelope-o"></span> Gửi Hóa Đơn</a>
-						<i th:utext="${message}"></i>
-						</div>
+								<i th:utext="${message}"></i>
+							</div>
 						</form>
 					</div>
 				</div>
-			 <div th:replace="/admin/order/detail.html"></div>
+				<div th:replace="/admin/order/detail.html"></div>
+			</div>
 		</div>
-	</div>
-	</div>
+		</div>
 	</main>
 </body>
+
 </html>
