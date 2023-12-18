@@ -40,7 +40,9 @@
 										<span class="rating1" title="Màu "> [[${l.color}]] </span> <span class="rating2"
 											title="Chất liệu "> [[${l.material}]] </span>
 									</div>
-									<span class="price"><span class="amount">[[${#numbers.formatDecimal(l.unit_price, 3
+									<span class="price"
+										style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><span
+											class="amount">[[${#numbers.formatDecimal(l.unit_price, 3
 											, 'COMMA',0,'POINT')} ]] Đ
 										</span> </span>
 								</div>
@@ -101,7 +103,8 @@
 										<span class="rating1" title="Màu "> [[${d.color}]] </span> <span class="rating2"
 											title="Chất liệu "> [[${d.material}]] </span>
 									</div>
-									<span class="price"><span class="amount">
+									<span class="price" style="font-family: 'Segoe UI', sans-serif;"><span
+											class="amount">
 											<del> [[${#numbers.formatDecimal(d.unit_price, 3 , 'COMMA',0,'POINT')} ]]
 												Đ</del><br>
 											[[${#numbers.formatDecimal(d.unit_price-((d.unit_price)*d.distcount/100), 3
