@@ -273,7 +273,7 @@ public class OrderAdminController {
 		}
 
 	}
-
+	
 	// Gửi mail thông báo cho khách
 	@RequestMapping("/admin/order/sent/{order_id}")
 	public String sendMail(Model model, @PathVariable("order_id") Integer order_id) {
