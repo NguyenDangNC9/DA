@@ -451,37 +451,29 @@ public class ProductController {
 		return "user/product/list";
 	}
 
-	// @RequestMapping("/send1")
-	// public String sendMailShare(HttpServletRequest request, @RequestParam("id")
-	// Integer id, @RequestParam("to") String to, @RequestParam("subject") String
-	// subject, @RequestParam("content") String content) {
-	// SimpleMailMessage msg = new SimpleMailMessage();
-	// String url = request.getRequestURL().toString().replace("send1",
-	// "product/detail/" + id);
-	// msg.setTo(to);
-	// msg.setText(content + "'" + url + "'");
-	// msg.setSubject(subject);
-	// javaMailSender.send(msg);
-	// return "user/result";
 
-	// }
+	// chia sẻ sản phẩm
 	@RequestMapping("/send1")
 	public String sendMailShare(@RequestParam("id") Integer id, @RequestParam("to") String to,
 			@RequestParam("subject") String subject) {
 		MimeMessage message = javaMailSender.createMimeMessage();
 
 		try {
-			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
 			String url = "http://localhost:8080/product/detail/" + id;
-			String emailContent = "<html><head> <meta charset='UTF-8'> </head><body>" +
-					"<p style='font-family: Arial, sans-serif;'>Đây là một ví dụ về chữ tiếng Việt.</p>" +
+
+			String emailContent = 
+			 "<html><head> <meta charset='UTF-8'> </head><body>" +
+		
 					"<p>Xin chào,</p>" +
-					"<p>Hãy nhấp vào liên kết bên dưới để xem chi tiết sản phẩm:</p>" +
-					"<p><a href='" + url + "'>Chi tiết sản phẩm</a></p>" +
+			 		"<p>Hãy nhấp vào liên kết bên dưới để xem chi tiết sản phẩm:</p>" +
+			 	"<p><a href='" + url + "'>Chi tiết sản phẩm</a></p>" +
 					"<p>Xin cảm ơn!</p>" +
 					"</body></html>";
+			
 
+			
 			helper.setTo(to);
 			helper.setText(emailContent, true);
 			helper.setSubject(subject);

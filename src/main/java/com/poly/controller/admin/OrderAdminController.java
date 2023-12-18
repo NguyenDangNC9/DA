@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import com.poly.dao.OrderDao;
 import com.poly.dao.OrderDetailDao;
@@ -274,8 +277,18 @@ public class OrderAdminController {
 	// Gửi mail thông báo cho khách
 	@RequestMapping("/admin/order/sent/{order_id}")
 	public String sendMail(Model model, @PathVariable("order_id") Integer order_id) {
+
 		String sta = "Đang sử lý";
 		Order order = odao.findById(order_id).get();
+
+		// định dạng số tiền
+		NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+		String formattedPrice = numberFormat.format(order.getPrice());
+		// định dạng ngày
+		Date createDate = order.getCreateDate(); 
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		String formattedDate = formatter.format(createDate);
+
 		if (order.getStatus() == 1) {
 			sta = "Đang giao hàng";
 		}
@@ -291,24 +304,29 @@ public class OrderAdminController {
 		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(order.getAccount().getEmail());
 		msg.setText(
+				"Cảm ơn Quý khách đã sử dụng dịch vụ Black Bear.\n" + 
+						"" +
+				"Black Bear xin thông báo giao dịch của Quý khách đã được thực hiện như sau:\n" + 
+						
+			 "\n"+ "\n"+
 				"Tên người đặt hàng : "
 						+ order.getAccount().getFullname()
 						+ "\n"
 						+ "Phương thức thanh toán :  "
 						+ order.getMethod()
 						+ "\n"
-						+ "Sô điện thoại người đặt hàng : "
+						+ "Số điện thoại người đặt hàng : "
 						+ order.getPhone()
 						+ "\n"
 						+ "Đơn hàng có giá trị :"
-						+ order.getPrice()
+						+ formattedPrice
 						+ "\n"
 						+ "Loại tiền tệ : "
 						+ order.getCurrency()
 						+ "\n"
 
-						+ "Ngay tạo đơn : "
-						+ order.getCreateDate()
+						+ "Ngày tạo đơn : "
+						+ formattedDate
 						+ "\n"
 
 						+ "Tình trạng đơn hàng : "
