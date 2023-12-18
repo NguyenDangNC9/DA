@@ -1,8 +1,7 @@
-
 <div class="row">
 	<div class="col-xs-12 col-sm-12">
 		<div id="username" hidden="true">[[${#request.remoteUser}]]</div>
-		
+
 		<div class="control__input">
 			<textarea ng-model="commentform.comment_Content" style="height: 52px; overflow-y: hidden;"
 				class="col-sm-10 form-control" type="text" autocomplete="off"
@@ -13,9 +12,9 @@
 			<div class="col">
 				<p class="note">*Để gửi bình luận, bạn cần đăng nhập</p>
 			</div>
-			<div class="col col-end">
+			<div class="col-end">
 				<button th:attr="ng-click=@{|AddComment(${item.product_id})|}">
-					<i class="fa fa-send-o" style="font-size: 15px"></i> Thêm mới
+					<i class="fa fa-send-o" style="font-size: 15px; "></i> Thêm mới
 				</button>
 			</div>
 		</div>
@@ -24,51 +23,50 @@
 			| date : 'yyyy-MM-dd HH:mm:ss' }}</div>
 	</div>
 
-	
+
 	<div ng-show="isshowcomment" class="form-group col-sm-12">
-				<div class="col-sm-2"></div>
-				<div class="col-sm-10">
-					<h4>{{commentedit.account.fullname}}</h4>
-					<div class="control__input">
-						<textarea dropzone="true" ng-model="commentedit.comment_Content"
-							ng-value="commentedit.comment_Content" class="col-sm-12"></textarea>
-					</div>
-					<div class="row__edit">
-						<button ng-click="UpdateComment()" style="margin-top: 10px;">Thay đổi</button>
-					</div>
-					
-					<div ng-value="{{commentedit.comment_date | date : 'yyyy-MM-dd HH:mm:ss' }}"
-						class="col-sm-2 text-right">
-						<span style="color: #fff"></span>
-					</div>
-				</div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-10">
+			<h4>{{commentedit.account.fullname}}</h4>
+			<div class="control__input">
+				<textarea dropzone="true" ng-model="commentedit.comment_Content" ng-value="commentedit.comment_Content"
+					class="col-sm-12"></textarea>
 			</div>
-	
+			<div class="row__edit">
+				<button ng-click="UpdateComment()" style="margin-top: 10px;">Thay đổi</button>
+			</div>
+
+			<div ng-value="{{commentedit.comment_date | date : 'yyyy-MM-dd HH:mm:ss' }}" class="col-sm-2 text-right">
+				<span style="color: #fff"></span>
+			</div>
+		</div>
+	</div>
+
 	<!-- 	Ä‘á»• list comment -->
 	<br>
-	
-		<div class="item_review-comment col-sm-12" ng-repeat="cmt in cart.getcomment">
-	        <div class="avt col-sm-2">
-	                <img alt="" ng-src="/assets/images/{{cmt.account.photo}}">
-	        </div>
-	        <div class="info col-sm-10">
-	            <p>
-	                <strong class="name">{{cmt.account.fullname}}</strong>
-	            </p>
-	            <p><label><i>{{cmt.comment_date | date : 'yyyy-MM-dd HH:mm:ss'}}</i></label></p>
-	            <div class="content">
-	                {{cmt.comment_Content}}
-	            </div>
-	            <div class="row__edit">
-					<button ng-if="isUsername==cmt.account.username" ng-click="deleteComment(cmt)">Xóa</button> 
-					<button ng-if="isUsername==cmt.account.username" ng-click="editcomment(cmt)">Chỉnh sửa</button>
-				</div>
-	        </div>
-	    </div>
-	        
-	
-	
-	
-	
-	
+
+	<div class="item_review-comment col-sm-12" ng-repeat="cmt in cart.getcomment">
+		<div class="avt col-sm-2">
+			<img alt="" ng-src="/assets/images/{{cmt.account.photo}}">
+		</div>
+		<div class="info col-sm-10">
+			<p>
+				<strong class="name">{{cmt.account.fullname}}</strong>
+			</p>
+			<p><label><i>{{cmt.comment_date | date : 'yyyy-MM-dd HH:mm:ss'}}</i></label></p>
+			<div class="content">
+				{{cmt.comment_Content}}
+			</div>
+			<div class="row__edit">
+				<button ng-if="isUsername==cmt.account.username" ng-click="deleteComment(cmt)">Xóa</button>
+				<button ng-if="isUsername==cmt.account.username" ng-click="editcomment(cmt)">Chỉnh sửa</button>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
 </div>

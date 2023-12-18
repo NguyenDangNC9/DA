@@ -212,6 +212,7 @@ Created by: 	Lidropdown-menuonode
     font-size: 20px;
     font-weight: bold;
     margin-right: 10px;
+    
 }
 .woocommerce-Price-currencySymbol {
     font-size: 16px;
@@ -535,20 +536,22 @@ table {
 .row__comment .col {
     display: flex;
     flex-direction: column;
-    padding-left: 30px;
+    /* padding-left: 30px; */
     flex-basis: 100%;
 }
 .row__comment button {
    	background: transparent linear-gradient( 
 		180deg,#008d77 0%,#198997 100%) 0% 0% no-repeat padding-box;
     box-shadow: 0 1px 10px #00000029;
-    border-radius: 13px;
+    border-radius: 8px;
     width: 210px;
     border: none;
     outline: none;
     text-transform: uppercase;
     font-weight: 500;
     color: #fff;
+    padding-right: 15px;
+
 }
 .row__comment button:hover {
     background: #025661;
