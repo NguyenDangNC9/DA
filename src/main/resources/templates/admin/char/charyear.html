@@ -2,189 +2,205 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(main)">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Dashboard">
-    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <title>BlackBear-Admin</title>
-	
-    <!-- Favicons -->
-    <link href="/assets/admin/img/favicon.png" rel="icon">
-    <link href="/assets/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
-	<link rel="stylesheet" type="text/css"
-	href="https://code.highcharts.com/css/highcharts.css">
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/admin/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!--external css-->
-    <link href="/assets/admin/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="/assets/admin/css/zabuto_calendar.css">
-    <link rel="stylesheet" type="text/css" href="/assets/admin/lib/gritter/css/jquery.gritter.css" />
-    <!-- Custom styles for this template -->
-    <link href="/assets/admin/css/style.css" rel="stylesheet">
-    <link href="/assets/admin/css/style-responsive.css" rel="stylesheet">
-    <script type="text/javascript"
-    src="https://www.gstatic.com/charts/loader.js"></script>
-    <script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-	<link rel="stylesheet" type="text/css"
-	href="https://code.highcharts.com/css/highcharts.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>BlackBear-Admin</title>
+
+  <!-- Favicons -->
+  <link href="/assets/admin/img/favicon.png" rel="icon">
+  <link href="/assets/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/highcharts.css">
+  <!-- Bootstrap core CSS -->
+  <link href="/assets/admin/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--external css-->
+  <link href="/assets/admin/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="/assets/admin/css/zabuto_calendar.css">
+  <link rel="stylesheet" type="text/css" href="/assets/admin/lib/gritter/css/jquery.gritter.css" />
+  <!-- Custom styles for this template -->
+  <link href="/assets/admin/css/style.css" rel="stylesheet">
+  <link href="/assets/admin/css/style-responsive.css" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/highcharts.css">
 
 
- 
+
 </head>
 
-<body  >
- 	<section id="container">
- 	 <div th:replace="/admin/layout/_header.html"></div>
- 	<div th:replace="/admin/layout/_aside.html"></div>
- 	 <section id="main-content">
+<body>
+  <section id="container">
+    <div th:replace="/admin/layout/_header.html"></div>
+    <div th:replace="/admin/layout/_aside.html"></div>
+    <section id="main-content">
       <section class="wrapper">
- 	
- 	 <div class="row mt">
+
+        <div class="row mt">
           <div class="col-md-12">
             <div class="content-panel">
               <table class="table  table-advance table-hover">
                 <h3> &emsp;<i class="fa fa-angle-right"></i>Doanh thu theo năm</h3>
                 <hr>
                 <div class="content-panel text-center">
-									<form action="/admin/char/charyear" method="post">
+                  <form action="/admin/char/charyear" method="post">
 
-										&emsp; Chọn năm: <select name="year">
-										<option selected value='2021'>Chọn năm</option>
-											<option  value='2023'>2023</option>
-											<option value='2022'>2022</option>
-											<option  value='2021'>2021</option>
-											<option value='2020'>2020</option>
-											<option value='2019'>2019</option>
-											<option value='2018'>2018</option>
-											<option value='2017'>2017</option>
-											<option value='2016'>2016</option>
+                    &emsp; Chọn năm: <select name="year" id="yearSelect">
+                      <!-- <option selected value='2021'></option> -->
+                      <option value='2023'>2023</option>
+                      <option value='2022'>2022</option>
+                      <option value='2021'>2021</option>
+                      <option value='2020'>2020</option>
+                      <option value='2019'>2019</option>
+                      <option value='2018'>2018</option>
+                      <option value='2017'>2017</option>
+                      <option value='2016'>2016</option>
 
 
-										</select> &emsp;
-										<button type="submit" class="btn btn-info" value="Submit">Tìm
-											kiếm</button>
-										<i class="text-center text-danger" th:text="${message}"></i>
-									</form>
-								</div>
+                    </select> &emsp;
+                    <button type="submit" class="btn btn-info" value="Submit">Tìm
+                      kiếm</button>
+                    <i class="text-center text-danger" th:text="${message}"></i>
+                  </form>
+                </div>
+                <!-- giữ nguyên giá trị khi load lại trang -->
+                <script>
+                  // Lấy giá trị đã chọn từ localStorage
+                  var selectedYear = localStorage.getItem('selectedYear');
+
+                  // Lấy thẻ <select> bằng ID
+                  var selectElement = document.getElementById("yearSelect");
+
+                  // Gán giá trị đã chọn vào thuộc tính "selected" của tùy chọn tương ứng
+                  if (selectedYear) {
+                    selectElement.value = selectedYear;
+                  }
+
+                  // Lắng nghe sự kiện thay đổi giá trị của <select>
+                  selectElement.addEventListener('change', function () {
+                    selectedYear = selectElement.value;
+                    localStorage.setItem('selectedYear', selectedYear);
+                  });
+                </script>
                 <thead>
                   <tr>
                     <th> Tháng</th>
                     <th> Tổng tiền </th>
                     <th> Tổng số sản phẩm </th>
                     <th> Giá mua nhỏ nhất</th>
-                     <th> Giá mua lớn nhất</th>
-                     <th>Giá trung bình</th>
+                    <th> Giá mua lớn nhất</th>
+                    <th>Giá trung bình</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr th:each="y:${items}">
                     <td>
-                    &ensp;&ensp;[[${y.group}]]
+                      &ensp;&ensp;[[${y.group}]]
                     </td>
-                    <td > [[${#numbers.formatDecimal(y.sum, 0, 'COMMA', 0, 'POINT')}]] Đ</td>
+                    <td> [[${#numbers.formatDecimal(y.sum, 0, 'COMMA', 0, 'POINT')}]] Đ</td>
                     <td>[[${y.count}]] cái</td>
                     <td>[[${#numbers.formatDecimal(y.min, 0, 'COMMA', 0, 'POINT')}]] Đ</td>
                     <td>[[${#numbers.formatDecimal(y.max, 0, 'COMMA', 0, 'POINT')}]] Đ</td>
-                    <td >[[${#numbers.formatDecimal(y.avg, 0, 'COMMA', 0, 'POINT')} ]] Đ</td>
+                    <td>[[${#numbers.formatDecimal(y.avg, 0, 'COMMA', 0, 'POINT')} ]] Đ</td>
                   </tr>
-   
+
                 </tbody>
               </table>
-             
+
             </div>
-            
+
             <!-- /content-panel -->
           </div>
-          <div class="col-md-12" >
-          <div class="content-panel" id="charyear"></div>
+          <div class="col-md-12">
+            <div class="content-panel" id="charyear"></div>
           </div>
           <!-- /col-md-12 -->
         </div>
 
 
- 	</section></section>
- 	<div th:replace="/admin/layout/_footer.html"></div>
- 	</section>
-    <script src="/assets/admin/lib/jquery/jquery.min.js"></script>
- <script src="/assets/admin/js/admin.js"></script>
-    <script src="/assets/admin/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="/assets/admin/lib/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="/assets/admin/lib/jquery.scrollTo.min.js"></script>
-    <script src="/assets/admin/lib/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="/assets/admin/lib/jquery.sparkline.js"></script>
-    <!--common script for all pages-->
-    <script src="/assets/admin/lib/common-scripts.js"></script>
-    <script type="text/javascript" src="/assets/admin/lib/gritter/js/jquery.gritter.js"></script>
-    <script type="text/javascript" src="/assets/admin/lib/gritter-conf.js"></script>
-    <!--script for this page-->
-    <script src="/assets/admin/lib/sparkline-chart.js"></script>
-    <script src="/assets/admin/lib/zabuto_calendar.js"></script>
-    	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script src="https://code.highcharts.com/modules/export-data.js"></script>
-	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-   
+      </section>
+    </section>
+    <div th:replace="/admin/layout/_footer.html"></div>
+  </section>
+  <script src="/assets/admin/lib/jquery/jquery.min.js"></script>
+  <script src="/assets/admin/js/admin.js"></script>
+  <script src="/assets/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="/assets/admin/lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="/assets/admin/lib/jquery.scrollTo.min.js"></script>
+  <script src="/assets/admin/lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <script src="/assets/admin/lib/jquery.sparkline.js"></script>
+  <!--common script for all pages-->
+  <script src="/assets/admin/lib/common-scripts.js"></script>
+  <script type="text/javascript" src="/assets/admin/lib/gritter/js/jquery.gritter.js"></script>
+  <script type="text/javascript" src="/assets/admin/lib/gritter-conf.js"></script>
+  <!--script for this page-->
+  <script src="/assets/admin/lib/sparkline-chart.js"></script>
+  <script src="/assets/admin/lib/zabuto_calendar.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-   
 
-<script th:inline="javascript">
-    $(function(){
-    Highcharts.chart('charyear', {
+
+
+  <script th:inline="javascript">
+    $(function () {
+      Highcharts.chart('charyear', {
         chart: {
-            type: 'spline',
-            	styledMode : true
+          type: 'spline',
+          styledMode: true
         },
         title: {
-            text: 'Doanh thu theo từng tháng'
+          text: 'Doanh thu theo từng tháng'
         },
-        
+
         xAxis: {
-            categories: [[${barChartData.keySet()}]],
-          
-            title : {
-				text : 'Tháng '
-			}
+          categories: [[${ barChartData.keySet() }]],
+
+          title: {
+            text: 'Tháng '
+          }
         },
-        yAxis:  [ {
-			className : 'highcharts-color-0',
-			title : {
-				text : 'Danh thu Đ'
-			}
-		}, {
-			className : 'highcharts-color-1',
-			opposite : true,
-			title : {
-				text : 'Số lượng'
-			}
-		} ],
-		plotOptions : {
-			column : {
-				borderRadius : 5
-			}
-		},		
-        
+        yAxis: [{
+          className: 'highcharts-color-0',
+          title: {
+            text: 'Danh thu Đ'
+          }
+        }, {
+          className: 'highcharts-color-1',
+          opposite: true,
+          title: {
+            text: 'Số lượng'
+          }
+        }],
+        plotOptions: {
+          column: {
+            borderRadius: 5
+          }
+        },
+
         series: [{
-            name: 'Doanh thu (Đ)',
-            data: [[${barChartData.values()}]]
-        
+          name: 'Doanh thu (Đ)',
+          data: [[${ barChartData.values() }]]
+
 
         }, {
-        	name: 'Số lượng',
-            data: [[${barChartData1.values()}]],
-            yAxis : 1
+          name: 'Số lượng',
+          data: [[${ barChartData1.values() }]],
+          yAxis: 1
         }
-        
+
         ]
-        
+
+      });
+
     });
-    
-    });
-  
-   	
-</script>
+
+
+  </script>
 
 
 
