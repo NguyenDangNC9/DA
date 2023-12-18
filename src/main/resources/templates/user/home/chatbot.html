@@ -103,25 +103,29 @@
       float: left;
     }
 
-    .chat-input {
-      padding: 10px;
-      box-sizing: border-box;
-      border: none;
-      border-top: 1px solid #ddd;
-      outline: none;
-      width: calc(100% - 20px);
-      /* Sử dụng thuộc tính calc để tính toán chiều rộng chính xác và trừ đi khoảng cách padding của phần tử cha */
-    }
+    div .chat-container {
+  position: relative;
+}
 
+.chat-input {
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+  border-top: 1px solid #ddd;
+  outline: none;
+  width: calc(100% - 20px);
+}
 
-    div .chat-button {
-
-      padding: 10px;
-      background-color: #0000AA;
-      color: white;
-
-
-    }
+div .chat-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #0000AA;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
 
     .chat-messages {
       padding: 20px;
@@ -212,7 +216,7 @@
       </div>
       <div>
         <input type="text" class="chat-input" id="userInput" placeholder="Nhập Nội Dung">
-        <center> <button class="chat-button" onclick="sendMessage()">Gửi</button> </center>
+       <button class="chat-button" onclick="sendMessage()">Gửi</button> 
       </div>
     </div>
   </div>
