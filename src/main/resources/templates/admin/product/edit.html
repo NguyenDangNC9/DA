@@ -29,14 +29,16 @@
 											style="max-width: 100%; height: 200px; padding-left: 0px;"
 											alt="Photo Product">
 									</label>
-									<label for="image"> <img th:src="@{|/assets/images/${pro.Image2}|}"
-											style="max-width: 100%; height: 100px; padding-left: 10px;"
-											alt="Photo Product">
-									</label>
-									<label for="image"> <img th:src="@{|/assets/images/${pro.Image3}|}"
-											style="max-width: 100%; height: 100px; padding-right: 10px;"
-											alt="Photo Product">
-									</label>
+									<div class="col-sm-12 text-center list-image">
+										<label for="image"> <img th:src="@{|/assets/images/${pro.Image2}|}"
+												style="max-width: 100%; height: 100px; padding-left: 10px;"
+												alt="Photo Product">
+										</label>
+										<label for="image"> <img th:src="@{|/assets/images/${pro.Image3}|}"
+												style="max-width: 100%; height: 100px; padding-right: 10px;"
+												alt="Photo Product">
+										</label>
+									</div>
 									<!-- <label for="image"> <img
 										th:src="@{|/assets/images/${pro.Image4}|}"
 										style="max-width: 100%; height: 100px;" alt="Photo User">
