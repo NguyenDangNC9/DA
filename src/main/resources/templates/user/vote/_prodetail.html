@@ -1,107 +1,85 @@
-	<div class="item_review-comment col-sm-12" th:each="v:${votes}">
-		<div class="col-sm-2">
-			<img th:if="${v.Image}!=null" alt=""
-				th:src="@{|/assets/image/comments/${v.Image}|}"
-				style="width: 100px; height: 100px;">
-		</div>
-		<div class="info col-sm-10">
-			<strong><h4 tH:text="${v.account.fullname}"></h4></strong>
-			<div id="full-stars-example">
-				<div th:if="${v.Vote}==1" class="rating-group">
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-					class="rating__label_2rm" for="rating3-1"><i
-					class="rating__icon  fa fa-star"></i></label>
-				<label aria-label="1 star"
-					class="rating__label_2rm" for="rating3-1"><i
-					class="rating__icon  fa fa-star"></i></label> 
-				<label aria-label="1 star"
-					class="rating__label_2rm" for="rating3-1"><i
-					class="rating__icon  fa fa-star"></i></label> 
-				<label aria-label="1 star"
-					class="rating__label_2rm" for="rating3-1"><i
-					class="rating__icon  fa fa-star"></i></label>  
-				</div>
-<!-- 				//////////// -->
-				<div th:if="${v.Vote}==2" class="rating-group">
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-					class="rating__label_2rm" for="rating3-1"><i
-					class="rating__icon  fa fa-star"></i></label> 
-				<label aria-label="1 star"
-					class="rating__label_2rm" for="rating3-1"><i
-					class="rating__icon  fa fa-star"></i></label> 
-				<label aria-label="1 star"
-					class="rating__label_2rm" for="rating3-1"><i
-					class="rating__icon  fa fa-star"></i></label>  
-				</div>
-				
-				<!-- 				//////////// -->
-				<div th:if="${v.Vote}==3" class="rating-group">
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-					<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-					class="rating__label_2rm" for="rating3-1"><i
-					class="rating__icon  fa fa-star"></i></label> 
-				<label aria-label="1 star"
-					class="rating__label_2rm" for="rating3-1"><i
-					class="rating__icon  fa fa-star"></i></label>  
-				</div>
-				
-								<!-- 				//////////// -->
-				<div th:if="${v.Vote}==4" class="rating-group">
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-					class="rating__label_2rm" for="rating3-1"><i
-					class="rating__icon  fa fa-star"></i></label>  
-				</div>
-				<!-- 				//////////// -->
-				<div th:if="${v.Vote}==5" class="rating-group">
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-					<label aria-label="1 star"
-						class="rating__label_2rm" for="rating3-1"><i
-						class="rating__icon rating__icon--star fa fa-star"></i></label> 
-				</div>
-			</div>
-			<p><label><i>[[${#dates.format(v.Vote_Date, 'yyyy-MM-dd
-									HH:mm')}]]</i></label></p>
-			<div dropzone="true" disabled="disabled" class="content">[[${v.Vote_Content}]]</div>
-			
-		</div>
+<div class="item_review-comment col-sm-12" th:each="v:${votes}">
+	<div class="col-sm-2">
+		<img th:if="${v.Image != null}" th:src="@{|/assets/images/${v.Image}|}" alt=""
+			style="width: 100px; height: 100px; ">
 	</div>
+
+
+	<div class="info col-sm-10">
+		<strong>
+			<h4 tH:text="${v.account.fullname}"></h4>
+		</strong>
+		<div id="full-stars-example">
+			<div th:if="${v.Vote}==1" class="rating-group">
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon  fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon  fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon  fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon  fa fa-star"></i></label>
+			</div>
+			<!-- 				//////////// -->
+			<div th:if="${v.Vote}==2" class="rating-group">
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon  fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon  fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon  fa fa-star"></i></label>
+			</div>
+
+			<!-- 				//////////// -->
+			<div th:if="${v.Vote}==3" class="rating-group">
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon  fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon  fa fa-star"></i></label>
+			</div>
+
+			<!-- 				//////////// -->
+			<div th:if="${v.Vote}==4" class="rating-group">
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon  fa fa-star"></i></label>
+			</div>
+			<!-- 				//////////// -->
+			<div th:if="${v.Vote}==5" class="rating-group">
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+				<label aria-label="1 star" class="rating__label_2rm" for="rating3-1"><i
+						class="rating__icon rating__icon--star fa fa-star"></i></label>
+			</div>
+		</div>
+		<p><label><i>[[${#dates.format(v.Vote_Date, 'yyyy-MM-dd
+					HH:mm')}]]</i></label></p>
+		<div dropzone="true" disabled="disabled" class="content">[[${v.Vote_Content}]]</div>
+
+	</div>
+</div>

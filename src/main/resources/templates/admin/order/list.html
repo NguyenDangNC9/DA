@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout/index :: dynamic(~{::main})}">
 
 
 <body>
@@ -14,34 +13,35 @@
 						</h3>
 
 						<ul class="nav nav-tabs" style="background: #ffffff;">
-							<li class="nav-item"><a class="nav-link active"
-								data-toggle="tab" href="#home">Tìm kiếm</a></li>
-							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#menu1">Tìm kiếm nâng cao</a></li>
+							<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Tìm kiếm</a>
+							</li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">Tìm kiếm nâng
+									cao</a></li>
 						</ul>
 						<div class="tab-content">
 							<div id="home" class="tab-pane  active">
 								<form method="post" th:action="@{/admin/order/findbyOrderId/1}">
 									<div class="col-sm-12">
 										<div class="row">
-										<br>
-										
+											<br>
+
 											<div class="form-group col-sm-4">
-												
-												<input type="text" value="" name="order_id"
-													class="form-control" placeholder="Tìm theo mã đơn hàng">
+
+												<input type="text" value="" name="order_id" class="form-control"
+													placeholder="Tìm theo mã đơn hàng">
 											</div>
-											
+
 											<button class="btn btn-round btn-default" type="submit">Tìm
 												kiếm</button>
-											<i th:utext="${message}"></i> 
-											
-											<i style="float: right; margin: 10px;"	>Hiển thị  [[${sizepro} ]]  đơn hàng </i>
+											<i th:utext="${message}"></i>
+
+											<i style="float: right; margin: 10px;">Hiển thị [[${sizepro} ]] đơn hàng
+											</i>
 										</div>
 									</div>
 								</form>
 							</div>
-							
+
 							<div id="menu1" class="tab-pane fade">
 								<form th:action="@{/admin/order/findByAllkeyword/1}">
 									<div class="col-sm-12">
@@ -49,8 +49,7 @@
 											<br>
 											<div class="form-group col-sm-2">
 												<div>Khách hàng</div>
-												<input type="text" value="" name="Username"
-													class="form-control">
+												<input type="text" value="" name="Username" class="form-control">
 											</div>
 
 
@@ -71,45 +70,45 @@
 											</div>
 											<div class="form-group col-sm-4">
 												<div>Trạng thái đơn hàng</div>
-												<select class="form-control" name="Status"
-													data-live-search="true" style="height: 36px;">
+												<select class="form-control" name="Status" data-live-search="true"
+													style="height: 36px;">
 													<option style="color: #00008B;" value="">Tất cả</option>
 													<option style="color: #FFD700;" value="0">Đang xử
 														lý</option>
 													<option style="color: #01008B;" value="1">Đang
 														giao hàng</option>
-														<option style="color: #2E8B57;" value="3">Đã hoàn thành </option>
+													<option style="color: #2E8B57;" value="3">Đã hoàn thành </option>
 													<option style="color: #DC143C;" value="2">Hủy giao hàng
-														</option>
-														<option style="color: #DC143C;" value="4">Đã hủy
-														</option>
-													
+													</option>
+													<option style="color: #DC143C;" value="4">Đã hủy
+													</option>
+
 												</select>
 											</div>
 											<div class="form-group col-sm-2">
-													Từ giá <select class="form-control" name="MinPrice"
-														data-live-search="true" style="height: 36px;">
-														<option value="0">Tất cả</option>
-														<option value="1000000">1,000,000 Đ</option>
-														<option value="2000000">2,000,000 Đ</option>
-														<option value="5000000">5,000,000 Đ </option>
-														<option value="10000000">10,000,000 Đ</option>
-														<option value="15000000">15,000,000 Đ</option>
-													</select>
-												</div>
-												<div class="form-group col-sm-2">
-													Đến giá <select class="form-control" name="MaxPrice"
-														data-live-search="true" style="height: 36px;">
-														<option value="1000000000">Tất cả</option>
-														<option value="2000000">2,000,000 Đ</option>
-														<option value="5000000">5,000,000 Đ</option>
-														<option value="10000000">10,000,000 Đ</option>
-														<option value="15000000">15,000,000 Đ</option>
-														<option value="50000000">50,000,000 Đ</option>
-													</select>
-												</div>
+												Từ giá <select class="form-control" name="MinPrice"
+													data-live-search="true" style="height: 36px;">
+													<option value="0">Tất cả</option>
+													<option value="1000000">1,000,000 Đ</option>
+													<option value="2000000">2,000,000 Đ</option>
+													<option value="5000000">5,000,000 Đ </option>
+													<option value="10000000">10,000,000 Đ</option>
+													<option value="15000000">15,000,000 Đ</option>
+												</select>
+											</div>
 											<div class="form-group col-sm-2">
-	
+												Đến giá <select class="form-control" name="MaxPrice"
+													data-live-search="true" style="height: 36px;">
+													<option value="1000000000">Tất cả</option>
+													<option value="2000000">2,000,000 Đ</option>
+													<option value="5000000">5,000,000 Đ</option>
+													<option value="10000000">10,000,000 Đ</option>
+													<option value="15000000">15,000,000 Đ</option>
+													<option value="50000000">50,000,000 Đ</option>
+												</select>
+											</div>
+											<div class="form-group col-sm-2">
+
 												<br><button class="btn btn-round btn-default" type="submit">Tìm
 													kiếm</button>
 												<i th:utext="${message}"></i>
@@ -124,14 +123,14 @@
 
 						<thead>
 							<tr style="font-size: 15px;">
-								
+
 								<th>Mã đơn hàng</th>
 								<th>Tên khách hành</th>
 								<th>Số điện thoại</th>
 								<th>Địa chỉ</th>
 								<th>Ngày đặt</th>
 								<th>Phương thức</th>
-							
+
 								<th>Tổng giá</th>
 								<th>Tình trạng</th>
 								<th></th>
@@ -145,17 +144,19 @@
 								<td>[[${o.Address}]]</td>
 								<td>[[${#dates.format(o.CreateDate, 'yyyy-MM-dd HH:mm')}]]</td>
 								<td>[[${o.method}]]</td>
-								
-								<td>[[${#numbers.formatDecimal(o.price  , 3 ,
-									'COMMA',2,'POINT')}]] Đ</td>
+
+								<td>[[${#numbers.formatDecimal(o.price , 3 ,
+									'COMMA',0,'POINT')}]]<span style="white-space: nowrap;"> Đ</span></td>
 								<td><b style="color: #00008B;">[[${o.status==0?'Đang xử
 										lý' :''}]]</b> <b style="color: #FFD700;">[[${o.status==1?'Đang
 										giao hàng' :''}]]</b> <b style="color: #2E8B57;">[[${o.status==3?'Đã
-										hoàn thành' :''}]]</b> 	<b style="color: #DC143C;">[[${o.status==2?'Hủy giao hàng' :''}]]</b>
-									<b style="color: #DC143C;">[[${o.status==4?'Đã hủy' :''}]]</b></td>
+										hoàn thành' :''}]]</b> <b style="color: #DC143C;">[[${o.status==2?'Hủy giao
+										hàng' :''}]]</b>
+									<b style="color: #DC143C;">[[${o.status==4?'Đã hủy' :''}]]</b>
+								</td>
 								<td><a th:href="@{|/admin/order/edit?order_id=${o.Order_id}|}"
-									class="btn btn-round btn-primary"> <i class="fa fa-pencil"></i>
-								</a> </td>
+										class="btn btn-round btn-primary"> <i class="fa fa-pencil"></i>
+									</a> </td>
 							</tr>
 
 
@@ -163,77 +164,73 @@
 
 					</table>
 					<div class="text-center">
-						<div class="dataTables_paginate paging_bootstrap pagination" >
-						<ul>
-						
-							<li
-								th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'">
-								<a class="page-link" th:href="@{/admin/order/list}">Đầu</a>
-							</li>
-							<li
-								th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' ">
-								<a class="page-link" aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex - 1}|}"
-								title='Lùi 1 trang'><span aria-hidden="true">«</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-							<li th:if="${currentIndex - 2} > 0">
-								<a class="page-link" aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex - 2}|}"
-								><span aria-hidden="true">[[${currentIndex} -2]]</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-							<li th:if="${currentIndex - 1} != 0">
-								<a class="page-link" aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex - 1}|}"
-								><span aria-hidden="true">[[${currentIndex} -1]]</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-							<li  class="page-item active">
-								<a class="page-link " aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex}|}"
-								><span aria-hidden="true">[[${currentIndex}]]</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-						
-							<li th:if="${currentIndex +1} <= ${totalPageCount}">
-								<a class="page-link" aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex + 1}|}"
-								><span aria-hidden="true">[[${currentIndex} +1]]</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-							<li th:if="${currentIndex +2} <= ${totalPageCount}">
-								<a class="page-link" aria-label="Previous"
-								th:href="@{|${baseUrl}${currentIndex + 2}|}"
-								><span aria-hidden="true">[[${currentIndex} +2]]</span>
-									<span class="sr-only">Previous</span></a>
-							</li>
-							
-<!-- 							<li -->
-<!-- 								th:each="item : ${#numbers.sequence(beginIndex,totalPageCount)}" -->
-<!-- 								th:class="${item == currentIndex ? 'page-item active' :'page-item' }"> -->
-<!-- 								<a  class="page-link" th:href="@{|${baseUrl}${item}|}"> <span -->
-<!-- 									th:text='${item}'></span> -->
-<!-- 							</a> -->
-<!-- 							</li> -->
-							
-							<li
-								th:class="${currentIndex == totalPageCount}? 'page-item disabled': 'page-item'">
-								<a class="page-link" aria-label="Next"
-								th:href="@{|${baseUrl}${currentIndex + 1}|}"
-								title='Tiến 1 trang'><span aria-hidden="true">»</span> <span
-									class="sr-only">Next</span></a>
-							</li>
-							<li
-								th:class="${currentIndex == totalPageCount}? 'page-item disabled':'page-item'">
-								<a class="page-link" th:href="@{|${baseUrl}${totalPageCount}|}">Cuối</a>
-							</li>
-						</ul>
-					</div>
+						<div class="dataTables_paginate paging_bootstrap pagination">
+							<ul>
+
+								<li th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'">
+									<a class="page-link" th:href="@{/admin/order/list}">Đầu</a>
+								</li>
+								<li th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' ">
+									<a class="page-link" aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex - 1}|}" title='Lùi 1 trang'><span
+											aria-hidden="true">«</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+								<li th:if="${currentIndex - 2} > 0">
+									<a class="page-link" aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex - 2}|}"><span
+											aria-hidden="true">[[${currentIndex} -2]]</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+								<li th:if="${currentIndex - 1} != 0">
+									<a class="page-link" aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex - 1}|}"><span
+											aria-hidden="true">[[${currentIndex} -1]]</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+								<li class="page-item active">
+									<a class="page-link " aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex}|}"><span
+											aria-hidden="true">[[${currentIndex}]]</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+
+								<li th:if="${currentIndex +1} <= ${totalPageCount}">
+									<a class="page-link" aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex + 1}|}"><span
+											aria-hidden="true">[[${currentIndex} +1]]</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+								<li th:if="${currentIndex +2} <= ${totalPageCount}">
+									<a class="page-link" aria-label="Previous"
+										th:href="@{|${baseUrl}${currentIndex + 2}|}"><span
+											aria-hidden="true">[[${currentIndex} +2]]</span>
+										<span class="sr-only">Previous</span></a>
+								</li>
+
+								<!-- 							<li -->
+								<!-- 								th:each="item : ${#numbers.sequence(beginIndex,totalPageCount)}" -->
+								<!-- 								th:class="${item == currentIndex ? 'page-item active' :'page-item' }"> -->
+								<!-- 								<a  class="page-link" th:href="@{|${baseUrl}${item}|}"> <span -->
+								<!-- 									th:text='${item}'></span> -->
+								<!-- 							</a> -->
+								<!-- 							</li> -->
+
+								<li th:class="${currentIndex == totalPageCount}? 'page-item disabled': 'page-item'">
+									<a class="page-link" aria-label="Next" th:href="@{|${baseUrl}${currentIndex + 1}|}"
+										title='Tiến 1 trang'><span aria-hidden="true">»</span> <span
+											class="sr-only">Next</span></a>
+								</li>
+								<li th:class="${currentIndex == totalPageCount}? 'page-item disabled':'page-item'">
+									<a class="page-link" th:href="@{|${baseUrl}${totalPageCount}|}">Cuối</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
 </body>
+
 </html>

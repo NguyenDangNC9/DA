@@ -61,7 +61,7 @@
 
 				<div class="sort-wrapper ">
 					<i>Có [[${sizepro} ]] sản phẩm </i>
-					<label class="control-label" for="input-sort" style="margin-right: 1rem">Sắp xếp theo giá:</label>
+					<label class="control-label" for="input-sort" style="margin-right: 0;">Sắp xếp theo giá:</label>
 					<a th:href="@{/product/list/desc/1}">Giảm dần</a>
 					<a th:href="@{/product/list/asc/1}">Tăng dần</a>
 				</div>
@@ -104,8 +104,9 @@
 									<span class="rating1" title="Màu"> [[${p.color}]] </span>
 									<span class="rating2" title="Chất liệu"> [[${p.material}]] </span>
 								</div>
-								<span class="price">
-									<span class="amount">
+								<span class="price ">
+									<span class="amount "
+										style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
 
 										[[${#numbers.formatDecimal(p.unit_price-((p.unit_price)*p.distcount/100), 3 ,
 										'COMMA',0,'POINT')} ]] Đ

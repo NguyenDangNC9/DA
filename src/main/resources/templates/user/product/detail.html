@@ -112,8 +112,9 @@
 									<td>Tình trạng</td>
 									<td>
 										<span class="label label-danger" th:if="*{quantity} ==0">Hết hàng</span>
-										<span  th:if="*{quantity} !=0"><a class="label label-info"> Còn hàng </a> &nbsp;&nbsp; <span
-												th:text="*{quantity}" class="quantity-color"></span>&nbsp;sản phẩm có
+										<span th:if="*{quantity} !=0"><a class="label label-info"> Còn hàng </a>
+											&nbsp;&nbsp; <span th:text="*{quantity}"
+												class="quantity-color"></span>&nbsp;sản phẩm có
 											sẵn
 									</td>
 								</tr>
@@ -126,8 +127,8 @@
 				<div id="product">
 					<div class="form-group">
 						<div class="button-group ">
-							<a  th:attr="ng-click=@{|cart.add(${item.product_id})|}">
-								<div class="btn btn-default" 
+							<a th:attr="ng-click=@{|cart.add(${item.product_id})|}">
+								<div class="btn btn-default"
 									style="width: 460px; height: 60px; margin: 5px; font-size: 25px; font-weight: 400;">
 									<i class="fa fa-shopping-cart" style="font-size: 30px; margin-top: 7px;"></i> Thêm
 									vào giỏ
@@ -241,7 +242,9 @@
 											title="Chất liệu ">
 											[[${p.material}]] </span>
 									</div>
-									<span class="price"><span class="amount"><span
+									<span class="price"
+										style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><span
+											class="amount"><span
 												class="currencySymbol"></span>[[${#numbers.formatDecimal(p.unit_price,
 											3 , 'COMMA',0,'POINT')}]] Đ</span> </span>
 								</div>
@@ -260,5 +263,4 @@
 		color: red;
 		/* Đổi màu sắc của số lượng thành màu xanh lá cây */
 	}
-
 </style>

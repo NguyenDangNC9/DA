@@ -26,14 +26,15 @@ public class VoteController {
 	HttpServletRequest request;
 	@Autowired
 	VoteDao dao;
-	
+
 	@Autowired
 	CommentService commservice;
-	
+
 	@RequestMapping("/vote/add")
-	public String commentAdd(Model  model , @RequestParam("product_id") Integer product_id , 
-			@RequestParam("content") String content , @RequestParam("vote") Integer vote , @RequestParam("image_comment") MultipartFile file) 
-					throws IOException {
+	public String commentAdd(Model model, @RequestParam("product_id") Integer product_id,
+			@RequestParam("content") String content, @RequestParam("vote") Integer vote,
+			@RequestParam("image_comment") MultipartFile file)
+			throws IOException {
 		String username = request.getRemoteUser();
 		Vote vo = new Vote();
 		Account acc = new Account();
@@ -44,14 +45,13 @@ public class VoteController {
 		vo.setProduct(pro);
 		vo.setVote_Content(content);
 		vo.setVote(vote);
-		if(file!=null) {
-			File saveFile = commservice.save(file , "/assets/images/comments/");
+		if (file != null) {
+			File saveFile = commservice.save(file, "/assets/images/comments/");
 			vo.setImage(file.getOriginalFilename());
 		}
 		dao.save(vo);
-		
-		return "redirect:/product/detail/"+product_id;
+
+		return "redirect:/product/detail/" + product_id;
 	}
-	
-	
+
 }
