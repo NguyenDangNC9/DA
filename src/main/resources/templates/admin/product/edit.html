@@ -70,7 +70,7 @@
 									</div>
 									<div class="row">
 										<div class="form-group col-sm-6">
-											<div>Tải ảnh lên</div>
+											<div>Tải ảnh lên (3 tệp)</div>
 											<input type="hidden" name="Image1" th:value="${pro.Image1}">
 											<input type="file" name="photo_img" class="form-control" multiple> <input
 												type="hidden" name="Image2" th:value="${pro.Image2}"> <input
@@ -162,9 +162,18 @@
 										</div> -->
 										<div class="form-group col-sm-6">
 											<div>Khuyến mãi</div>
-											<input type="number" name="Distcount" th:value="${pro.Distcount}"
-												class="form-control">
+											<input type="number" name="Distcount" id="distcount-input"
+												th:value="${pro.Distcount}" class="form-control">
 										</div>
+										<script>
+											var distcountInput = document.getElementById('distcount-input');
+
+											distcountInput.addEventListener('input', function () {
+												if (this.value < 0) {
+													this.value = 0;
+												}
+											});
+										</script>
 										<div class="form-group col-sm-6">
 											<div>Trạng thái</div>
 											<select class="form-control" name="Status" data-live-search="true"

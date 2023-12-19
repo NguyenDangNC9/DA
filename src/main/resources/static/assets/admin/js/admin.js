@@ -1,70 +1,70 @@
 const app = angular.module("admin-ctrl", []);
-app.controller("authority", function($scope, $http , $location) {
-	$scope.roles=[];
-   $scope.admins = [];
-   $scope.authorities = [];
+app.controller("authority", function ($scope, $http, $location) {
+    $scope.roles = [];
+    $scope.admins = [];
+    $scope.authorities = [];
 
-   $scope.initialize = function(){
-       // load all roles
-       $http.get("/rest/roles").then(resp =>{
-           $scope.roles = resp.data;
-       })
+    $scope.initialize = function () {
+        // load all roles
+        $http.get("/rest/roles").then(resp => {
+            $scope.roles = resp.data;
+        })
 
-       //load staffs and directors(administrators)
-       $http.get("/rest/accounts").then(resp =>{
-           $scope.admins = resp.data;
-       })
+        //load staffs and directors(administrators)
+        $http.get("/rest/accounts").then(resp => {
+            $scope.admins = resp.data;
+        })
 
-       //load authorities of staffs and directors
-       $http.get("/rest/authorities").then(resp =>{
+        //load authorities of staffs and directors
+        $http.get("/rest/authorities").then(resp => {
             $scope.authorities = resp.data;
-         }).catch(error =>{
-             $location.path("/unauthorized");
-         })
-   }
+        }).catch(error => {
+            $location.path("/unauthorized");
+        })
+    }
 
-   $scope.authority_of = function(acc , role){
-       if($scope.authorities){
-           return $scope.authorities.find(ur => ur.account.username == acc.username 
-                                            && ur.role.role_id == role.role_id);
-       }
-   }
-   $scope.authority_changed = function(acc,role){
-       var authority = $scope.authority_of(acc , role);
-       if(authority){
-           $scope.revoke_authority(authority);
-       }
-       else{
-           authority = {account:acc , role : role};
-           $scope.grant_authority(authority);
-       }
-   }
+    $scope.authority_of = function (acc, role) {
+        if ($scope.authorities) {
+            return $scope.authorities.find(ur => ur.account.username == acc.username
+                && ur.role.role_id == role.role_id);
+        }
+    }
+    $scope.authority_changed = function (acc, role) {
+        var authority = $scope.authority_of(acc, role);
+        if (authority) {
+            $scope.revoke_authority(authority);
+        }
+        else {
+            authority = { account: acc, role: role };
+            $scope.grant_authority(authority);
+        }
+    }
 
-   //thêm mới authority
-   $scope.grant_authority = function(authority){
-       $http.post(`/rest/authorities`, authority).then(resp =>{
-           $scope.authorities.push(resp.data);
-           capQuyen("success", "Cấp quyền sử dụng thành công");
-       }).catch(error =>{
-         
-           capQuyen("error", "Cấp quyền thất bại");
-           
-       })
-   }
+    //thêm mới authority
+    $scope.grant_authority = function (authority) {
+        $http.post(`/rest/authorities`, authority).then(resp => {
+            $scope.authorities.push(resp.data);
+            capQuyen("success", "Cấp quyền sử dụng thành công");
+        }).catch(error => {
 
-   //Xoá authority
-   $scope.revoke_authority = function(authority){
-       $http.delete(`/rest/authorities/${authority.authorize_id}`).then(resp =>{
-           var index = $scope.authorities.findIndex(a => a.Authorize_id == authority.authorize_id);
-           $scope.authorities.splice(index ,1);
-           capQuyen("success", "Thu hồi quyền sử dụng thành công");
-       }).catch(error =>{
-        capQuyen("error", "Thu hồi quyền sử dụng thất bại");
-        console.log("Eror",error );
-       })
-   }
+            capQuyen("error", "Cấp quyền thất bại");
 
-   $scope.initialize();
+        })
+    }
+
+    //Xoá authority
+    $scope.revoke_authority = function (authority) {
+        $http.delete(`/rest/authorities/${authority.authorize_id}`).then(resp => {
+            var index = $scope.authorities.findIndex(a => a.Authorize_id == authority.authorize_id);
+            $scope.authorities.splice(index, 1);
+            capQuyen("success", "Thu hồi quyền sử dụng thành công");
+        }).catch(error => {
+            capQuyen("error", "Thu hồi quyền sử dụng thất bại");
+            console.log("Eror", error);
+        })
+    }
+
+    $scope.initialize();
     $scope.pager = {
         page: 0,
         size: 10,
@@ -96,87 +96,87 @@ app.controller("authority", function($scope, $http , $location) {
     }
 });
 
-app.controller("trademark-ctrl", function($scope, $http) {
+app.controller("trademark-ctrl", function ($scope, $http) {
     $scope.items = [];
 
     $scope.form = {};
 
-    $scope.initialize = function() {
+    $scope.initialize = function () {
         $http.get("/rest/trademarks").then(resp => {
             $scope.items = resp.data;
-           
+
         });
     }
-    
-   
+
+
     $scope.initialize();
-    $scope.reset = function() {
+    $scope.reset = function () {
         $scope.form = {
-            
+
         }
     }
-    $scope.edit = function(item) {
+    $scope.edit = function (item) {
         $scope.form = angular.copy(item);
-       
+
     }
-    $scope.create = function() {
-    var item = angular.copy($scope.form);
+    $scope.create = function () {
+        var item = angular.copy($scope.form);
 
-    // Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
-    if (!item.name || !item.detail) {
-        //console.log("Vui lòng điền đầy đủ thông tin");
-        themThuongHieu("error", "Thêm mới thất bại");
-        // Thực hiện các hành động cần thiết khi dữ liệu không hợp lệ
-        return;
-    }
+        // Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
+        if (!item.name || !item.detail) {
+            //console.log("Vui lòng điền đầy đủ thông tin");
+            themThuongHieu("error", "Thêm mới thất bại");
+            // Thực hiện các hành động cần thiết khi dữ liệu không hợp lệ
+            return;
+        }
 
-    $http.post(`/rest/trademarks`, item).then(resp => {
-        resp.data, createDate = new Date(resp.data.createDate);
-        $scope.items.push(resp.data);
-        $scope.reset();
-        themThuongHieu("success", "Thêm mới thành công");
+        $http.post(`/rest/trademarks`, item).then(resp => {
+            resp.data, createDate = new Date(resp.data.createDate);
+            $scope.items.push(resp.data);
+            $scope.reset();
+            themThuongHieu("success", "Thêm mới thành công");
 
-    }).catch(error => {
-        // Xử lý lỗi khi gửi yêu cầu POST
-        console.log("Error", error);
-        // alert("Thêm mới thất bại");
-    });
-}
-
-    $scope.update = function(item) {
-    var item = angular.copy($scope.form);
-
-    // Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
-    if (!item.name || !item.detail) {
-        themThuongHieu("error", "Vui lòng điền đầy đủ thông tin");
-        return;
+        }).catch(error => {
+            // Xử lý lỗi khi gửi yêu cầu POST
+            console.log("Error", error);
+            // alert("Thêm mới thất bại");
+        });
     }
 
-    $http.put(`/rest/trademarks/${item.trademark_id}`, item).then(resp => {
-        var index = $scope.items.findIndex(p => p.id == item.id);
-       
-        $scope.items[index] = item;
-        themThuongHieu("success", "Cập nhật thành công");
-        
-    }).catch(error => {
-        //console.log("Error", error);
-        themThuongHieu("error", "Cập nhật thất bại");
-    })
-}
-    
-$scope.delete = function(item) {
-    $http.delete(`/rest/trademarks/${item.trademark_id}`, item).then(resp => {
-        // Nếu xóa thành công, cập nhật mảng items trong $scope
-        var index = $scope.items.findIndex(p => p.id === item.id);
-        
+    $scope.update = function (item) {
+        var item = angular.copy($scope.form);
+
+        // Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
+        if (!item.name || !item.detail) {
+            themThuongHieu("error", "Vui lòng điền đầy đủ thông tin");
+            return;
+        }
+
+        $http.put(`/rest/trademarks/${item.trademark_id}`, item).then(resp => {
+            var index = $scope.items.findIndex(p => p.id == item.id);
+            $scope.items = resp.data;
+            $scope.items[index] = item;
+            themThuongHieu("success", "Cập nhật thành công");
+            window.location.reload();
+        }).catch(error => {
+            //console.log("Error", error);
+            themThuongHieu("error", "Cập nhật thất bại");
+        })
+    }
+
+    $scope.delete = function (item) {
+        $http.delete(`/rest/trademarks/${item.trademark_id}`, item).then(resp => {
+            // Nếu xóa thành công, cập nhật mảng items trong $scope
+            var index = $scope.items.findIndex(p => p.id === item.id);
+            $scope.items = resp.data;
             $scope.items.splice(index, 1); // Xóa phần tử khỏi mảng items
             themThuongHieu("success", "Xóa thành công");
-        
-    }).catch(error => {
-        themThuongHieu("error", "Không thể xóa, vẫn còn hàng hoá liên quan");
-        //console.log("Error", error);
-    })
-}
+            window.location.reload();
+        }).catch(error => {
+            themThuongHieu("error", "Không thể xóa, vẫn còn hàng hoá liên quan");
+            // console.log("Error", error);
+        })
+    }
     $scope.pager = {
         page: 0,
         size: 6,
@@ -207,36 +207,36 @@ $scope.delete = function(item) {
         }
     }
 });
-app.controller("category-ctrl", function($scope, $http) {
+app.controller("category-ctrl", function ($scope, $http) {
     $scope.items = [];
 
     $scope.form = {};
 
-    $scope.initialize = function() {
+    $scope.initialize = function () {
         $http.get("/rest/categories").then(resp => {
             $scope.items = resp.data;
-           
+
         });
     }
     $scope.initialize();
-    $scope.reset = function() {
+    $scope.reset = function () {
         $scope.form = {
-            
+
         }
     }
-    $scope.edit = function(item) {
+    $scope.edit = function (item) {
         $scope.form = angular.copy(item);
-       
+
     }
-    $scope.create = function() {
-		var item = angular.copy($scope.form);
-		// Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
-    if (!item.name || !item.detail) {
-        console.log("Vui lòng điền đầy đủ thông tin");
-        themLoaiHang("error", "Thêm mới thất bại");
-        // Thực hiện các hành động cần thiết khi dữ liệu không hợp lệ
-        return;
-    }
+    $scope.create = function () {
+        var item = angular.copy($scope.form);
+        // Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
+        if (!item.name || !item.detail) {
+            console.log("Vui lòng điền đầy đủ thông tin");
+            themLoaiHang("error", "Thêm mới thất bại");
+            // Thực hiện các hành động cần thiết khi dữ liệu không hợp lệ
+            return;
+        }
         $http.post(`/rest/categories`, item).then(resp => {
             resp.data, createDate = new Date(resp.data.createDate);
             $scope.items.push(resp.data);
@@ -249,33 +249,38 @@ app.controller("category-ctrl", function($scope, $http) {
             console.log("Error", error);
         })
     }
-    $scope.update = function(item) {
-		
+    $scope.update = function (item) {
+
         var item = angular.copy($scope.form);
-		// Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
-    if (!item.name || !item.detail) {
-        //console.log("Vui lòng điền đầy đủ thông tin");
-        themLoaiHang("error", "Cập nhật thất bại");
-        // Thực hiện các hành động cần thiết khi dữ liệu không hợp lệ
-        return;
-    }
+        // Kiểm tra xem các trường bắt buộc có được điền đầy đủ không
+        if (!item.name || !item.detail) {
+            //console.log("Vui lòng điền đầy đủ thông tin");
+            themLoaiHang("error", "Cập nhật thất bại");
+            // Thực hiện các hành động cần thiết khi dữ liệu không hợp lệ
+            return;
+        }
         $http.put(`/rest/categories/${item.category_id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
-             themLoaiHang("success", "Cập nhật thành công")
+            $scope.items = resp.data;
+            themLoaiHang("success", "Cập nhật thành công")
+
+            window.location.reload();
         }).catch(error => {
             themLoaiHang("error", "Cập nhật thất bại")
             console.log("Error", error);
         })
     }
-    $scope.delete = function(item) {
+    $scope.delete = function (item) {
         $http.delete(`/rest/categories/${item.category_id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items.splice(index, 1);
             $scope.reset();
+            $scope.items = resp.data;
+            window.location.reload();
             themLoaiHang("success", "Xóa thành công");
         }).catch(error => {
-             themLoaiHang("error", "Không thể xóa loại sản phẩm vì vẫn còn hàng trong kho");
+            themLoaiHang("error", "Không thể xóa loại sản phẩm vì vẫn còn hàng trong kho");
             console.log("Error", error);
         })
     }
@@ -310,20 +315,20 @@ app.controller("category-ctrl", function($scope, $http) {
     }
 });
 
-app.controller("orderstatus-ctrl", function($scope, $http) {
+app.controller("orderstatus-ctrl", function ($scope, $http) {
     $scope.items = [];
- 
 
-    $scope.initialize = function() {
+
+    $scope.initialize = function () {
         $http.get("/rest/ordersstatus").then(resp => {
             $scope.items = resp.data;
-            
+
         });
-       
+
     }
-    $scope.edit = function(order_id) {
-       location.href = "/admin/order/edit?order_id=" + order_id;
-       
+    $scope.edit = function (order_id) {
+        location.href = "/admin/order/edit?order_id=" + order_id;
+
     }
     $scope.initialize();
     $scope.pager = {
@@ -359,18 +364,18 @@ app.controller("orderstatus-ctrl", function($scope, $http) {
         }
     }
 });
-app.controller("charuser-ctrl", function($scope, $http) {
+app.controller("charuser-ctrl", function ($scope, $http) {
     $scope.items = [];
- 
 
-    $scope.initialize = function() {
+
+    $scope.initialize = function () {
         $http.get("/rest/report1").then(resp => {
             $scope.items = resp.data;
-            
+
         });
-       
+
     }
-  
+
     $scope.initialize();
     $scope.pager = {
         page: 0,
@@ -406,62 +411,62 @@ app.controller("charuser-ctrl", function($scope, $http) {
     }
 });
 
-app.controller("iconadmin-ctrl", function($scope, $http) {
-  
- 	 $scope.product = function() {
-       location.href = "/admin/product/list";
-       
+app.controller("iconadmin-ctrl", function ($scope, $http) {
+
+    $scope.product = function () {
+        location.href = "/admin/product/list";
+
     }
 
-    $scope.order = function() {
-       location.href = "/admin/order/list";
-       
+    $scope.order = function () {
+        location.href = "/admin/order/list";
+
     }
-    
-     $scope.account = function() {
-       location.href = "/admin/account/list";
-       
+
+    $scope.account = function () {
+        location.href = "/admin/account/list";
+
     }
-    
-     $scope.post = function() {
-       location.href = "/admin/post/list";
-       
+
+    $scope.post = function () {
+        location.href = "/admin/post/list";
+
     }
-    
- });
- app.controller("ordertop10-ctrl", function($scope, $http) {
+
+});
+app.controller("ordertop10-ctrl", function ($scope, $http) {
     $scope.items = [];
- 
 
-    $scope.initialize = function() {
+
+    $scope.initialize = function () {
         $http.get("/rest/ordertop10").then(resp => {
             $scope.items = resp.data;
-            
+
         });
-       
+
     }
-    $scope.edit = function(order_id) {
-       location.href = "/admin/order/edit?order_id=" + order_id;
-       
+    $scope.edit = function (order_id) {
+        location.href = "/admin/order/edit?order_id=" + order_id;
+
     }
     $scope.initialize();
-    
-});
-app.controller("producttop10-ctrl", function($scope, $http) {
-    $scope.items = [];
- 
 
-    $scope.initialize = function() {
+});
+app.controller("producttop10-ctrl", function ($scope, $http) {
+    $scope.items = [];
+
+
+    $scope.initialize = function () {
         $http.get("/rest/producttop10").then(resp => {
             $scope.items = resp.data;
-            
+
         });
-       
+
     }
-    $scope.edit = function(product_id) {
-       location.href = "/admin/product/edit?product_id=" + product_id;
-       
+    $scope.edit = function (product_id) {
+        location.href = "/admin/product/edit?product_id=" + product_id;
+
     }
     $scope.initialize();
-    
+
 });

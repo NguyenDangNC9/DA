@@ -81,10 +81,11 @@
 											<div>Đầu</div>
 										</button>
 										<button ng-click="pager.prev()" class="btn btn-theme03">
-											<div><<</div>
+											<div>
+												<< </div>
 										</button>
-										<button class="btn btn-theme03">{{pager.page + 1}} of
-											{{pager.count}}</button>
+										<button class="btn btn-theme03">Trang {{pager.page + 1}}
+										</button>
 										<button ng-click="pager.next()" class="btn btn-theme03">
 											<div>>></div>
 										</button>
@@ -140,7 +141,7 @@
 
 												<div class="col-lg-offset-2 col-lg-10">
 
-													<button ng-click="create()" class="btn btn-theme02" >
+													<button ng-click="create()" class="btn btn-theme02">
 														<b class="glyphicon glyphicon-plus"></b>Thêm mới
 													</button>
 													<!-- Modal -->
@@ -166,8 +167,11 @@
 														</div>
 													</div> -->
 													<button class="btn btn-theme" ng-click="update()">
+
 														<b class="glyphicon glyphicon-save"></b>Cập nhật
+
 													</button>
+
 													<!-- Modal -->
 													<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 														aria-labelledby="myModalLabel" aria-hidden="true">
@@ -274,31 +278,31 @@
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-	
+
 	<script>
 		// admin
 		function capQuyen(iconType, message) {
-		Swal.fire({
-		icon: iconType,
-		title: message,
-		showConfirmButton: false,
-		timer: 1500
-		});
+			Swal.fire({
+				icon: iconType,
+				title: message,
+				showConfirmButton: false,
+				timer: 1500
+			});
 
 
-	}
-	function themThuongHieu(iconType, message) {
-		Swal.fire({
-		icon: iconType,
-		title: message,
-		showConfirmButton: false,
-		timer: 1500
-		});
+		}
+		function themThuongHieu(iconType, message) {
+			Swal.fire({
+				icon: iconType,
+				title: message,
+				showConfirmButton: false,
+				timer: 1500
+			});
 
 
-	}	
+		}
 
-</script>
+	</script>
 
 	<script type="application/javascript">
 		$(document).ready(function () {

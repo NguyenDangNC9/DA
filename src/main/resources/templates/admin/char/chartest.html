@@ -59,6 +59,24 @@
 
 										</form>
 									</div>
+									<script>
+										// Lấy giá trị ngày tháng đã chọn từ localStorage (nếu tồn tại)
+										var mindayValue = localStorage.getItem('minday');
+										var maxdayValue = localStorage.getItem('maxday');
+
+										// Gán giá trị ngày tháng đã chọn vào các trường nhập liệu
+										document.getElementsByName('minday')[0].value = mindayValue;
+										document.getElementsByName('maxday')[0].value = maxdayValue;
+
+										// Lắng nghe sự kiện thay đổi của các trường nhập liệu và lưu giá trị vào localStorage
+										document.getElementsByName('minday')[0].addEventListener('change', function () {
+											localStorage.setItem('minday', this.value);
+										});
+
+										document.getElementsByName('maxday')[0].addEventListener('change', function () {
+											localStorage.setItem('maxday', this.value);
+										});
+									</script>
 									<thead hidden="true">
 										<tr>
 											<th>Mã sản phẩm</th>
