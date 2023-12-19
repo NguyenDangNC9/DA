@@ -29,14 +29,16 @@
 											src="/assets/images/{{item.image1}}"></a></td>
 								<td class="text-center"><a href="#">{{item.name}}</a></td>
 								<td class="text-center"><a href="#">{{item.distcount}}%</a></td>
-								<!-- <td class="text-center" style="width: 120px"><input
-										ng-change="cart.saveToLocalStorage()" ng-model="item.quantity" type="number"
-										size="4" value="1" min="0" step="1" style="width: 100%"></td> -->
+
+								<td class="text-center" style="width: 120px">
+									<input
+										 ng-keyup="checkQuantity(item)" ng-model="item.quantity" ng-keypress="preventNegativeInput($event)" ng-change="cart.saveToLocalStorage()" type="number"
+										size="4" value="1" min="0" step="1" style="width: 100%"></td>
 										
 
-										<td class="text-center" style="width: 120px"><input
+										<!-- <td class="text-center" style="width: 120px"><input
 											ng-change="checkQuantity(item)" ng-keypress="preventNegativeInput($event)" ng-model="item.quantity" type="number"
-											size="4" value="1" min="0" step="1" style="width: 100%"></td>
+											size="4" value="1" min="0" step="1" style="width: 100%"></td> -->
 
 
 								<td class="text-center">{{item.unit_price | number :0}} Đ</td>

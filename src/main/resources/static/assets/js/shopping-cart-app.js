@@ -38,6 +38,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                                 } else {
                                     // Hiển thị thông báo khi vượt quá số lượng trong kho
                                     themSanPham("error", "Số lượng sản phẩm trong kho không đủ!");
+
                                 }
                             } else {
                                 product.quantity = 1;
@@ -143,7 +144,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 
     }
-
     // bắt lỗi thêm sản phảm vào giỏ hàng
     $scope.checkQuantity = function (item) {
         $http.get(`/rest/products/${item.product_id}`).then(resp => {
@@ -155,21 +155,25 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 item.quantity = 1;
             } else if (requestedQuantity > availableQuantity) {
                 themSanPham("error", "Sản phẩm không đủ số lượng!");
-                item.quantity = availableQuantity; // Đặt lại số lượng về số lượng có sẵn trong cơ sở dữ liệu
+                item.quantity = availableQuantity; // Đặt về số lượng tối đa có sẵn trong cơ sở dữ liệu
             } else {
                 // Cập nhật số lượng sản phẩm trong localStorage
-                const cart = JSON.parse(localStorage.getItem('cart')) || []; 
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
                 const existingItemIndex = cart.findIndex(cartItem => cartItem.product_id === item.product_id);
 
                 if (existingItemIndex !== -1) {
                     cart[existingItemIndex].quantity = requestedQuantity; // Cập nhật số lượng sản phẩm
                 }
-
                 localStorage.setItem('cart', JSON.stringify(cart));
-
+    
             }
+
         });
     };
+    // // Load dữ liệu giỏ hàng từ Local Storage khi trang được load
+     $scope.cart.loadFromLocalStorage();
+
+
     // chặn nhập số âm  
     $scope.preventNegativeInput = function (event) {
         if (event.charCode !== 0 && (event.which < 48 || event.which > 57)) {
@@ -178,7 +182,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     };
 
 
-    
+
     // chuyển đến vnpay
     $scope.generatePayment = function () {
         var tongtienthanhtoanElement = document.getElementById("total");
@@ -201,12 +205,15 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 console.log('Response:', response);
                 $scope.payment = response.data;
                 window.location.href = $scope.payment;
-                
+
             })
             .catch(function (error) {
                 console.error('Error:', error);
             });
     };
+
+
+
 
     //Thanh toán vnpay	
     $scope.payment = function () {
