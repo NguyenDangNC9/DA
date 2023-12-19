@@ -145,31 +145,62 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     }
     // bắt lỗi thêm sản phảm vào giỏ hàng
+    // $scope.checkQuantity = function (item) {
+    //     $http.get(`/rest/products/${item.product_id}`).then(resp => {
+    //         const availableQuantity = resp.data.quantity; // Số lượng có sẵn trong cơ sở dữ liệu
+    //         const requestedQuantity = item.quantity; // Số lượng người dùng muốn thêm vào giỏ hàng
+
+    //         if (requestedQuantity <= 0) {
+    //             themSanPham("error", "Số lượng không hợp lệ!");
+    //             item.quantity = 1;
+    //         } else if (requestedQuantity > availableQuantity) {
+    //             themSanPham("error", "Sản phẩm không đủ số lượng!");
+    //             item.quantity = availableQuantity; // Đặt về số lượng tối đa có sẵn trong cơ sở dữ liệu
+    //         } else {
+    //             // Cập nhật số lượng sản phẩm trong localStorage
+    //             const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    //             const existingItemIndex = cart.findIndex(cartItem => cartItem.product_id === item.product_id);
+
+    //             if (existingItemIndex !== -1) {
+    //                 cart[existingItemIndex].quantity = requestedQuantity; // Cập nhật số lượng sản phẩm
+    //             }
+    //             localStorage.setItem('cart', JSON.stringify(cart));
+    
+    //         }
+
+    //     });
+    // };
     $scope.checkQuantity = function (item) {
         $http.get(`/rest/products/${item.product_id}`).then(resp => {
             const availableQuantity = resp.data.quantity; // Số lượng có sẵn trong cơ sở dữ liệu
-            const requestedQuantity = item.quantity; // Số lượng người dùng muốn thêm vào giỏ hàng
-
-            if (requestedQuantity <= 0) {
+            const requestedQuantity = parseInt(item.quantity); // Chuyển đổi số lượng người dùng muốn thêm thành số nguyên
+            
+            if (isNaN(requestedQuantity) || requestedQuantity <= 0) {
+                // Kiểm tra nếu requestedQuantity không phải là số hoặc nhỏ hơn hoặc bằng 0
+                item.quantity = 0; 
                 themSanPham("error", "Số lượng không hợp lệ!");
-                item.quantity = 1;
             } else if (requestedQuantity > availableQuantity) {
-                themSanPham("error", "Sản phẩm không đủ số lượng!");
+                // Kiểm tra nếu số lượng yêu cầu lớn hơn số lượng có sẵn
                 item.quantity = availableQuantity; // Đặt về số lượng tối đa có sẵn trong cơ sở dữ liệu
+                themSanPham("error", "Sản phẩm không đủ số lượng!");
             } else {
                 // Cập nhật số lượng sản phẩm trong localStorage
                 const cart = JSON.parse(localStorage.getItem('cart')) || [];
                 const existingItemIndex = cart.findIndex(cartItem => cartItem.product_id === item.product_id);
-
+    
                 if (existingItemIndex !== -1) {
                     cart[existingItemIndex].quantity = requestedQuantity; // Cập nhật số lượng sản phẩm
                 }
+         
                 localStorage.setItem('cart', JSON.stringify(cart));
-    
             }
-
+        }).catch(error => {
+            console.error("", error);
+           
         });
     };
+
+
     // // Load dữ liệu giỏ hàng từ Local Storage khi trang được load
      $scope.cart.loadFromLocalStorage();
 

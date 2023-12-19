@@ -148,7 +148,7 @@ public class VNPayResource {
             } else {
                 // Giao dịch thất bại
                 // Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
-            
+                
                 response.sendRedirect("http://localhost:8080/product/cancel");
 
             }
