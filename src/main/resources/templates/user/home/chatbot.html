@@ -146,7 +146,7 @@ div .chat-button {
 
     /* .messenger-icon img{
       width: 100px;
-      height: 100px;
+height: 100px;
       padding: 100px;
       margin-right: 5px;
     } */
@@ -213,7 +213,7 @@ div .chat-button {
 
       </div>
       <div>
-        <input type="text" class="chat-input" id="userInput" placeholder="Nhập Nội Dung">
+        <input type="text" class="chat-input" id="userInput" placeholder="Nhập Nội Dung" >
        <button class="chat-button" onclick="sendMessage()">Gửi</button> 
       </div>
     </div>
@@ -233,12 +233,13 @@ div .chat-button {
 
   <script>
 
+    //bắt lỗi nếu người dùng bỏ trống thông tin không nhập
     function sendMessage() {
       var userInput = document.getElementById("userInput").value;
 
 
       if (userInput.trim() === "") {
-        // If the user input is empty or only contains whitespace, do nothing
+    
         return;
       }
       //Tên người chat
@@ -255,7 +256,7 @@ div .chat-button {
         },
         body: JSON.stringify({ "sender": "user", "message": userInput })
       })
-        .then(response => response.json())
+.then(response => response.json())
         .then(data => {
           var botResponse = data[0].text;
 
@@ -308,7 +309,7 @@ div .chat-button {
         .catch(error => console.error('Error:', error));
 
       // Clear the user input field
-      document.getElementById("userInput").value = "";
+document.getElementById("userInput").value = "";
     }
 
   </script>
