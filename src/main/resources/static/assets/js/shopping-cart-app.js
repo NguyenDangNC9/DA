@@ -130,7 +130,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         }
         ,
         loadFromLocalStorage() {
-
             var json = localStorage.getItem("cart");
             this.items = json ? JSON.parse(json) : [];
         }
@@ -138,42 +137,17 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         initData() {
             $http.get(`/rest/carts`).then(resp => {
                 this.items = resp.data;
-
             })
         }
 
 
     }
     // bắt lỗi thêm sản phảm vào giỏ hàng
-    // $scope.checkQuantity = function (item) {
-    //     $http.get(`/rest/products/${item.product_id}`).then(resp => {
-    //         const availableQuantity = resp.data.quantity; // Số lượng có sẵn trong cơ sở dữ liệu
-    //         const requestedQuantity = item.quantity; // Số lượng người dùng muốn thêm vào giỏ hàng
-
-    //         if (requestedQuantity <= 0) {
-    //             themSanPham("error", "Số lượng không hợp lệ!");
-    //             item.quantity = 1;
-    //         } else if (requestedQuantity > availableQuantity) {
-    //             themSanPham("error", "Sản phẩm không đủ số lượng!");
-    //             item.quantity = availableQuantity; // Đặt về số lượng tối đa có sẵn trong cơ sở dữ liệu
-    //         } else {
-    //             // Cập nhật số lượng sản phẩm trong localStorage
-    //             const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    //             const existingItemIndex = cart.findIndex(cartItem => cartItem.product_id === item.product_id);
-
-    //             if (existingItemIndex !== -1) {
-    //                 cart[existingItemIndex].quantity = requestedQuantity; // Cập nhật số lượng sản phẩm
-    //             }
-    //             localStorage.setItem('cart', JSON.stringify(cart));
-    
-    //         }
-
-    //     });
-    // };
+   
     $scope.checkQuantity = function (item) {
         $http.get(`/rest/products/${item.product_id}`).then(resp => {
             const availableQuantity = resp.data.quantity; // Số lượng có sẵn trong cơ sở dữ liệu
-            const requestedQuantity = parseInt(item.quantity); // Chuyển đổi số lượng người dùng muốn thêm thành số nguyên
+            const requestedQuantity = parseInt(item.quantity); 
             
             if (isNaN(requestedQuantity) || requestedQuantity <= 0) {
                 // Kiểm tra nếu requestedQuantity không phải là số hoặc nhỏ hơn hoặc bằng 0
@@ -201,7 +175,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     };
 
 
-    // // Load dữ liệu giỏ hàng từ Local Storage khi trang được load
+ // Load dữ liệu giỏ hàng từ Local Storage khi trang được load
      $scope.cart.loadFromLocalStorage();
 
 
@@ -220,7 +194,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         // Lấy nội dung từ phần tử
         var tongtienthanhtoanText = tongtienthanhtoanElement.innerHTML;
         // Chuyển đổi chuỗi thành kiểu số
-        // var total = parseFloat(tongtienthanhtoanText.replace('.', ''));
+    
         var total = parseFloat(tongtienthanhtoanText.replace(/\./g, ''));
         console.log(total);
         var storedValue = sessionStorage.getItem('orderid');
@@ -236,7 +210,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 console.log('Response:', response);
                 $scope.payment = response.data;
                 window.location.href = $scope.payment;
-
             })
             .catch(function (error) {
                 console.error('Error:', error);
@@ -253,7 +226,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         // Lấy nội dung từ phần tử
         var tongtienthanhtoanText = tongtienthanhtoanElement.innerHTML;
         // Chuyển đổi chuỗi thành kiểu số
-        // var total = parseFloat(tongtienthanhtoanText.replace('.', ''));
         var total = parseFloat(tongtienthanhtoanText.replace(/\./g, ''));
         console.log(total);
         $scope.order = {
@@ -295,10 +267,9 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         $scope.order.purchase();
     }
 
-    $scope.thanhtoan = function () {
-        $scope.generatePayment();
-        $scope.payment();
-    }
+
+
+
 
     // thanh toan thuong
     $scope.order1 = {
@@ -378,7 +349,13 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     }
 
 
+    
+    $scope.thanhtoan = function () {
+        $scope.generatePayment();
+        $scope.generatePayment();
+        $scope.payment();
 
+    }
     //
     $scope.pager = {
         page: 0,
