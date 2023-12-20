@@ -134,10 +134,7 @@ public class VNPayResource {
         System.out.println(orderid);
         if (orderid != null && !orderid.equals("")) {
             if ("00".equals(vnp_ResponseCode)) {
-                // Giao dịch thành công
-                // Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
-                // Optional<Order> order =
-                // orderdao.findById(Integer.parseInt(queryParams.get("orderid")));
+             
                 Integer id = (Integer) session.getAttribute("orderType");
                 Order order = orderdao.findById(id).get();
                 order.setDescription("Đã thanh toán");
@@ -148,7 +145,7 @@ public class VNPayResource {
             } else {
                 // Giao dịch thất bại
                 // Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
-                
+            
                 response.sendRedirect("http://localhost:8080/product/cancel");
 
             }

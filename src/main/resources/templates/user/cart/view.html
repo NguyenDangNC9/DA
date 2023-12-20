@@ -23,7 +23,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="item in cart.items">
-
+							
 
 								<td class="text-center" style="width: 20%;"><a href="#"><img style="width: 60%;"
 											src="/assets/images/{{item.image1}}"></a></td>
@@ -35,10 +35,9 @@
 										 ng-keyup="checkQuantity(item)" ng-model="item.quantity" ng-keypress="preventNegativeInput($event)" ng-change="cart.saveToLocalStorage()" type="number"
 										size="4" value="1" min="1" step="1" style="width: 100%"></td>
 										 -->
-									<input ng-change="checkQuantity(item); cart.saveToLocalStorage()"
-										ng-model="item.quantity" ng-keypress="preventNegativeInput($event)"
-										type="number" size="4" value="1" min="0" step="1" style="width: 100%">
-								</td>
+										<input
+										ng-change="checkQuantity(item); cart.saveToLocalStorage()" ng-model="item.quantity" ng-keypress="preventNegativeInput($event)"  type="number"
+									   size="4" value="1" min="0" step="1" style="width: 100%"></td>
 
 
 
@@ -69,7 +68,7 @@
 							<tr>
 								<td class="text-right"><strong>Tổng tiền hàng :</strong></td>
 								<td class="text-right"> {{cart.amount1 | number:0}} Đ</td>
-
+								
 							</tr>
 							<tr>
 								<td class="text-right"><strong>Giảm giá sản phẩm</strong></td>
@@ -81,7 +80,7 @@
 							</tr>
 
 
-
+					
 						</tbody>
 					</table>
 				</div>
