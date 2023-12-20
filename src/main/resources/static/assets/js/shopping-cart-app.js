@@ -130,7 +130,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         }
         ,
         loadFromLocalStorage() {
-
             var json = localStorage.getItem("cart");
             this.items = json ? JSON.parse(json) : [];
         }
@@ -138,7 +137,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         initData() {
             $http.get(`/rest/carts`).then(resp => {
                 this.items = resp.data;
-
             })
         }
 
@@ -272,12 +270,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 
 
-    $scope.thanhtoan = function () {
-        $scope.generatePayment();
-        $scope.generatePayment();
-        $scope.payment();
-
-    }
 
     // thanh toan thuong
     $scope.order1 = {
